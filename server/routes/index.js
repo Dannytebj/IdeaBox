@@ -1,6 +1,9 @@
+import express from 'express';
+import User from '../models/User';
+import userController from '../controllers/userControllers';
 
-module.export = (app) => {
-   app.get('/', (req, res) => {
-    res.send('home.html');
-  });
-}
+const router = express.Router();
+router.get('/api/v1/signUp', userController.signUp);
+
+export default router;
+
