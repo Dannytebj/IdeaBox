@@ -28,7 +28,6 @@ if (process.env.NODE_ENV !== 'production') {
   mongoose.connect(configDB.url_production); // connect to our database
 }
 console.log(configDB);
-// mongoose.connect(`mongodb://${dbUser}:${dbPassword}@ds119446.mlab.com:19446/todolist`)
 // Set up the express app
 const app = express();
 
@@ -41,7 +40,7 @@ app.use(routes);
 
 // Setup a default catch-all route that sends back a welcome message in JSON format.
 app.get('*', (req, res) => res.status(200).send({
-  message: 'Welcome to the beginning of nothingness.',
+  message: 'Welcome to the beginning of Ideas.',
 }));
 
 
