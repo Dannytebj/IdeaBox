@@ -1,9 +1,10 @@
 import express from 'express';
-import User from '../models/User';
 import userController from '../controllers/userControllers';
+import ValidateInputs from '../middlewares/Validator';
 
 const router = express.Router();
-router.get('/api/v1/signUp', userController.signUp);
+router.post('/api/v1/signUp', ValidateInputs, userController.signUp);
+router.post('/api/v1/signIn', userController.signIn);
 
 export default router;
 

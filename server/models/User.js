@@ -1,10 +1,9 @@
 import mongoose from 'mongoose';
-import bcrypt from 'bcrypt-nodejs';
+import bcrypt from 'bcrypt';
 
-const { Schema } = mongoose.Schema;
-
-
-const userSchema = new Schema({
+const SALT_WORK_FACTOR = 10;
+const userSchema = new mongoose.Schema({
+  name: { type: String, required: true },
   username: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   email: {
@@ -18,12 +17,25 @@ const userSchema = new Schema({
 });
 
 // generating a hash
-userSchema.methods.generateHash = password =>
-  bcrypt.hashSync(password, bcrypt.genSaltSync(8), null);
+userSchema.pre('save', function (next) {
+  const user = this;
+  if (!user.isModified('password')) return next();
+  bcrypt.genSalt(SALT_WORK_FACTOR, function (err, salt) {
+    if (err) return next(err);
+    bcrypt.hash(user.password, salt, function (err, hash) {
+      if (err) return next(err);
+      user.password = hash;
+      next();
+    });
+  });
+});
 
-// checking if password is valid
-userSchema.methods.validPassword = password =>
-  bcrypt.compareSync(password, this.local.password);
+userSchema.methods.comparePassword = (candidatePassword, cb) => {
+  bcrypt.compare(candidatePassword, this.password, (err, isMatch) => {
+    if (err) return cb(err);
+    cb(null, isMatch);
+  });
+};
 
 const User = mongoose.model('User', userSchema);
 
