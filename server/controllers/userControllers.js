@@ -17,7 +17,7 @@ exports.signUp = (req, res) => {
     .then((email) => {
       if (email) {
         res.status(409).send({
-          error: 'Email is already in use',
+          message: 'The email address is already in use by another account.',
           success: false
         });
       } else {
@@ -28,7 +28,7 @@ exports.signUp = (req, res) => {
           .then((username) => {
             if (username) {
               res.status(409).send({
-                error: 'A User record with this username already exist',
+                message: 'A User record with this username already exist',
                 success: false
               });
             } else {

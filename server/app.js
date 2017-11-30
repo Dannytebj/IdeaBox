@@ -19,11 +19,15 @@ console.log(configDB); //eslint-disable-line
 
 mongoose.Promise = global.Promise;
 if (process.env.NODE_ENV !== 'production') {
-  mongoose.connect(configDB.url); // connect to our database
+  if (process.env.NODE_ENV === 'test') {
+    mongoose.connect(configDB.url_test);
+  } else {
+    mongoose.connect(configDB.url); // connect to our database
+  }
 } else {
   mongoose.connect(configDB.url_production); // connect to our database
 }
-// mongoose.connect(`mongodb://${dbUser}:${dbPassword}@ds119446.mlab.com:19446/todolist`)
+console.log(process.env.NODE_ENV);
 // Set up the express app
 const app = express();
 
@@ -36,7 +40,7 @@ app.use(routes);
 
 // Setup a default catch-all route that sends back a welcome message in JSON format.
 app.get('*', (req, res) => res.status(200).send({
-  message: 'Welcome to the beginning of nothingness.',
+  message: 'Welcome to the beginning of Ideas.',
 }));
 
 
@@ -48,4 +52,4 @@ app.listen(port, (err) => {
   }
 });
 
-export default app;
+module.exports = app;
