@@ -19,10 +19,15 @@ console.log(configDB); //eslint-disable-line
 
 mongoose.Promise = global.Promise;
 if (process.env.NODE_ENV !== 'production') {
-  mongoose.connect(configDB.url); // connect to our database
+  if (process.env.NODE_ENV === 'test') {
+    mongoose.connect(configDB.url_test);
+  } else {
+    mongoose.connect(configDB.url); // connect to our database
+  }
 } else {
   mongoose.connect(configDB.url_production); // connect to our database
 }
+console.log(configDB);
 // mongoose.connect(`mongodb://${dbUser}:${dbPassword}@ds119446.mlab.com:19446/todolist`)
 // Set up the express app
 const app = express();
@@ -48,4 +53,4 @@ app.listen(port, (err) => {
   }
 });
 
-export default app;
+module.exports = app;
