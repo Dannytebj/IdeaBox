@@ -4,10 +4,13 @@ node_js:
   - "6.11.2"
 before_install:
   - npm install
+  - sleep 15
 script:
   - npm run test
 after_script:
   - npm run coverage
+
+services: mongodb
 
 env:
   CODECLIMATE_REPO_TOKEN: ab14f029319defa6d4d279712330e17b674d6be5d4960b33fbf3581064954dda
