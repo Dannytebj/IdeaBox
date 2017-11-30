@@ -27,7 +27,7 @@ if (process.env.NODE_ENV !== 'production') {
 } else {
   mongoose.connect(configDB.url_production); // connect to our database
 }
-console.log(configDB);
+console.log(process.env.NODE_ENV);
 // Set up the express app
 const app = express();
 

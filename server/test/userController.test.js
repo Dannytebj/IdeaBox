@@ -41,7 +41,7 @@ describe('Users', () => {
         });
     });
     it('should return 409 if email supplied already exist', (done) => {
-      const email = 'dannytebj@gmail.com';
+      const email = 'dannytebj@gmaiil.com';
       chai.request(app)
         .post('/api/v1/signUp', userControllers.signUp)
         .send({
