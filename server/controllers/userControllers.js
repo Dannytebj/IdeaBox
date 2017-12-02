@@ -1,7 +1,9 @@
 import bcrypt from 'bcrypt';
+import crypto from 'crypto';
 import User from '../models/User';
 import convertCase from '../utils/convertCase';
 import GenerateToken from '../utils/GenerateToken';
+import sendMail from '../utils/sendMail';
 
 /**
    * signup a new user
@@ -117,4 +119,98 @@ exports.signIn = (req, res) => {
       });
   }
 };
+
+exports.resetPassword = (req, res) => {
+  req.body.email = req.body.email.trim();
+  const hash = crypto.randomBytes(20).toString('hex');
+  const date = Date.now() + 3600000;
+  if (req.body.email) {
+    return User.findOne({
+      email: req.body.email
+    }).then((user) => {
+      if (!user) {
+        return res.status(404).send({
+          success: false,
+          message: 'User does not exist'
+        });
+      }
+      user.hash = hash;
+      user.expiry = date;
+      user.save((error, updatedUser) => {
+        if (error) {
+          return res.status(400).send({
+            success: false,
+            message: error
+          });
+        }
+        // send mail to the user
+        sendMail(updatedUser.email, hash, req.headers.host);
+        res.send({
+          success: true,
+          message: 'A reset Mail has been sent to your email'
+        });
+      });
+    }).catch(error => res.status(500).send({
+      message: error.message
+    }));
+  }
+  return res.status(400).send({
+    success: false,
+    message: 'An error occuered sending the email'
+  });
+};
+
+exports.updatePassword = (req, res) =>
+  User.findOne({ hash: req.params.hash })
+    .then((user) => {
+      if (!user) {
+        return res.status(404).send({
+          success: false,
+          message: 'User does not exist'
+        });
+      }
+      req.check('newPassword', 'new Password cannot be empty').trim().notEmpty();
+      req.check('confirmPassword', 'confirm Password cannot be empty').trim().notEmpty();
+      const errors = req.validationErrors();
+      if (errors) {
+        const message = errors[0].msg;
+        res.status(400).send({ message });
+      } else
+      if (req.body.newPassword === req.body.confirmPassword) {
+        const currentTime = Date.now();
+        if (currentTime > user.expiry) {
+          return res.status(410).send({
+            success: false,
+            message: 'Expired link'
+          });
+        }
+        user.password = req.body.newPassword;
+        user.save((error, updatedUser) => {
+          if (error) {
+            return res.status(400).send({
+              success: false,
+              message: error.message
+            });
+          }
+          const userDetails = {
+            userId: updatedUser._id,
+            email: updatedUser.email,
+          };
+          res.status(201).send({
+            success: true,
+            message: 'Password has been updated',
+            userDetails
+          });
+        });
+      } else {
+        return res.status(400).send({
+          success: false,
+          message: 'Please kindly confirm your passwords'
+        });
+      }
+    })
+    .catch(error => res.status(500).send({
+      success: false,
+      message: error.message
+    }));
 
