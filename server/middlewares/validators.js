@@ -15,7 +15,7 @@ exports.validateToken = (req, res, next) => {
         message: 'Token authentication failed'
       });
     }
-    req.decoded = decoded;
+    req.decoded = decoded.token.user;
     next();
   });
 };
