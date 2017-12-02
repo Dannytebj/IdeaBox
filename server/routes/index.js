@@ -8,6 +8,7 @@ router.post('/api/v1/signUp', validators.validateSignUp, userController.signUp);
 router.post('/api/v1/signIn', userController.signIn);
 router.post('/api/v1/resetPassword', userController.resetPassword);
 router.put('/api/v1/updatePassword/:hash', userController.updatePassword);
+router.put('/api/v1/updateProfile/:userId', validators.validateProfile, userController.updateProfile);
 router.post('/api/v1/idea', validators.validateToken, validators.validateIdea, ideaController.create);
 
 
