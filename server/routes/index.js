@@ -11,6 +11,7 @@ router.put('/api/v1/updatePassword/:hash', userController.updatePassword);
 router.put('/api/v1/updateProfile/:userId', validators.validateProfile, userController.updateProfile);
 router.post('/api/v1/idea', validators.validateToken, validators.validateIdea, ideaController.create);
 router.delete('/api/v1/idea/:ideaId', ideaController.delete);
+router.put('/api/v1/idea/:ideaId', ideaController.editIdea);
 
 export default router;
 
