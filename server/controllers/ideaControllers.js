@@ -18,7 +18,7 @@ exports.create = (req, res) => {
     description,
     category,
     status,
-    authorId: req.decoded.id
+    authorId: req.decoded._id
   };
   const newIdea = new Idea(ideaDetails);
   newIdea.save((error, postedIdea) => {
@@ -34,4 +34,40 @@ exports.create = (req, res) => {
       postedIdea,
     });
   });
+};
+
+
+/**
+   * Routes: DELETE: /api/v1/ideas/:ideaId
+   * @param {any} req
+   * @param {any} res
+   * @return {void}
+   */
+exports.delete = (req, res) => {
+  const { ideaId } = req.params;
+  const { userId } = req.body;
+  Idea.findOne({ _id: ideaId })
+    .exec()
+    .then((idea) => {
+      if (userId === idea.authorId) {
+        Idea.findByIdAndRemove(ideaId, (err) => {
+          if (err) {
+            return res.status(500).send({
+              success: false,
+              message: 'Internal server error',
+            });
+          }
+          // return response
+          return res.status(200).send({
+            success: true,
+            message: 'Idea deleted successfully'
+          });
+        });
+      } else {
+        res.status(403)
+          .send({ message: 'Sorry only the author can delete this idea!' });
+      }
+    }).catch((error) => {
+      res.status(500).send({ message: 'Sorry an error occured', error });
+    });
 };

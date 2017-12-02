@@ -2,12 +2,7 @@ import mongoose from 'mongoose';
 
 const ideaSchema = new mongoose.Schema({
   title: { type: String },
-  author: {
-    id: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'User',
-    },
-  },
+  authorId: { type: String },
   comment: [{
     id: {
       type: mongoose.Schema.Types.ObjectId,
