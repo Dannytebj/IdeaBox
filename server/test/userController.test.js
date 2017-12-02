@@ -165,5 +165,112 @@ describe('Users', () => {
         });
     });
   }); // End of SignIn
+
+  describe('Reset Password', () => {
+    it('should return 404 if email address does not exit', (done) => {
+      const email = 'kierra@sheard.com';
+      chai.request(app)
+        .post('/api/v1/resetPassword', userControllers.resetPassword)
+        .send({ email })
+        .set('Accept', 'application/json')
+        .end((err, res) => {
+          if (res) {
+            res.status.should.equal(404);
+            res.body.should.have.property('message')
+              .equal('User does not exist');
+          }
+          done();
+        });
+    });
+    it('should return 200 whan reset mail has been sent', (done) => {
+      const email = 'dannytebj@gmail.com';
+      chai.request(app)
+        .post('/api/v1/resetPassword', userControllers.resetPassword)
+        .send({ email })
+        .set('Accept', 'application/json')
+        .end((err, res) => {
+          if (res) {
+            res.status.should.equal(200);
+            res.body.should.have.property('message')
+              .equal('A reset Mail has been sent to your email');
+          }
+          done();
+        });
+    });
+  }); // End of Reset Password
+
+  describe('Update Password', () => {
+    it('should return 400 if new Password is empty', (done) => {
+      const newPassword = '';
+      const confirmPassword = '123asd';
+      const hash = 'd006d5b7e105f1d1e517066738e15b25cd1d3631';
+      chai.request(app)
+        .put(`/api/v1/updatePassword/${hash}`, userControllers.updatePassword)
+        .send({ newPassword, confirmPassword })
+        .set('Accept', 'application/json')
+        .end((err, res) => {
+          if (res) {
+            res.status.should.equal(400);
+            res.body.should.have.property('message')
+              .equal('new Password cannot be empty');
+          }
+          done();
+        });
+    });
+    it('should return 400 if confirm Password is empty', (done) => {
+      const newPassword = '';
+      const confirmPassword = '123asd';
+      const hash = 'd006d5b7e105f1d1e517066738e15b25cd1d3631';
+      chai.request(app)
+        .put(`/api/v1/updatePassword/${hash}`, userControllers.updatePassword)
+        .send({ newPassword, confirmPassword })
+        .set('Accept', 'application/json')
+        .end((err, res) => {
+          if (res) {
+            res.status.should.equal(400);
+            res.body.should.have.property('message')
+              .equal('new Password cannot be empty');
+          }
+          done();
+        });
+    });
+    it(
+      'should return 400 if new password not equal to confirm Password is',
+      (done) => {
+        const newPassword = '112qw';
+        const confirmPassword = '123asd';
+        const hash = 'd006d5b7e105f1d1e517066738e15b25cd1d3631';
+        chai.request(app)
+          .put(`/api/v1/updatePassword/${hash}`, userControllers.updatePassword)
+          .send({ newPassword, confirmPassword })
+          .set('Accept', 'application/json')
+          .end((err, res) => {
+            if (res) {
+              res.status.should.equal(400);
+              res.body.should.have.property('message')
+                .equal('Please kindly confirm your passwords');
+            }
+            done();
+          });
+      }
+    );
+    it('should return 200 when new password has been updated', (done) => {
+      const hash = 'd006d5b7e105f1d1e517066738e15b25cd1d3631';
+      const newPassword = '123asd';
+      const confirmPassword = '123asd';
+      chai.request(app)
+        .put(`/api/v1/updatePassword/${hash}`, userControllers.updatePassword)
+        .send({ newPassword, confirmPassword })
+        .set('Accept', 'application/json')
+        .end((err, res) => {
+          if (res) {
+            res.status.should.equal(404);
+            res.body.should.have.property('message')
+              .equal('User does not exist');
+          }
+          done();
+        });
+    });
+  });
 });
 

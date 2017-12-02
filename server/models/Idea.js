@@ -1,9 +1,7 @@
 import mongoose from 'mongoose';
 
-const { Schema } = mongoose.Schema;
-
-const ideaSchema = new Schema({
-  title: String,
+const ideaSchema = new mongoose.Schema({
+  title: { type: String },
   author: {
     id: {
       type: mongoose.Schema.Types.ObjectId,
@@ -16,6 +14,7 @@ const ideaSchema = new Schema({
       ref: 'Comment'
     }
   }],
+  modified: { type: Boolean, default: false },
   description: { type: String, required: true },
   category: { type: Array },
   createdAt: { type: Date, default: Date.now },
