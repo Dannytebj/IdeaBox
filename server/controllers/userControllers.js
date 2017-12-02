@@ -69,7 +69,7 @@ exports.signUp = (req, res) => {
 };
 
 /**
-   * signup a new user
+   * sign In a registered user
    * @param {any} req user request object
    * @param {any} res servers response
    * @return {void}
@@ -119,7 +119,12 @@ exports.signIn = (req, res) => {
       });
   }
 };
-
+/**
+ * @description Method that sends reset password link
+ * @param {any} req
+ * @param {any} res
+ * @return {void}
+ */
 exports.resetPassword = (req, res) => {
   req.body.email = req.body.email.trim();
   const hash = crypto.randomBytes(20).toString('hex');
@@ -145,21 +150,27 @@ exports.resetPassword = (req, res) => {
         }
         // send mail to the user
         sendMail(updatedUser.email, hash, req.headers.host);
-        res.send({
-          success: true,
-          message: 'A reset Mail has been sent to your email'
-        });
+        res.status(200)
+          .send({
+            success: true,
+            message: 'A reset Mail has been sent to your email'
+          });
       });
     }).catch(error => res.status(500).send({
       message: error.message
     }));
   }
-  return res.status(400).send({
+  return res.status(500).send({
     success: false,
     message: 'An error occuered sending the email'
   });
 };
-
+/**
+ * @description Method that updates user password with new password
+ * @param {any} req
+ * @param {any} res
+ * @return {void}
+ */
 exports.updatePassword = (req, res) =>
   User.findOne({ hash: req.params.hash })
     .then((user) => {
@@ -198,7 +209,7 @@ exports.updatePassword = (req, res) =>
           };
           res.status(201).send({
             success: true,
-            message: 'Password has been updated',
+            message: 'Your Password has been updated',
             userDetails
           });
         });
@@ -214,3 +225,50 @@ exports.updatePassword = (req, res) =>
       message: error.message
     }));
 
+/**
+ * Allows user update profile
+ * @param {object} req - response object
+ * @param {object} res - request object
+ *
+ * @return {object} - success or failure message
+ */
+exports.updateProfile = (req, res) => {
+  User.findOne({
+    email: req.body.email,
+  })
+    .exec()
+    .then((email) => {
+      if (email) {
+        res.status(409).send({
+          message: 'The email address is already in use by another account.',
+          success: false
+        });
+      } else {
+        User.findByIdAndUpdate(
+          { _id: req.params.userId },
+          {
+            $set: {
+              name: req.body.name,
+              email: req.body.email,
+            },
+          },
+          { new: true },
+        )
+          .exec((error, user) => {
+            if (user) {
+              return res.status(200).send({
+                user: {
+                  firstname: user.firstname,
+                  lastname: user.lastname,
+                  email: user.email,
+                },
+                message: 'Profile Update successful',
+              });
+            }
+            return res.status(404).send({ message: 'User not Found' });
+          })
+          .catch(error =>
+            res.status(500).send({ error }));
+      }
+    });
+};
