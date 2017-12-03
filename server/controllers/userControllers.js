@@ -258,8 +258,7 @@ exports.updateProfile = (req, res) => {
             if (user) {
               return res.status(200).send({
                 user: {
-                  firstname: user.firstname,
-                  lastname: user.lastname,
+                  name: user.name,
                   email: user.email,
                 },
                 message: 'Profile Update successful',
