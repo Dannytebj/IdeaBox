@@ -12,6 +12,6 @@ router.put('/api/v1/updateProfile/:userId', validators.validateProfile, userCont
 router.post('/api/v1/idea', validators.validateToken, validators.validateIdea, ideaController.create);
 router.delete('/api/v1/idea/:ideaId', ideaController.delete);
 router.put('/api/v1/idea/:ideaId', ideaController.editIdea);
-
+router.get('/api/v1/search/:searchQuery', ideaController.searchIdeas);
 export default router;
 
