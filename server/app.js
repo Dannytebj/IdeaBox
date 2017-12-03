@@ -15,7 +15,7 @@ const port = parseInt(process.env.PORT, 10) || 8000;
 // database config
 const configDB = require('./config/database');
 
-console.log(configDB); //eslint-disable-line
+// console.log(configDB); //eslint-disable-line
 
 mongoose.Promise = global.Promise;
 if (process.env.NODE_ENV !== 'production') {
@@ -27,7 +27,6 @@ if (process.env.NODE_ENV !== 'production') {
 } else {
   mongoose.connect(configDB.url_production); // connect to our database
 }
-console.log(process.env.NODE_ENV);
 // Set up the express app
 const app = express();
 
