@@ -1,6 +1,6 @@
 import chai from 'chai';
+import mongoose from 'mongoose';
 import chaiHttp from 'chai-http';
-import faker from 'faker';
 import userControllers from '../controllers/userControllers';
 
 
@@ -13,41 +13,48 @@ chai.use(chaiHttp);
 
 
 describe('Users', () => {
-  describe('Sign Up', () => {
-    let email;
-    let name;
-    let password;
-    let username;
-    beforeEach(() => {
-      name = faker.name.findName();
-      email = faker.internet.email();
-      password = 'abc123';
-      username = faker.name.firstName();
+  let jwtToken;
+  let hash;
+  before((done) => {
+    mongoose.createConnection(process.env.MONGODB_TEST_URI, () => {
+      mongoose.connection.db.dropDatabase(() => {
+        done();
+      });
     });
+  });
+  describe('Sign Up', () => {
     it('should return 201 when successful ', (done) => {
+      const name = 'Jack Black';
+      const email = 'dannytebj@yahoo.com';
+      const password = 'abc123';
+      const username = 'Jbizzle';
       chai.request(app)
         .post('/api/v1/signUp', userControllers.signUp)
+        .set('Accept', 'application/json')
         .send({
           email, password, username, name
         })
-        .set('Accept', 'application/json')
         .end((err, res) => {
           if (!err) {
             expect(res).to.have.status(201);
             res.body.should.have.property('message')
               .equal('User successfully created');
+            jwtToken = res.body.token;
           }
           done();
         });
     });
     it('should return 409 if email supplied already exist', (done) => {
-      const email = 'dannytebj@gmaiil.com';
+      const name = 'Jack Black';
+      const email = 'dannytebj@yahoo.com';
+      const password = 'abc123';
+      const username = 'Jbizzle';
       chai.request(app)
         .post('/api/v1/signUp', userControllers.signUp)
+        .set('Accept', 'application/json')
         .send({
           email, password, username, name
         })
-        .set('Accept', 'application/json')
         .end((err, res) => {
           if (res) {
             expect(res).to.have.status(409);
@@ -59,12 +66,15 @@ describe('Users', () => {
     });
     it('should return 400 if a badly formatted email is supplied', (done) => {
       const email = 'johndoe4me.com';
+      const name = 'Jack Black';
+      const password = 'abc123';
+      const username = 'Jbizzle';
       chai.request(app)
         .post('/api/v1/signUp', userControllers.signUp)
+        .set('Accept', 'application/json')
         .send({
           email, password, username, name
         })
-        .set('Accept', 'application/json')
         .end((err, res) => {
           if (res) {
             res.status.should.equal(400);
@@ -76,12 +86,15 @@ describe('Users', () => {
     });
     it('should return 400 if password supplied is empty', (done) => {
       const password = '';
+      const name = 'Jack Black';
+      const email = 'dannytebj@yahoo.com';
+      const username = 'Jbizzle';
       chai.request(app)
         .post('/api/v1/signUp', userControllers.signUp)
+        .set('Accept', 'application/json')
         .send({
           email, password, username, name
         })
-        .set('Accept', 'application/json')
         .end((err, res) => {
           if (res) {
             res.status.should.equal(400);
@@ -94,12 +107,14 @@ describe('Users', () => {
     it('should return 400 if password is weak', (done) => {
       const password = 'abc1';
       const email = 'weakpass@myself.com';
+      const name = 'Jack Black';
+      const username = 'Jbizzle';
       chai.request(app)
         .post('/api/v1/signUp', userControllers.signUp)
+        .set('Accept', 'application/json')
         .send({
           email, password, username, name
         })
-        .set('Accept', 'application/json')
         .end((err, res) => {
           if (res) {
             res.status.should.equal(400);
@@ -112,13 +127,9 @@ describe('Users', () => {
   }); // End of SignUp Test Suite
 
   describe('Sign In', () => {
-    let email;
-    let password;
-    beforeEach(() => {
-      email = 'dannytebj@gmail.com';
-      password = 'abc123';
-    });
     it('should return 200 on successful signIn', (done) => {
+      const email = 'dannytebj@yahoo.com';
+      const password = 'abc123';
       chai.request(app)
         .post('/api/v1/signIn', userControllers.signIn)
         .send({ email, password })
@@ -183,7 +194,7 @@ describe('Users', () => {
         });
     });
     it('should return 200 whan reset mail has been sent', (done) => {
-      const email = 'dannytebj@gmail.com';
+      const email = 'dannytebj@yahoo.com';
       chai.request(app)
         .post('/api/v1/resetPassword', userControllers.resetPassword)
         .send({ email })
@@ -193,6 +204,7 @@ describe('Users', () => {
             res.status.should.equal(200);
             res.body.should.have.property('message')
               .equal('A reset Mail has been sent to your email');
+            hash = res.body.hash;
           }
           done();
         });
@@ -203,11 +215,10 @@ describe('Users', () => {
     it('should return 400 if new Password is empty', (done) => {
       const newPassword = '';
       const confirmPassword = '123asd';
-      const hash = 'd006d5b7e105f1d1e517066738e15b25cd1d3631';
       chai.request(app)
         .put(`/api/v1/updatePassword/${hash}`, userControllers.updatePassword)
-        .send({ newPassword, confirmPassword })
         .set('Accept', 'application/json')
+        .send({ newPassword, confirmPassword })
         .end((err, res) => {
           if (res) {
             res.status.should.equal(400);
@@ -218,18 +229,17 @@ describe('Users', () => {
         });
     });
     it('should return 400 if confirm Password is empty', (done) => {
-      const newPassword = '';
-      const confirmPassword = '123asd';
-      const hash = 'd006d5b7e105f1d1e517066738e15b25cd1d3631';
+      const newPassword = '123asd';
+      const confirmPassword = '';
       chai.request(app)
         .put(`/api/v1/updatePassword/${hash}`, userControllers.updatePassword)
-        .send({ newPassword, confirmPassword })
         .set('Accept', 'application/json')
+        .send({ newPassword, confirmPassword })
         .end((err, res) => {
           if (res) {
             res.status.should.equal(400);
             res.body.should.have.property('message')
-              .equal('new Password cannot be empty');
+              .equal('confirm Password cannot be empty');
           }
           done();
         });
@@ -239,11 +249,10 @@ describe('Users', () => {
       (done) => {
         const newPassword = '112qw';
         const confirmPassword = '123asd';
-        const hash = 'd006d5b7e105f1d1e517066738e15b25cd1d3631';
         chai.request(app)
           .put(`/api/v1/updatePassword/${hash}`, userControllers.updatePassword)
-          .send({ newPassword, confirmPassword })
           .set('Accept', 'application/json')
+          .send({ newPassword, confirmPassword })
           .end((err, res) => {
             if (res) {
               res.status.should.equal(400);
@@ -255,18 +264,73 @@ describe('Users', () => {
       }
     );
     it('should return 200 when new password has been updated', (done) => {
-      const hash = 'd006d5b7e105f1d1e517066738e15b25cd1d3631';
       const newPassword = '123asd';
       const confirmPassword = '123asd';
       chai.request(app)
         .put(`/api/v1/updatePassword/${hash}`, userControllers.updatePassword)
-        .send({ newPassword, confirmPassword })
         .set('Accept', 'application/json')
+        .send({ newPassword, confirmPassword })
         .end((err, res) => {
           if (res) {
-            res.status.should.equal(404);
+            res.status.should.equal(201);
             res.body.should.have.property('message')
-              .equal('User does not exist');
+              .equal('Your Password has been updated');
+          }
+          done();
+        });
+    });
+  });
+  describe('Update Profile', () => {
+    it('should return 201 when another user is created', (done) => {
+      const email = 'dannytebj@gmail.com';
+      const password = 'asd123';
+      const username = 'dannyboy';
+      const name = 'daniel doe';
+      chai.request(app)
+        .post('/api/v1/signUp', userControllers.signUp)
+        .set('Accept', 'application/json')
+        .send({
+          email, password, username, name
+        })
+        .end((err, res) => {
+          if (!err) {
+            expect(res).to.have.status(201);
+            res.body.should.have.property('message')
+              .equal('User successfully created');
+          }
+          done();
+        });
+    });
+    it('Should return 409 if new email is already in use', (done) => {
+      const email = 'dannytebj@gmail.com';
+      const name = 'Dbizzle';
+      chai.request(app)
+        .put('/api/v1/updateProfile', userControllers.updateProfile)
+        .set('Accept', 'application/json')
+        .set('x-access-token', jwtToken)
+        .send({ email, name })
+        .end((err, res) => {
+          if (res) {
+            res.status.should.equal(409);
+            res.body.should.have.property('message')
+              .equal('The email address is already in use by another account.');
+          }
+          done();
+        });
+    });
+    it('Should return 200 if new email is already in use', (done) => {
+      const email = 'dannytebj1@gmail.com';
+      const name = 'Dbizzle1';
+      chai.request(app)
+        .put('/api/v1/updateProfile', userControllers.updateProfile)
+        .set('Accept', 'application/json')
+        .set('x-access-token', jwtToken)
+        .send({ email, name })
+        .end((err, res) => {
+          if (res) {
+            res.status.should.equal(200);
+            res.body.should.have.property('message')
+              .equal('Profile Update successful');
           }
           done();
         });

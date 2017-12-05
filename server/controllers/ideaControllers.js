@@ -44,16 +44,18 @@ exports.create = (req, res) => {
    * @return {void}
    */
 exports.editIdea = (req, res) => {
-  const { userId } = req.body;
   Idea.findOne({ _id: req.params.ideaId })
     .exec()
     .then((idea) => {
-      if (userId === idea.authorId) {
+      if (req.decoded._id === idea.authorId) {
         Idea.findByIdAndUpdate(
           { _id: req.params.ideaId },
           {
             $set: {
+              title: req.body.title,
               description: req.body.description,
+              category: req.body.category,
+              status: req.body.status,
               modified: true,
               updatedAt: Date.now()
             },
@@ -72,7 +74,7 @@ exports.editIdea = (req, res) => {
             res.status(500).send({ error }));
       } else {
         res.status(403)
-          .send({ message: 'Sorry only the author can delete this idea!' });
+          .send({ message: 'Sorry only the author can edit this idea!' });
       }
     }).catch(error =>
       res.status(500).send({ error }));
@@ -86,11 +88,10 @@ exports.editIdea = (req, res) => {
    */
 exports.delete = (req, res) => {
   const { ideaId } = req.params;
-  const { userId } = req.body;
   Idea.findOne({ _id: ideaId })
     .exec()
     .then((idea) => {
-      if (userId === idea.authorId) {
+      if (req.decoded._id === idea.authorId) {
         Idea.findByIdAndRemove(ideaId, (err) => {
           if (err) {
             return res.status(500).send({
@@ -124,9 +125,11 @@ exports.searchIdea = (req, res) => {
   Idea.find({ description: { $regex: `.*${searchQuery}.*` } })
     .select('title description')
     .then((ideas) => {
-      // console.log(ideas);
       res.status(200)
-        .send({ ideas });
+        .send({
+          message: 'Ideas fetched succeessfully',
+          ideas
+        });
     }).catch((error) => {
       res.status(500)
         .json({ message: 'An error Occured', error });

@@ -1,8 +1,7 @@
 import Comment from '../models/Comment';
+import Idea from '../models/Idea';
 
 exports.create = (req, res) => {
-  req.check('author', 'author field cannot be empty').notEmpty();
-  req.check('author', 'Please enter a valid email').isEmail();
   req.check('comment', 'comment field cannot be empty').notEmpty();
   req.check('ideaId', 'ideaId cannot be empty').notEmpty();
   const errors = req.validationErrors();
@@ -10,31 +9,45 @@ exports.create = (req, res) => {
     const message = errors[0].msg;
     res.status(400).send({ message });
   } else {
-    const { author, comment, ideaId } = req.body;
-    const commentDetail = {
-      author,
-      comment,
-      ideaId
-    };
-    const newComment = new Comment(commentDetail);
-    newComment.save((error, response) => {
-      if (error) {
-        return res.status(400).send({
-          success: false,
-          message: error
+    Idea.findOne({ _id: req.body.ideaId })
+      .exec()
+      .then((idea) => {
+        if (!idea) {
+          return res.status(404)
+            .send({ message: 'idea not found!' });
+        }
+        const commentDetail = {
+          author: req.decoded.username,
+          comment: req.body.comment,
+          ideaId: idea._id
+        };
+        const newComment = new Comment(commentDetail);
+        newComment.save((error, response) => {
+          if (error) {
+            return res.status(400).send({
+              success: false,
+              message: error
+            });
+          }
+          const commentDetails = {
+            comment: response.comment,
+            author: response.author
+          };
+          return res.status(201)
+            .send({
+              success: true,
+              message: 'Comment saved successfully!',
+              commentDetails
+            });
         });
-      }
-      const commentDetails = {
-        comment: response.comment,
-        author: response.author
-      };
-      res.status(200)
-        .send({
-          success: true,
-          message: 'Comment saved successfully!',
-          commentDetails
-        });
-    });
+      })
+      .catch((error) => {
+        res.status(500)
+          .send({
+            message: 'Internal server error',
+            error
+          });
+      });
   }
 };
 
