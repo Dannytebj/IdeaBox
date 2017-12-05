@@ -63,8 +63,15 @@ exports.signUp = (req, res) => {
                 });
               });
             }
+          })
+          .catch((error) => {
+            res.status(500)
+              .send({ message: ' Internal server error', error })
           });
       }
+    }).catch((error) => {
+      res.status(500)
+        .send({ message: ' Internal server error', error })
     });
 };
 
@@ -153,6 +160,7 @@ exports.resetPassword = (req, res) => {
         res.status(200)
           .send({
             success: true,
+            hash,
             message: 'A reset Mail has been sent to your email'
           });
       });
@@ -244,12 +252,13 @@ exports.updateProfile = (req, res) => {
           success: false
         });
       } else {
+        const { name, email } = req.body;
         User.findByIdAndUpdate(
-          { _id: req.params.userId },
+          { _id: req.decoded._id },
           {
             $set: {
-              name: req.body.name,
-              email: req.body.email,
+              name,
+              email,
             },
           },
           { new: true },
