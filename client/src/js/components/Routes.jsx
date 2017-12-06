@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Switch, Router, Redirect } from 'react-router-dom';
-import appHistory from '../utils/History';
+import appHistory from '../utils/history';
 import Landing from './Landing';
 import SignInSignUp from '../components/SignInSignUp';
 
