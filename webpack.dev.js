@@ -4,10 +4,11 @@ const path = require('path');
 const common = require('./webpack.common');
 
 module.exports = merge(common, {
+  entry: path.join(__dirname, 'client/src/index.js'),
   devtool: 'inline-source-map',
   devServer: {
-    contentBase: path.resolve(__dirname, 'dist')
-    ,
+    hot: true,
+    historyApiFallback: true
   },
   plugins: [
     new webpack.LoaderOptionsPlugin({
