@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
+import toastr from 'toastr';
 import AppStore from '../stores/AppStore';
+import AppActions from '../actions/AppActions';
 import TextBox from '../utils/TextBox';
 import Button from '../utils/Button';
 
@@ -28,6 +30,8 @@ class SignInSignUp extends Component {
       name: '',
     };
     this.toggleSignInUp = this.toggleSignInUp.bind(this);
+    this.onChange = this.onChange.bind(this);
+    this.handleEvents = this.handleEvents.bind(this);
   }
 
   /**
@@ -37,6 +41,44 @@ class SignInSignUp extends Component {
    * @return {void}
    */
   componentDidMount() {
+    AppStore.addChangeListener(this.onChange);
+  }
+  /**
+   * @description Remove change listener before component unmounts
+   *
+   * @memberof SignInSignUp
+   * @returns {void}
+   */
+  componentWillUnmount() {
+    AppStore.removeChangeListener(this.onChange);
+  }
+  /**
+   * @description Pass change to store
+   *
+   * @memberof SignInSignUp
+   * @returns {void}
+   */
+  onChange() {
+  }
+  /**
+   * @description Triggers an action
+   *
+   * @memberof SignInSignUp
+   * @returns {void}
+   */
+  handleEvents() {
+    const {
+      name, username, email, password, confirmPassword, signingIn
+    } = this.state;
+    if (!signingIn) {
+      if (password === confirmPassword) {
+        AppActions.signUp(email, password, confirmPassword, username, name);
+      } else {
+        toastr.error('Please confirm your password');
+      }
+    } else {
+      AppActions.signIn(email, password);
+    }
   }
   /**
  * @description When called it sets the state of the component to
@@ -126,7 +168,7 @@ class SignInSignUp extends Component {
               <div className="center">
                 <Button
                   className="btn-large waves-effect waves-light orange"
-                  onClick={this.clickSign}
+                  onClick={this.handleEvents}
                   value={signingIn ? 'Sign In' : 'Sign up'}
                 />
               </div>

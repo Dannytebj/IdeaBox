@@ -14,6 +14,12 @@ module.exports = merge(common, {
     new webpack.LoaderOptionsPlugin({
       debug: false,
     }),
+    new webpack.ProvidePlugin({
+      jQuery: 'jquery',
+      'window.$': 'jquery',
+      'window.jQuery': 'jquery',
+      Hammer: 'hammerjs/hammer',
+    }),
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
   ],

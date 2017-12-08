@@ -51,27 +51,23 @@ exports.signUp = (req, res) => {
                     message: error
                   });
                 }
-                const userDetails = {
-                  email: newUser.email,
-                  username: newUser.username
-                };
                 return res.status(201).send({
                   success: true,
                   token: GenerateToken(newUser),
                   message: 'User successfully created',
-                  userDetails,
+                  username: newUser.username,
                 });
               });
             }
           })
           .catch((error) => {
             res.status(500)
-              .send({ message: ' Internal server error', error })
+              .send({ message: 'Internal server error', error });
           });
       }
     }).catch((error) => {
       res.status(500)
-        .send({ message: ' Internal server error', error })
+        .send({ message: 'Internal server error', error });
     });
 };
 
@@ -113,14 +109,10 @@ exports.signIn = (req, res) => {
             message: 'this password is incorrect'
           });
         }
-        const userDetails = {
-          userId: response._id,
-          email: response.email,
-        };
         return res.status(200).send({
           message: 'User Sign In successful',
           success: true,
-          user: userDetails,
+          username: response.username,
           token: GenerateToken(response)
         });
       });
