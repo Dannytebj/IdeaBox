@@ -10,9 +10,6 @@ dotenv.config();
  * @return {string} Token
  */
 export default (user) => {
-  const Token = jwt.sign(
-    { token: { user } }, process.env.SECRET,
-    { expiresIn: '24h' }
-  );
+  const Token = jwt.sign({ token: { user } }, process.env.SECRET);
   return Token;
 };

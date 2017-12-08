@@ -19,17 +19,26 @@ const AppActions = {
  * @description Define action methods for User view Actions
  * @param {string} email user email address
  * @param {string} password user password
+ * @param {string} confirmPassword confirm user password
  * @param {string} username users fullname
  * @param {string} name Users phone Number
  *
  * @return {object} signup payload
  */
-  signUp: (email, password, username, name) => {
+  signUp: (email, password, confirmPassword, username, name) => {
     AppDispatcher.handleViewAction({
       type: AppConstants.CLICK_SIGN_UP,
       payload: {
-        email, password, username, name
+        email, password, confirmPassword, username, name
       },
+    });
+  },
+  setUser: (token) => {
+    AppDispatcher.handleViewAction({
+      type: AppConstants.SET_USER,
+      payload: {
+        token
+      }
     });
   },
 };

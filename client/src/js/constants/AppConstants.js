@@ -5,4 +5,5 @@ module.exports = keyMirror({
   CLICK_SIGN_UP: null,
   RESET_PASSWORD: null,
   CLICK_SIGN_OUT: null,
+  SET_USER: null,
 });
