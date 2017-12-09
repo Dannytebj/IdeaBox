@@ -31,16 +31,16 @@ describe('Ideas', () => {
   });
 
   describe('Create method', () => {
-    it('Should return 200 when an Idea is create', (done) => {
+    it('Should return 201 when an Idea is created', (done) => {
       const title = 'Test';
       const description = 'Testing is fun';
       const category = 'Test';
-      const status = 'public';
+      const ideaStatus = 'Public';
       chai.request(app)
         .post('/api/v1/idea', ideaController.create)
         .set('Accept', 'application/json')
         .send({
-          title, description, category, status
+          title, description, category, ideaStatus
         })
         .set('x-access-token', jwtToken)
         .end((err, res) => {
@@ -102,11 +102,11 @@ describe('Ideas', () => {
       const title = 'Editted Test';
       const description = 'I editted the content';
       const category = 'Test';
-      const status = 'public';
+      const ideaStatus = 'public';
       chai.request(app)
         .put(`/api/v1/idea/${ideaId}`, ideaController.editIdea)
         .send({
-          title, description, category, status
+          title, description, category, ideaStatus
         })
         .set('Accept', 'application/json')
         .set('x-access-token', jwtToken)
@@ -137,11 +137,11 @@ describe('Ideas', () => {
       const title = 'Editted Test';
       const description = 'I editted the content';
       const category = 'Test';
-      const status = 'public';
+      const ideaStatus = 'public';
       chai.request(app)
         .put(`/api/v1/idea/${ideaId}`, ideaController.editIdea)
         .send({
-          title, description, category, status
+          title, description, category, ideaStatus
         })
         .set('Accept', 'application/json')
         .set('x-access-token', token2)
@@ -208,6 +208,22 @@ describe('Ideas', () => {
           done();
         });
     });
+    xit('should return 422 if a null searhedTerm is supplied', (done) => {
+      const searchQuery = '';
+      chai.request(app)
+        .get(`/api/v1/search/${searchQuery}`, ideaController.searchIdeas)
+        .set('Accept', 'application/json')
+        .set('x-access-token', jwtToken)
+        .end((err, res) => {
+          if (res) {
+            console.log(res.body);
+            res.status.should.equal(422);
+            res.body.should.have.property('message')
+              .equal('please add search term');
+          }
+          done();
+        });
+    });
   });
 }); // End of Test Suite
 
@@ -217,12 +233,12 @@ describe('Comments', () => {
     const title = 'Test';
     const description = 'Testing is fun';
     const category = 'Test';
-    const status = 'public';
+    const ideaStatus = 'public';
     chai.request(app)
       .post('/api/v1/idea', ideaController.create)
       .set('Accept', 'application/json')
       .send({
-        title, description, category, status
+        title, description, category, ideaStatus
       })
       .set('x-access-token', jwtToken)
       .end((err, res) => {

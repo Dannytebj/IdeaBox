@@ -11,7 +11,8 @@ const ideaSchema = new mongoose.Schema({
   }],
   modified: { type: Boolean, default: false },
   description: { type: String, required: true },
-  category: { type: Array },
+  category: { type: String, required: true },
+  ideaStatus: { type: String, required: true },
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
 });

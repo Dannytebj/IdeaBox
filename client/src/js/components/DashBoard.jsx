@@ -18,19 +18,43 @@ class DashBoard extends Component {
    */
   constructor(props) {
     super(props);
+    this.state = {
+      modalShown: false
+    }
+    this.onClick = this.onClick.bind(this);
   }
+
+  // /**
+  //  *
+  //  * @return {void}
+  //  * @memberof DashBoard
+  //  */
+  // componentDidMount() {
+  //   $('#menu-toggle').click((event) => {
+  //     event.preventDefault();
+  //     $('#crossBar').toggleClass('toggled');
+  //     $('#menu-toggle').text('x');
+  //   });
+
+  // }
 
   /**
    *
-   * @return {void}
+   *
+   * @param {any} event
    * @memberof DashBoard
+   * @returns {void}
    */
-  componentDidMount() {
-    $('#menu-toggle').click((e) => {
-      e.preventDefault();
-      $('#crossBar').toggleClass('toggled');
-    });
+  onClick(event) {
+    event.preventDefault();
+    const element = document.getElementById('crossBar');
+    element.classList.toggle('toggled');
+    this.setState(state => ({
+      modalShown: !state.modalShown
+    }));
   }
+
+
   /**
    *
    *
@@ -38,13 +62,16 @@ class DashBoard extends Component {
    * @memberof DashBoard
    */
   render() {
+    const { modalShown } = this.state;
+    const caption = modalShown ? 'x' : 'have an idea?';
     return (
-      <div className="container-fluid">
+      <div className="container-fluid wrapper">
         <SideBar /> <HangingBar />
         <a
-          className="toggler"
+          className="btn-large waves-effect waves-light red toggler"
           id="menu-toggle"
-        >I have an Idea!
+          onClick={this.onClick}
+        ><span>{caption}</span>
         </a>
       </div>
     );

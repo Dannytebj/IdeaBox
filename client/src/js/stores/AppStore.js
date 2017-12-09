@@ -6,6 +6,7 @@ import AppAPI from '../utils/AppApi';
 
 
 let currentUser = {};
+let ideaArray = [];
 
 /**
  * @description
@@ -15,6 +16,15 @@ let currentUser = {};
 function setCurrentUser(token) {
   const userDetails = jwt.decode(token);
   currentUser = userDetails;
+}
+/**
+ * @description updates the ideaArray
+ * @returns {void}
+ * @param {any} payload
+ */
+function updateIdeas(payload) {
+  const { postedIdea } = payload;
+  ideaArray.push(postedIdea);
 }
 
 /**
@@ -88,12 +98,19 @@ class AppStore extends EventEmitter {
         this.emitChange();
         break;
       case AppConstants.CLICK_SIGN_UP:
-        // console.log(action.payload);
         AppAPI.signUp(action.payload);
         this.emitChange();
         break;
       case AppConstants.SET_USER:
         setCurrentUser(action.payload);
+        this.emitChange();
+        break;
+      case AppConstants.CREATE_IDEA:
+        AppAPI.createIdea(action.payload);
+        this.emitChange();
+        break;
+      case AppConstants.GET_CREATED_IDEA:
+        updateIdeas(action.payload);
         this.emitChange();
         break;
       case AppConstants.CLICK_SIGN_OUT:

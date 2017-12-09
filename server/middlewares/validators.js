@@ -23,8 +23,9 @@ exports.validateToken = (req, res, next) => {
 exports.validateIdea = (req, res, next) => {
   req.check('title', 'title cannot be empty').notEmpty();
   req.check('description', 'description cannot be empty').notEmpty();
-  req.check('status', 'status cannot be empty').notEmpty();
+  req.check('ideaStatus', 'Idea status cannot be empty').notEmpty();
   req.check('category', 'category cannot be empty').notEmpty();
+
   const errors = req.validationErrors();
   if (errors) {
     const message = errors[0].msg;
