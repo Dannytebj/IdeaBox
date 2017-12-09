@@ -2,6 +2,12 @@
 
 
 body {
+  .wrapper {
+    height: 100vh;
+    background-image: url(https://res.cloudinary.com/dannytebj/image/upload/v1512711045/bg1_yjgudu.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
 .logo {
  margin-top: 15vh; 
 }
@@ -25,14 +31,13 @@ body {
     top: 0;
     transform: translateY(-100%);
     transition: transform .6s;
-    padding-top: 150px;
+    padding-top: 20px;
     margin: auto;
     width: 100%;
-    // pointer-events: none;
-
+    background-color: white;
   &.toggled {
     transform: translateY(0%);
-    margin-top: 100px;
+    margin-top: 0px;
   }
 }
 
@@ -43,6 +48,9 @@ height: 250px;
   float: right;
   cursor: pointer;
   z-index: 1000;
+}
+#menu-toggle1 {
+  bottom: 5px;
 }
 }
 

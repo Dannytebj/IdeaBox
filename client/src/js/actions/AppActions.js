@@ -41,6 +41,34 @@ const AppActions = {
       }
     });
   },
+  /**
+ * @description Define action methods for User view Actions
+ * @param {string} title user email address
+ * @param {string} description user password
+ * @param {string} category confirm user password
+ * @param {string} ideaStatus users fullname
+ *
+ *
+ * @return {object} signup payload
+ */
+  createIdea: (title, description, category, ideaStatus) => {
+    AppDispatcher.handleViewAction({
+      type: AppConstants.CREATE_IDEA,
+      payload: {
+        title, description, category, ideaStatus
+      }
+    });
+  },
+  /**
+   * @description Receives created idea
+   *@returns {void}
+   */
+  getCreatedIdea: (postedIdea) => {
+    AppDispatcher.handleViewAction({
+      type: AppConstants.GET_CREATED_IDEA,
+      payload: { postedIdea }
+    });
+  },
 };
 
 export default AppActions;

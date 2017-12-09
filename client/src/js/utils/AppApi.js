@@ -5,21 +5,38 @@ import appHistory from './history';
 import SetTokenHeader from '../utils/SetTokenHeader';
 
 module.exports = {
+  /**
+ * @description Define action methods for User view Actions
+ * @param {*} email user email address
+ * @param {*} password user password
+ *
+ * @return {object} signin payload
+ */
   signIn({ email, password }) {
     axios.post('/api/v1/signIn', { email, password })
       .then((response) => {
         const { token, username, message } = response.data;
         localStorage.setItem('token', token);
         localStorage.setItem('username', username);
-        appHistory.push('/dashboard');
         AppActions.setUser(token);
         SetTokenHeader(token);
+        appHistory.push('/dashboard');
         toastr.success(message);
       }).catch((error) => {
         const { message } = error.response.data;
         toastr.error(message);
       });
   },
+  /**
+ * @description Define action methods for User view Actions
+ * @param {string} email user email address
+ * @param {string} password user password
+ * @param {string} confirmPassword confirm user password
+ * @param {string} username users fullname
+ * @param {string} name Users phone Number
+ *
+ * @return {object} signup payload
+ */
   signUp({
     email, password, confirmPassword, username, name
   }) {
@@ -38,4 +55,29 @@ module.exports = {
       toastr.error(message);
     });
   },
+  /**
+ * @description Define action methods for User view Actions
+ * @param {string} title user email address
+ * @param {string} description user password
+ * @param {string} category confirm user password
+ * @param {string} ideaStatus users fullname
+ *
+ *
+ * @return {object} signup payload
+ */
+  createIdea({
+    title, description, category, ideaStatus
+  }) {
+    axios.post('/api/v1/idea', {
+      title, description, category, ideaStatus
+    }).then((response) => {
+      const { postedIdea, message } = response.data;
+      AppActions.getCreatedIdea(postedIdea);
+      toastr.success(message);
+    }).catch((error) => {
+      const { message } = error.response.data;
+      toastr.error(message);
+    });
+  },
+
 };

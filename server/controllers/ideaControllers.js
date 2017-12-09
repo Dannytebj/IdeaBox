@@ -12,13 +12,13 @@ import pagination from '../utils/pagination';
  */
 exports.create = (req, res) => {
   const {
-    title, description, category, status
+    title, description, category, ideaStatus
   } = req.body;
   const ideaDetails = {
     title,
     description,
     category,
-    status,
+    ideaStatus,
     authorId: req.decoded._id
   };
   const newIdea = new Idea(ideaDetails);
@@ -55,7 +55,7 @@ exports.editIdea = (req, res) => {
               title: req.body.title,
               description: req.body.description,
               category: req.body.category,
-              status: req.body.status,
+              ideaStatus: req.body.ideaStatus,
               modified: true,
               updatedAt: Date.now()
             },
@@ -137,11 +137,13 @@ exports.searchIdea = (req, res) => {
 };
 
 exports.searchIdeas = (req, res) => {
-  if (!req.params.searchQuery) {
-    res.status(401).send({
-      message: 'please add search term'
-    });
-  }
+  // req.check('searchQuery', 'please add search term').notEmpty();
+  // const errors = req.validationErrors();
+  // // if (errors) {
+  // //   console.log(errors)
+  //   const message = errors[0].msg;
+  //   res.status(422).send({ message });
+  // } else {
   const offset = Number(req.query.offset);
   const limit = Number(req.query.limit);
   let count;
@@ -158,7 +160,7 @@ exports.searchIdeas = (req, res) => {
     .skip(offset)
     .limit(limit)
     .exec()
-    .then(ideas => res.status(201).send({
+    .then(ideas => res.status(400).send({
       ideas,
       pageInfo: pagination(count, limit, offset),
     }))
