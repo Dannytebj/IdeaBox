@@ -5,7 +5,8 @@ const propTypes = {
   ideas: PropTypes.object.isRequired,
 };
 const Ideas = ({ ideas }) => (
-  <div className="col s4 m3">
+  <div className="col s4 m4">
+    {(ideas.ideaStatus === 'Private') ? '' :
     <div className="card blue-grey darken-1">
       <div className="card-content white-text">
         <span className="card-title">{ideas.title}</span>
@@ -16,6 +17,7 @@ const Ideas = ({ ideas }) => (
         <a href="#">This is a link</a>
       </div>
     </div>
+    }
   </div>
 );
 Ideas.propTypes = propTypes;

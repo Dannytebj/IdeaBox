@@ -24,7 +24,9 @@ function setCurrentUser(token) {
  */
 function updateIdeas(payload) {
   const { postedIdea } = payload;
-  ideaArray.push(postedIdea);
+  if (postedIdea.ideaStatus !== 'Private') {
+    ideaArray.push(postedIdea);
+  }
 }
 
 /**
@@ -63,8 +65,8 @@ class AppStore extends EventEmitter {
     return currentUser;
   }
   /**
-   * 
-   * 
+   *
+   *
    * @returns {Array} an array of ideas
    * @memberof AppStore
    */
