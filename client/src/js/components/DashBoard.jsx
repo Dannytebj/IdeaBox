@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import $ from 'jquery';
 import SideBar from '../components/SideBar';
 import HangingBar from '../components/HangingBar';
+import IdeaList from '../components/IdeaList';
 
 
 /**
@@ -73,6 +73,7 @@ class DashBoard extends Component {
           onClick={this.onClick}
         ><span>{caption}</span>
         </a>
+        <IdeaList />
       </div>
     );
   }

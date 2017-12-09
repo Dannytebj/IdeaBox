@@ -63,6 +63,15 @@ class AppStore extends EventEmitter {
     return currentUser;
   }
   /**
+   * 
+   * 
+   * @returns {Array} an array of ideas
+   * @memberof AppStore
+   */
+  getIdeas() {
+    return ideaArray;
+  }
+  /**
    * @description This method listens for change event
    * in the store and on change initiates the callback
    *
