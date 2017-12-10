@@ -301,31 +301,31 @@ describe('Users', () => {
           done();
         });
     });
-    it('Should return 409 if new email is already in use', (done) => {
-      const email = 'dannytebj@gmail.com';
-      const name = 'Dbizzle';
+    it('Should return 409 if new username is already in use', (done) => {
+      const username = 'dannyboy';
+      const name = 'Dbizzle doe';
       chai.request(app)
         .put('/api/v1/updateProfile', userControllers.updateProfile)
         .set('Accept', 'application/json')
         .set('x-access-token', jwtToken)
-        .send({ email, name })
+        .send({ username, name })
         .end((err, res) => {
           if (res) {
             res.status.should.equal(409);
             res.body.should.have.property('message')
-              .equal('The email address is already in use by another account.');
+              .equal('The username is already in use by another user.');
           }
           done();
         });
     });
-    it('Should return 200 if new email is already in use', (done) => {
-      const email = 'dannytebj1@gmail.com';
-      const name = 'Dbizzle1';
+    it('Should return 200 if nprofile update is successful', (done) => {
+      const username = 'dannyyoo';
+      const name = 'Dbizzle21';
       chai.request(app)
         .put('/api/v1/updateProfile', userControllers.updateProfile)
         .set('Accept', 'application/json')
         .set('x-access-token', jwtToken)
-        .send({ email, name })
+        .send({ username, name })
         .end((err, res) => {
           if (res) {
             res.status.should.equal(200);

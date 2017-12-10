@@ -13,7 +13,7 @@ router.put('/api/v1/updateProfile', validators.validateToken, validators.validat
 router.post('/api/v1/idea', validators.validateToken, validators.validateIdea, ideaController.create);
 router.delete('/api/v1/idea/:ideaId', validators.validateToken, ideaController.delete);
 router.put('/api/v1/idea/:ideaId', validators.validateToken, validators.validateIdea, ideaController.editIdea);
-router.get('/api/v1/search/:searchQuery', ideaController.searchIdeas);
+router.post('/api/v1/search', ideaController.searchIdeas);
 router.get('/api/v1/fullSearch/:searchQuery', ideaController.searchIdea);
 router.post('/api/v1/comment', validators.validateToken, commentController.create);
 router.get('/api/v1/comment/:ideaId', commentController.fetchComment);
