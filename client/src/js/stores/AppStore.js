@@ -24,7 +24,9 @@ function setCurrentUser(token) {
  */
 function updateIdeas(payload) {
   const { postedIdea } = payload;
-  ideaArray.push(postedIdea);
+  if (postedIdea.ideaStatus !== 'Private') {
+    ideaArray.push(postedIdea);
+  }
 }
 
 /**
@@ -61,6 +63,15 @@ class AppStore extends EventEmitter {
    */
   getUser() {
     return currentUser;
+  }
+  /**
+   *
+   *
+   * @returns {Array} an array of ideas
+   * @memberof AppStore
+   */
+  getIdeas() {
+    return ideaArray;
   }
   /**
    * @description This method listens for change event
