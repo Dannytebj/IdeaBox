@@ -79,5 +79,20 @@ module.exports = {
       toastr.error(message);
     });
   },
+  updateProfile({
+    username, name
+  }) {
+    axios.put('/api/v1/updateProfile', {
+      username, name
+    }).then((response) => {
+      const { user, message } = response.data;
+      localStorage.setItem('username', user.username);
+      // AppActions.getUpdatedUser(user);
+      toastr.success(message);
+    }).catch((error) => {
+      const { message } = error.response.data;
+      toastr.error(message);
+    });
+  },
 
 };

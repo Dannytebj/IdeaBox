@@ -59,14 +59,39 @@ const AppActions = {
       }
     });
   },
+
   /**
    * @description Receives created idea
+   * @param {object} postedIdea
    *@returns {void}
    */
   getCreatedIdea: (postedIdea) => {
     AppDispatcher.handleViewAction({
       type: AppConstants.GET_CREATED_IDEA,
       payload: { postedIdea }
+    });
+  },
+  /**
+   * @description Action that updates user profiles
+   * @param {string} username
+   * @param {string} name
+   *@returns {void}
+   */
+  updateProfile: (username, name) => {
+    AppDispatcher.handleViewAction({
+      type: AppConstants.UPDATE_PROFILE,
+      payload: { username, name }
+    });
+  },
+  /**
+   * @description Receives updated user details
+   * @param {object} user
+   *@returns {void}
+   */
+  getUpdatedUser: (user) => {
+    AppDispatcher.handleViewAction({
+      type: AppConstants.GET_UPDATED_USER,
+      payload: { user }
     });
   },
 };

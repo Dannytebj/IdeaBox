@@ -233,24 +233,25 @@ exports.updatePassword = (req, res) =>
  * @return {object} - success or failure message
  */
 exports.updateProfile = (req, res) => {
+  const newName = convertCase(req.body.username);
   User.findOne({
-    email: req.body.email,
+    username: newName,
   })
     .exec()
-    .then((email) => {
-      if (email) {
+    .then((username) => {
+      if (username) {
         res.status(409).send({
-          message: 'The email address is already in use by another account.',
+          message: 'The username is already in use by another user.',
           success: false
         });
       } else {
-        const { name, email } = req.body;
+        const { name, username } = req.body;
         User.findByIdAndUpdate(
           { _id: req.decoded._id },
           {
             $set: {
               name,
-              email,
+              username,
             },
           },
           { new: true },
@@ -260,7 +261,7 @@ exports.updateProfile = (req, res) => {
               return res.status(200).send({
                 user: {
                   name: user.name,
-                  email: user.email,
+                  username: user.username,
                 },
                 message: 'Profile Update successful',
               });
