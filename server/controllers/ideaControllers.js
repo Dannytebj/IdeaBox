@@ -137,34 +137,35 @@ exports.searchIdea = (req, res) => {
 };
 
 exports.searchIdeas = (req, res) => {
-  // req.check('searchQuery', 'please add search term').notEmpty();
-  // const errors = req.validationErrors();
-  // // if (errors) {
-  // //   console.log(errors)
-  //   const message = errors[0].msg;
-  //   res.status(422).send({ message });
-  // } else {
-  const offset = Number(req.query.offset);
-  const limit = Number(req.query.limit);
-  let count;
-  Idea.count({
-    $text: { $search: req.params.searchQuery.trim() },
-    categories: req.body.category
-  }, (err, iscount) => {
-    count = iscount;
-  });
-  Idea.find({
-    $text: { $search: req.params.searchQuery.trim() },
-    categories: req.body.category
-  })
-    .skip(offset)
-    .limit(limit)
-    .exec()
-    .then(ideas => res.status(400).send({
-      ideas,
-      pageInfo: pagination(count, limit, offset),
-    }))
-    .catch((error) => {
-      res.status(500).send({ error });
+  req.check('searchQuery', 'please add search term').notEmpty();
+  const errors = req.validationErrors();
+  if (errors) {
+    console.log(errors);
+    const message = errors[0].msg;
+    res.status(422).send({ message });
+  } else {
+    const offset = Number(req.query.offset);
+    const limit = Number(req.query.limit);
+    let count;
+    Idea.count({
+      $text: { $search: req.body.searchQuery.trim() },
+      categories: req.body.category
+    }, (err, iscount) => {
+      count = iscount;
     });
+    Idea.find({
+      $text: { $search: req.body.searchQuery.trim() },
+      categories: req.body.category
+    })
+      .skip(offset)
+      .limit(limit)
+      .exec()
+      .then(ideas => res.status(200).send({
+        ideas,
+        pageInfo: pagination(count, limit, offset),
+      }))
+      .catch((error) => {
+        res.status(500).send({ error });
+      });
+  }
 };

@@ -120,7 +120,7 @@ describe('Ideas', () => {
         });
     });
     it('should signIn another user ', (done) => {
-      const email = 'dannytebj1@gmail.com';
+      const email = 'dannytebj@yahoo.com';
       const password = '123asd';
       chai.request(app)
         .post('/api/v1/signIn', userControllers.signIn)
@@ -208,10 +208,9 @@ describe('Ideas', () => {
           done();
         });
     });
-    xit('should return 422 if a null searhedTerm is supplied', (done) => {
-      const searchQuery = '';
+    it('should return 422 if a null searhedTerm is supplied', (done) => {
       chai.request(app)
-        .get(`/api/v1/search/${searchQuery}`, ideaController.searchIdeas)
+        .post('/api/v1/search?offset=0&limit=5', ideaController.searchIdeas)
         .set('Accept', 'application/json')
         .set('x-access-token', jwtToken)
         .end((err, res) => {
@@ -220,6 +219,22 @@ describe('Ideas', () => {
             res.status.should.equal(422);
             res.body.should.have.property('message')
               .equal('please add search term');
+          }
+          done();
+        });
+    });
+    it('should return 200 if searhedTerm is found', (done) => {
+      const searchQuery = 'Test';
+      chai.request(app)
+        .post('/api/v1/search?offset=0&limit=5', ideaController.searchIdeas)
+        .set('Accept', 'application/json')
+        .set('x-access-token', jwtToken)
+        .send({ searchQuery })
+        .end((err, res) => {
+          if (res) {
+            console.log(res.body);
+            res.status.should.equal(200);
+            expect(res.body).to.have.property('pageInfo');
           }
           done();
         });

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import $ from 'jquery';
 import SideBar from '../components/SideBar';
 import HangingBar from '../components/HangingBar';
+import EditProfile from '../components/EditProfile';
 
 
 /**
@@ -20,7 +21,7 @@ class DashBoard extends Component {
     super(props);
     this.state = {
       modalShown: false
-    }
+    };
     this.onClick = this.onClick.bind(this);
   }
 
@@ -67,6 +68,7 @@ class DashBoard extends Component {
     return (
       <div className="container-fluid wrapper">
         <SideBar /> <HangingBar />
+        <EditProfile />
         <a
           className="btn-large waves-effect waves-light red toggler"
           id="menu-toggle"
