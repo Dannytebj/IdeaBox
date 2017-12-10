@@ -116,6 +116,10 @@ class AppStore extends EventEmitter {
         setCurrentUser(action.payload);
         this.emitChange();
         break;
+      case AppConstants.UPDATE_PROFILE:
+        AppAPI.updateProfile(action.payload);
+        this.emitChange();
+        break;
       case AppConstants.CREATE_IDEA:
         AppAPI.createIdea(action.payload);
         this.emitChange();

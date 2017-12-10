@@ -53,8 +53,7 @@ exports.validateSignUp = (req, res, next) => {
 };
 
 exports.validateProfile = (req, res, next) => {
-  req.check('email', 'email address cannot be empty').notEmpty();
-  req.check('email', 'Please enter a valid email').isEmail();
+  req.check('username', 'username address cannot be empty').notEmpty();
   req.check('name', 'name cannot be empty').notEmpty();
   const errors = req.validationErrors();
   if (errors) {
