@@ -86,7 +86,7 @@ class HangingBar extends Component {
         <div className="container">
           <div>
             <div className="row">
-              <div className="input-field col s6">
+              <div className="input-field col s12 m6">
                 <TextBox
                   className="textBox"
                   onChange={(value) => { this.setState({ title: value }); }}
@@ -94,7 +94,7 @@ class HangingBar extends Component {
                   currentValue={title}
                 />
               </div>
-              <div className="col s6">
+              <div className="col s12 m6">
                 <label>Select a Category</label>
                 <select
                   className="browser-default"
@@ -115,7 +115,7 @@ class HangingBar extends Component {
                 </select>
               </div>
               <div className="row">
-                <div className="col s6">
+                <div className="col s12 m6">
                   <label htmlFor="test1">I want my Idea:</label>
                   <input
                     value="Private"
@@ -137,7 +137,7 @@ class HangingBar extends Component {
                 </div>
               </div>
               <div className="row">
-                <div className="col s12">
+                <div className="col s12 m6">
                   <TextBox
                     className="description"
                     onChange={(value) => { this.setState({ description: value }); }}
@@ -147,7 +147,7 @@ class HangingBar extends Component {
                 </div>
               </div>
               <div className="row">
-                <div className="col s6">
+                <div className="col s12 m6">
                   <button onClick={this.handleCreateIdea} className="btn-large waves-effect waves-light orange">Create</button>
                 </div>
               </div>

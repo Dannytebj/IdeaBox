@@ -94,6 +94,41 @@ const AppActions = {
       payload: { user }
     });
   },
+  /**
+   * @param {String} searchQuery
+   * @param  {String} offset
+   * @return {void}
+   */
+  searchIdea: (searchQuery, offset) => {
+    AppDispatcher.handleViewAction({
+      type: AppConstants.SEARCH_IDEA,
+      payload: { searchQuery, offset }
+    });
+  },
+  /**
+   *
+   * @param  {String} offset
+   * @param {string} searchQuery
+   * @return {void}
+   */
+  getIdeas: (offset, searchQuery) => {
+    AppDispatcher.handleViewAction({
+      type: AppConstants.GET_IDEAS,
+      payload: { offset, searchQuery }
+    });
+  },
+  /**
+   *
+   * @returns {void}
+   * @param {object} ideas
+   * @param {object} pageInfo
+   */
+  receiveIdeas: (ideas, pageInfo) => {
+    AppDispatcher.handleViewAction({
+      type: AppConstants.RECEIVE_IDEAS,
+      payload: { ideas, pageInfo }
+    });
+  },
 };
 
 export default AppActions;
