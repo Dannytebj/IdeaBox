@@ -94,5 +94,18 @@ module.exports = {
       toastr.error(message);
     });
   },
+  getIdeas({ offset, searchQuery }) {
+    const limit = 10;
+    axios.post(`/api/v1/search?page=${offset}&limit=${limit}`, { searchQuery })
+      .then((response) => {
+        const { ideas, pageInfo } = response.data;
+        AppActions.receiveIdeas(ideas, pageInfo);
+        // console.log(response);
+      })
+      .catch((error) => {
+        const { message } = error.response.data;
+        toastr.error(message);
+      });
+  },
 
 };

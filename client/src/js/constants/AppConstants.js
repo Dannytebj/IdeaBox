@@ -10,6 +10,7 @@ module.exports = keyMirror({
   CREATE_IDEA: null,
   GET_CREATED_IDEA: null,
   GET_IDEAS: null,
+  SEARCH_IDEA: null,
   RECEIVE_IDEAS: null,
   SET_USER: null,
 });

@@ -6,9 +6,8 @@ const propTypes = {
 };
 const Ideas = ({ ideas }) => (
   <div className="col s4 m4">
-    {(ideas.ideaStatus === 'Private') ? '' :
-    <div className="card blue-grey darken-1">
-      <div className="card-content white-text">
+    <div className="card blue-grey lighten-5">
+      <div className="card-content black-text">
         <span className="card-title">{ideas.title}</span>
         <p> {ideas.description } </p>
       </div>
@@ -17,7 +16,6 @@ const Ideas = ({ ideas }) => (
         <a href="#">This is a link</a>
       </div>
     </div>
-    }
   </div>
 );
 Ideas.propTypes = propTypes;

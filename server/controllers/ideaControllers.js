@@ -1,5 +1,4 @@
 import Idea from '../models/Idea';
-import pagination from '../utils/pagination';
 
 
 /**
@@ -8,7 +7,6 @@ import pagination from '../utils/pagination';
  * @param {any} req
  * @param {any} res
  * @return {void}
- * @memberOf Idea
  */
 exports.create = (req, res) => {
   const {
@@ -99,7 +97,6 @@ exports.delete = (req, res) => {
               message: 'Internal server error',
             });
           }
-          // return response
           return res.status(200).send({
             success: true,
             message: 'Idea deleted successfully'
@@ -114,58 +111,61 @@ exports.delete = (req, res) => {
     });
 };
 
+
 /**
-   * Routes: GET: /api/v1/search/:idea
-   * @param {any} req
-   * @param {any} res
+   * get all public ideas
+   * @param {any} req user request object
+   * @param {any} res servers response
    * @return {void}
    */
-exports.searchIdea = (req, res) => {
-  const searchQuery = req.params.idea;
-  Idea.find({ description: { $regex: `.*${searchQuery}.*` } })
-    .select('title description')
+exports.publicIdeas = (req, res) => {
+  const { searchQuery } = req.body;
+  Idea.paginate(
+    { $and: [{ ideaStatus: { $ne: 'Private' } }, { description: { $regex: `.*${searchQuery}.*` } }] },
+    { limit: Number(req.query.limit), page: Number(req.query.page) }
+  )
     .then((ideas) => {
-      res.status(200)
-        .send({
-          message: 'Ideas fetched succeessfully',
-          ideas
-        });
-    }).catch((error) => {
-      res.status(500)
-        .json({ message: 'An error Occured', error });
+      const pageInfo = {
+        pages: ideas.pages,
+        page: ideas.page,
+        total: ideas.total,
+      };
+      res.status(200).send({
+        ideas: ideas.docs,
+        pageInfo,
+        message: 'Ideas successfully fetched'
+      });
+    })
+    .catch((error) => {
+      res.status(500).send({ error });
+    });
+};
+/**
+   * get all users ideas
+   * @param {any} req user request object
+   * @param {any} res servers response
+   * @return {void}
+   */
+exports.getUsersIdeas = (req, res) => {
+  Idea.paginate({
+    _id: req.decoded._id
+  }, { limit: Number(req.query.limit), page: Number(req.query.page) })
+    .then((ideas) => {
+      const pageInfo = {
+        pages: ideas.pages,
+        page: ideas.page,
+        total: ideas.total,
+      };
+      res.status(200).send({
+        ideas: ideas.docs,
+        pageInfo,
+        message: 'Ideas successfully fetched'
+      });
+    })
+    .catch((error) => {
+      res.status(400).send({
+        error: error.message
+      });
     });
 };
 
-exports.searchIdeas = (req, res) => {
-  req.check('searchQuery', 'please add search term').notEmpty();
-  const errors = req.validationErrors();
-  if (errors) {
-    console.log(errors);
-    const message = errors[0].msg;
-    res.status(422).send({ message });
-  } else {
-    const offset = Number(req.query.offset);
-    const limit = Number(req.query.limit);
-    let count;
-    Idea.count({
-      $text: { $search: req.body.searchQuery.trim() },
-      categories: req.body.category
-    }, (err, iscount) => {
-      count = iscount;
-    });
-    Idea.find({
-      $text: { $search: req.body.searchQuery.trim() },
-      categories: req.body.category
-    })
-      .skip(offset)
-      .limit(limit)
-      .exec()
-      .then(ideas => res.status(200).send({
-        ideas,
-        pageInfo: pagination(count, limit, offset),
-      }))
-      .catch((error) => {
-        res.status(500).send({ error });
-      });
-  }
-};

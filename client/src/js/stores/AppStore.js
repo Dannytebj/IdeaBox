@@ -6,6 +6,7 @@ import AppAPI from '../utils/AppApi';
 
 
 let currentUser = {};
+let currentPageInfo = {};
 let ideaArray = [];
 
 /**
@@ -27,6 +28,16 @@ function updateIdeas(payload) {
   if (postedIdea.ideaStatus !== 'Private') {
     ideaArray.push(postedIdea);
   }
+}
+/**
+ *
+ * @return {void}
+ * @param {any} payload
+ */
+function setIdeas(payload) {
+  const { ideas, pageInfo } = payload;
+  ideaArray = ideas;
+  currentPageInfo = pageInfo;
 }
 
 /**
@@ -72,6 +83,14 @@ class AppStore extends EventEmitter {
    */
   getIdeas() {
     return ideaArray;
+  }
+  /**
+   *
+   * @returns {Object} currentPageInfo
+   * @memberof AppStore
+   */
+  getPageInfo() {
+    return currentPageInfo;
   }
   /**
    * @description This method listens for change event
@@ -126,6 +145,20 @@ class AppStore extends EventEmitter {
         break;
       case AppConstants.GET_CREATED_IDEA:
         updateIdeas(action.payload);
+        this.emitChange();
+        break;
+      case AppConstants.SEARCH_IDEA:
+        console.log(action.payload);
+        // AppAPI.searchIdeas(action.payload);
+        this.emitChange();
+        break;
+      case AppConstants.GET_IDEAS:
+        console.log(action.payload);
+        AppAPI.getIdeas(action.payload);
+        this.emitChange();
+        break;
+      case AppConstants.RECEIVE_IDEAS:
+        setIdeas(action.payload);
         this.emitChange();
         break;
       case AppConstants.CLICK_SIGN_OUT:

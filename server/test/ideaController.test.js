@@ -96,6 +96,25 @@ describe('Ideas', () => {
         });
     });
   });
+  describe('Get Users Idea Method:', () => {
+    it('should return 200 when users ideas are fetched', (done) => {
+      const searchQuery = 'Testing';
+      chai.request(app)
+        .get('/api/v1/user/ideas?offset=1&limit=5', ideaController.getUsersIdeas)
+        .set('Accept', 'application/json')
+        .set('x-access-token', jwtToken)
+        .send({ searchQuery })
+        .end((err, res) => {
+          if (res) {
+            res.status.should.equal(200);
+            res.body.should.have.property('message')
+              .equal('Ideas successfully fetched');
+            expect(res.body).to.have.property('pageInfo');
+          }
+          done();
+        });
+    });
+  });
 
   describe('Edit Idea method', () => {
     it('Should return 200 when an idea is edited', (done) => {
@@ -196,44 +215,15 @@ describe('Ideas', () => {
     it('should return 200 if searhedTerm is found', (done) => {
       const searchQuery = 'Test';
       chai.request(app)
-        .get(`/api/v1/fullSearch/${searchQuery}`, ideaController.searchIdea)
-        .set('Accept', 'application/json')
-        .set('x-access-token', jwtToken)
-        .end((err, res) => {
-          if (res) {
-            res.status.should.equal(200);
-            res.body.should.have.property('message')
-              .equal('Ideas fetched succeessfully');
-          }
-          done();
-        });
-    });
-    it('should return 422 if a null searhedTerm is supplied', (done) => {
-      chai.request(app)
-        .post('/api/v1/search?offset=0&limit=5', ideaController.searchIdeas)
-        .set('Accept', 'application/json')
-        .set('x-access-token', jwtToken)
-        .end((err, res) => {
-          if (res) {
-            console.log(res.body);
-            res.status.should.equal(422);
-            res.body.should.have.property('message')
-              .equal('please add search term');
-          }
-          done();
-        });
-    });
-    it('should return 200 if searhedTerm is found', (done) => {
-      const searchQuery = 'Test';
-      chai.request(app)
-        .post('/api/v1/search?offset=0&limit=5', ideaController.searchIdeas)
+        .post('/api/v1/search?offset=1&limit=5', ideaController.publicIdeas)
         .set('Accept', 'application/json')
         .set('x-access-token', jwtToken)
         .send({ searchQuery })
         .end((err, res) => {
           if (res) {
-            console.log(res.body);
             res.status.should.equal(200);
+            res.body.should.have.property('message')
+              .equal('Ideas successfully fetched');
             expect(res.body).to.have.property('pageInfo');
           }
           done();

@@ -15,16 +15,11 @@ class SideBar extends Component {
    */
   constructor(props) {
     super(props);
+    this.state = {
+      category: ''
+    };
   }
 
-  /**
-   *
-   *
-   * @memberof SideBar
-   * @returns {void}
-   */
-  componentWillMount() {
-  }
   /**
    *
    *
@@ -48,6 +43,8 @@ class SideBar extends Component {
             <li><a href="#!">Logout</a></li>
           </ul>
           <li><a className="dropdown-button" href="#!" data-activates="dropdown1">Options<i className="material-icons right">arrow_drop_down</i></a></li>
+          <li className="divider" />
+
         </ul>
         <a href="" data-activates="slide-out" className="button-collapse"><i className="material-icons">menu</i></a>
       </div>

@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import mongoosePaginate from 'mongoose-paginate';
 
 const ideaSchema = new mongoose.Schema({
   title: { type: String },
@@ -17,6 +18,7 @@ const ideaSchema = new mongoose.Schema({
   updatedAt: { type: Date, default: Date.now },
 });
 ideaSchema.index({ title: 'text', description: 'text' });
+ideaSchema.plugin(mongoosePaginate);
 const Idea = mongoose.model('Idea', ideaSchema);
 
 
