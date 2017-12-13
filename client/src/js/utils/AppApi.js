@@ -100,12 +100,38 @@ module.exports = {
       .then((response) => {
         const { ideas, pageInfo } = response.data;
         AppActions.receiveIdeas(ideas, pageInfo);
-        // console.log(response);
       })
       .catch((error) => {
         const { message } = error.response.data;
         toastr.error(message);
       });
   },
+  getUserIdeas({ offset }) {
+    const limit = 10;
+    axios.get(`/api/v1/user/ideas?page=${offset}&limit=${limit}`)
+      .then((response) => {
+        const { ideas, pageInfo } = response.data;
+        AppActions.receiveUserIdeas(ideas, pageInfo);
+      })
+      .catch((error) => {
+        const { message } = error.response.data;
+        toastr.error(message);
+      });
+  },
+  editIdea({
+    ideaId, title, description, category, ideaStatus
+  }) {
+    axios.put('/api/v1/idea', {
+      ideaId, title, description, category, ideaStatus
+    }).then((response) => {
+      const { message } = response.data;
+      const offset = '1';
+      AppActions.getUserIdeas(offset);
+      toastr.success(message);
+    }).catch((error) => {
+      const { message } = error.response.data;
+      toastr.error(message);
+    });
+  }
 
 };

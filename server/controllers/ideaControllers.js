@@ -42,12 +42,12 @@ exports.create = (req, res) => {
    * @return {void}
    */
 exports.editIdea = (req, res) => {
-  Idea.findOne({ _id: req.params.ideaId })
+  Idea.findOne({ _id: req.body.ideaId })
     .exec()
     .then((idea) => {
       if (req.decoded._id === idea.authorId) {
         Idea.findByIdAndUpdate(
-          { _id: req.params.ideaId },
+          { _id: req.body.ideaId },
           {
             $set: {
               title: req.body.title,
@@ -75,7 +75,7 @@ exports.editIdea = (req, res) => {
           .send({ message: 'Sorry only the author can edit this idea!' });
       }
     }).catch(error =>
-      res.status(500).send({ error }));
+      res.status(500).send({ message: error }));
 };
 
 /**
@@ -148,7 +148,7 @@ exports.publicIdeas = (req, res) => {
    */
 exports.getUsersIdeas = (req, res) => {
   Idea.paginate({
-    _id: req.decoded._id
+    authorId: req.decoded._id
   }, { limit: Number(req.query.limit), page: Number(req.query.page) })
     .then((ideas) => {
       const pageInfo = {

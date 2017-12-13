@@ -65,5 +65,11 @@ height: 250px;
   max-height: 200px;
   overflow: scroll;
 }
+.pagination {
+  cursor: pointer;
+  li a {
+    color: #fafafa;
+  }
+}
 }
 

@@ -8,6 +8,8 @@ import AppAPI from '../utils/AppApi';
 let currentUser = {};
 let currentPageInfo = {};
 let ideaArray = [];
+let userIdeas = [];
+let userPageInfo = {};
 
 /**
  * @description
@@ -38,6 +40,25 @@ function setIdeas(payload) {
   const { ideas, pageInfo } = payload;
   ideaArray = ideas;
   currentPageInfo = pageInfo;
+}
+/**
+ *
+ * @return {void}
+ * @param {any} payload
+ */
+function setUsersIdeas(payload) {
+  const { ideas, pageInfo } = payload;
+  userIdeas = ideas;
+  userPageInfo = pageInfo;
+}
+/**
+ * @description updates the ideaArray
+ * @returns {void}
+ * @param {any} payload
+ */
+function updateUserIdeas(payload) {
+  const { editedIdea } = payload;
+  userIdeas.push(editedIdea);
 }
 
 /**
@@ -83,6 +104,23 @@ class AppStore extends EventEmitter {
    */
   getIdeas() {
     return ideaArray;
+  }
+  /**
+   *
+   *
+   * @returns {Array} an array of ideas
+   * @memberof AppStore
+   */
+  getUserIdeas() {
+    return userIdeas;
+  }
+  /**
+   *
+   * @returns {Object} currentPageInfo
+   * @memberof AppStore
+   */
+  getUserPageInfo() {
+    return userPageInfo;
   }
   /**
    *
@@ -147,14 +185,24 @@ class AppStore extends EventEmitter {
         updateIdeas(action.payload);
         this.emitChange();
         break;
-      case AppConstants.SEARCH_IDEA:
-        console.log(action.payload);
-        // AppAPI.searchIdeas(action.payload);
+      case AppConstants.GET_USER_IDEAS:
+        AppAPI.getUserIdeas(action.payload);
+        this.emitChange();
+        break;
+      case AppConstants.RECEIVE_USER_IDEAS:
+        setUsersIdeas(action.payload);
         this.emitChange();
         break;
       case AppConstants.GET_IDEAS:
-        console.log(action.payload);
         AppAPI.getIdeas(action.payload);
+        this.emitChange();
+        break;
+      case AppConstants.UPDATE_IDEAS:
+        AppAPI.editIdea(action.payload);
+        this.emitChange();
+        break;
+      case AppConstants.GET_UPDATED_IDEA:
+        updateUserIdeas(action.payload);
         this.emitChange();
         break;
       case AppConstants.RECEIVE_IDEAS:

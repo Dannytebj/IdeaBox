@@ -41,7 +41,6 @@ class DashBoard extends Component {
    */
   componentDidMount() {
     this.doSearch();
-    // AppActions.getIdeas(this.state.offset);
     AppStore.addChangeListener(this.onChange);
   }
   /**

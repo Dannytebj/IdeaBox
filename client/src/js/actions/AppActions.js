@@ -95,14 +95,14 @@ const AppActions = {
     });
   },
   /**
-   * @param {String} searchQuery
+   *
    * @param  {String} offset
    * @return {void}
    */
-  searchIdea: (searchQuery, offset) => {
+  getUserIdeas: (offset) => {
     AppDispatcher.handleViewAction({
-      type: AppConstants.SEARCH_IDEA,
-      payload: { searchQuery, offset }
+      type: AppConstants.GET_USER_IDEAS,
+      payload: { offset }
     });
   },
   /**
@@ -126,6 +126,48 @@ const AppActions = {
   receiveIdeas: (ideas, pageInfo) => {
     AppDispatcher.handleViewAction({
       type: AppConstants.RECEIVE_IDEAS,
+      payload: { ideas, pageInfo }
+    });
+  },
+
+  /**
+   *
+   *
+   * @param {any} ideaId
+   * @param {any} title
+   * @param {any} description
+   * @param {any} category
+   * @param {any} ideaStatus
+   * @returns {void}
+   */
+  updateIdea: (ideaId, title, description, category, ideaStatus) => {
+    AppDispatcher.handleViewAction({
+      type: AppConstants.UPDATE_IDEAS,
+      payload: {
+        ideaId, title, description, category, ideaStatus
+      }
+    });
+  },
+  /**
+   * @description Receives editted idea
+   * @param {object} edittedIdea
+   *@returns {void}
+   */
+  getEdittedIdea: (edittedIdea) => {
+    AppDispatcher.handleViewAction({
+      type: AppConstants.GET_UPDATED_IDEA,
+      payload: { edittedIdea }
+    });
+  },
+  /**
+   *
+   * @returns {void}
+   * @param {object} ideas
+   * @param {object} pageInfo
+   */
+  receiveUserIdeas: (ideas, pageInfo) => {
+    AppDispatcher.handleViewAction({
+      type: AppConstants.RECEIVE_USER_IDEAS,
       payload: { ideas, pageInfo }
     });
   },
