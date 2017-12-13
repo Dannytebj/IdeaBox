@@ -1,32 +1,33 @@
 import React, { Component } from 'react';
+import UsersIdeas from '../components/UsersIdeas';
 import AppStore from '../stores/AppStore';
-import Ideas from '../components/Ideas';
 
 /**
- *@description Lists out all ideas
  *
- * @class IdeaList
+ *
+ * @class UserIdeaList
  * @extends {Component}
  */
-class IdeaList extends Component {
+class UserIdeaList extends Component {
   /**
-   * Creates an instance of IdeaList.
+   * Creates an instance of UserIdeaList.
    * @param {any} props
-   * @memberof IdeaList
+   * @memberof UserIdeaList
    */
   constructor(props) {
     super(props);
     this.state = {
-      ideaList: [],
+      userIdeaList: [],
       category: ''
     };
     this.onChange = this.onChange.bind(this);
-    this.setCategory = this.setCategory.bind(this);
+    this.selectCategory = this.selectCategory.bind(this);
   }
+
   /**
    *
    * @returns {void}
-   * @memberof IdeaList
+   * @memberof UserIdeaList
    */
   componentDidMount() {
     AppStore.addChangeListener(this.onChange);
@@ -34,7 +35,7 @@ class IdeaList extends Component {
   /**
    * @description This is fire just before the component unmounts
    * @returns {void}
-   * @memberof IdeaList
+   * @memberof UserIdeaList
    */
   componentWillUnmount() {
     AppStore.removeChangeListener(this.onChange);
@@ -42,41 +43,42 @@ class IdeaList extends Component {
   /**
    * @description This method is passed as callback to Store on change
    *@returns {void}
-   * @memberof IdeaList
+   * @memberof UserIdeaList
    */
   onChange() {
     this.setState({
-      ideaList: AppStore.getIdeas()
+      userIdeaList: AppStore.getUserIdeas()
     });
   }
   /**
    *@param {void} event
    * @returns {void}
-   * @memberof IdeaList
+   * @memberof UserIdeaList
    */
-  setCategory(event) {
+  selectCategory(event) {
     event.preventDefault();
     this.setState({
       category: event.target.value
     });
   }
+
   /**
    *
-   *
-   * @returns {void}
-   * @memberof IdeaList
+   * @return {void}
+   * @memberof UserIdeaList
    */
   render() {
-    const { ideaList, category } = this.state;
-    const filteredIdeas = ideaList.filter(idea => idea.category.toLowerCase().indexOf(category.toLowerCase()) !== -1);
+    const { userIdeaList, category } = this.state;
+    const filteredIdeas = userIdeaList.filter(idea =>
+      idea.category.toLowerCase().indexOf(category.toLowerCase()) !== -1);
     return (
       <div className="container ideaList">
         <div className="row">
           <div className="col m4">
-            {(ideaList.length > 0) ?
+            {(userIdeaList.length > 0) ?
               <select
                 className="browser-default"
-                onChange={this.setCategory}
+                onChange={this.selectCategory}
                 value={this.state.category}
                 name="category"
               >
@@ -95,11 +97,11 @@ class IdeaList extends Component {
         </div>
         <div className="row">
           {
-            filteredIdeas.map(ideas => (<Ideas ideas={ideas} key={ideas._id} />))
+            filteredIdeas.map(ideas => (<UsersIdeas ideas={ideas} key={ideas._id} />))
           }
         </div>
       </div>
     );
   }
 }
-export default IdeaList;
+export default UserIdeaList;

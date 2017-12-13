@@ -4,6 +4,8 @@ import appHistory from '../utils/history';
 import Landing from './Landing';
 import SignInSignUp from '../components/SignInSignUp';
 import DashBoard from '../components/DashBoard';
+import UsersBoard from '../components/UsersBoard';
+import NotFound from '../components/NotFound';
 
 const RequireAuth = () => {
   let isAuthenticated;
@@ -31,6 +33,13 @@ const Routes = () => (
           render={() => (RequireAuth() ?
       (<DashBoard />) : (<Redirect to="/" />))}
         />
+        <Route
+          path="/userIdeas"
+          render={() => (RequireAuth() ?
+      (<UsersBoard />) : (<Redirect to="/" />))}
+        />
+        <Route exact path="/*" component={NotFound} />
+  
       </Switch>
     </div>
   </Router>

@@ -123,9 +123,9 @@ describe('Ideas', () => {
       const category = 'Test';
       const ideaStatus = 'public';
       chai.request(app)
-        .put(`/api/v1/idea/${ideaId}`, ideaController.editIdea)
+        .put('/api/v1/idea', ideaController.editIdea)
         .send({
-          title, description, category, ideaStatus
+          title, description, category, ideaStatus, ideaId
         })
         .set('Accept', 'application/json')
         .set('x-access-token', jwtToken)
@@ -158,9 +158,9 @@ describe('Ideas', () => {
       const category = 'Test';
       const ideaStatus = 'public';
       chai.request(app)
-        .put(`/api/v1/idea/${ideaId}`, ideaController.editIdea)
+        .put('/api/v1/idea', ideaController.editIdea)
         .send({
-          title, description, category, ideaStatus
+          title, description, category, ideaStatus, ideaId
         })
         .set('Accept', 'application/json')
         .set('x-access-token', token2)

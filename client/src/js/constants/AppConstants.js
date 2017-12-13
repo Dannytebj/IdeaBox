@@ -7,10 +7,14 @@ module.exports = keyMirror({
   GET_UPDATED_USER: null,
   RESET_PASSWORD: null,
   CLICK_SIGN_OUT: null,
+  GET_USER_IDEAS: null,
   CREATE_IDEA: null,
   GET_CREATED_IDEA: null,
   GET_IDEAS: null,
   SEARCH_IDEA: null,
   RECEIVE_IDEAS: null,
+  RECEIVE_USER_IDEAS: null,
   SET_USER: null,
+  UPDATE_IDEAS: null,
+  GET_UPDATED_IDEA: null
 });

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import $ from 'jquery';
+import { NavLink } from 'react-router-dom';
 
 /**
  *@description Handles the sidebar actions
@@ -38,7 +38,8 @@ class SideBar extends Component {
           </li>
           <ul id="dropdown1" className="dropdown-content">
             <li><a className="waves-effect waves-light modal-trigger" href="#modal1">Edit Profile</a></li>
-            <li><a href="#!">My Ideas</a></li>
+            <li><NavLink to="/dashboard"> Dashboard</NavLink> </li>
+            <li><NavLink to="/userIdeas"> My Ideas</NavLink> </li>
             <li className="divider" />
             <li><a href="#!">Logout</a></li>
           </ul>
