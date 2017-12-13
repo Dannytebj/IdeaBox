@@ -108,7 +108,7 @@ class EditIdea extends Component {
           <div className="container">
             <div>
               <div className="row">
-                <div className="input-field col s12 m6">
+                <div className="input-field col s12 m12">
                   <TextBox
                     className="textBox"
                     onChange={(value) => { this.setState({ title: value }); }}

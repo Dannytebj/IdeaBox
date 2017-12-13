@@ -17,7 +17,7 @@ exports.create = (req, res) => {
             .send({ message: 'idea not found!' });
         }
         const commentDetail = {
-          author: req.decoded.username,
+          author: req.decoded._id,
           comment: req.body.comment,
           ideaId: idea._id
         };
@@ -54,20 +54,22 @@ exports.create = (req, res) => {
 exports.fetchComment = (req, res) => {
   Comment.find({
     ideaId: req.params.ideaId
-  }).then((comments) => {
-    if (!comments) {
-      return res.status(404).send({
-        success: false,
-        message: 'No comments found!'
+  })
+    .populate('author')
+    .then((comments) => {
+      if (!comments) {
+        return res.status(404).send({
+          success: false,
+          message: 'No comments found!'
+        });
+      }
+      res.status(200).send({
+        comments,
+        message: 'Comments fetched Successfully!'
       });
-    }
-    res.status(200).send({
-      comments,
-      message: 'Comments fetched Successfully!'
+    }).catch((error) => {
+      res.status(500).send({
+        message: error
+      });
     });
-  }).catch((error) => {
-    res.status(500).send({
-      message: error
-    });
-  });
 };

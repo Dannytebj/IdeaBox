@@ -146,17 +146,19 @@ class DashBoard extends Component {
           </div>
         </div>
         <IdeaList />
-        <ReactPaginate
-          previousLabel="previous"
-          nextLabel="next"
-          pageCount={count}
-          marginPagesDisplayed={1}
-          pageRangeDisplayed={3}
-          onPageChange={this.pageClick}
-          containerClassName="pagination"
-          subContainerClassName="pages pagination"
-          activeClassName="active"
-        />
+        <div className="center-align">
+          <ReactPaginate
+            previousLabel="previous"
+            nextLabel="next"
+            pageCount={count}
+            marginPagesDisplayed={1}
+            pageRangeDisplayed={3}
+            onPageChange={this.pageClick}
+            containerClassName="pagination"
+            subContainerClassName="pages pagination"
+            activeClassName="active"
+          />
+        </div>
       </div>
     );
   }

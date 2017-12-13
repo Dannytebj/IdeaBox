@@ -171,6 +171,43 @@ const AppActions = {
       payload: { ideas, pageInfo }
     });
   },
+  /**
+   *
+   * @returns {void}
+   *
+   * @param {string} ideaId
+   */
+  getComments: (ideaId) => {
+    AppDispatcher.handleViewAction({
+      type: AppConstants.GET_COMMENTS,
+      payload: { ideaId }
+    });
+  },
+  /**
+   *
+   * @returns {void}
+   *
+   * @param {string} comments
+   */
+  receiveComments: (comments) => {
+    AppDispatcher.handleViewAction({
+      type: AppConstants.RECEIVE_COMMENTS,
+      payload: { comments }
+    });
+  },
+  /**
+   *
+   *
+   * @param {any} ideaId
+   * @param {any} comment
+   * @return {void}
+   */
+  postComment: (ideaId, comment) => {
+    AppDispatcher.handleViewAction({
+      type: AppConstants.POST_COMMENT,
+      payload: { ideaId, comment }
+    });
+  }
 };
 
 export default AppActions;
