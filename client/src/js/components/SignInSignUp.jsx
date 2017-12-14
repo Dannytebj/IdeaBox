@@ -4,6 +4,7 @@ import AppStore from '../stores/AppStore';
 import AppActions from '../actions/AppActions';
 import TextBox from '../utils/TextBox';
 import Button from '../utils/Button';
+import ResetPassword from '../components/ResetPassword';
 
 
 /**
@@ -41,6 +42,7 @@ class SignInSignUp extends Component {
    * @return {void}
    */
   componentDidMount() {
+    $('.modal').modal();
     AppStore.addChangeListener(this.onChange);
   }
   /**
@@ -124,8 +126,8 @@ class SignInSignUp extends Component {
                       <TextBox
                         className="textBox"
                         onChange={(value) => {
-                      this.setState({ username: value });
-                    }}
+                          this.setState({ username: value });
+                        }}
                         label="Username"
                         currentValue={username}
                       />
@@ -174,14 +176,19 @@ class SignInSignUp extends Component {
               </div>
             </div>
           </div>
-          { (signingIn) ?
-            <p className="message">Not registered ?
-              <a
-                className="toggler1"
-                onClick={this.toggleSignInUp}
-              >Sign Up
-              </a>
-            </p> :
+          <ResetPassword />
+          {(signingIn) ?
+            <div>
+              <a className="message modal-trigger" href="#resetPassword"> Forgot your Password ?</a>
+              <p className="message">Not registered ?
+                <a
+                  className="toggler1"
+                  onClick={this.toggleSignInUp}
+                >Sign Up
+                </a>
+              </p>
+            </div>
+            :
             <p className="message">Already registered?
               <a
                 className="toggler2"

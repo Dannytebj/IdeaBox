@@ -48,13 +48,6 @@ Ideabox is a simple application that allows users to create a pool of ideas and 
 
 ## Language
 - Javascript
-
-
-## Limitations
-+ Users cannot choose to accept invitation request
-+ Users cannot leave a group
-+ Users cannot delete a message when sent
-
 ## Contributions
  Contributions are always welcome. If you are interested in enhancing the features in the project, follow these steps below:
  + Fork the project to your repository then clone it to your local machine.

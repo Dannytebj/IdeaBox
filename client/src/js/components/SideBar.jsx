@@ -1,28 +1,8 @@
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import AppActions from '../actions/AppActions';
 
 
-// class SideBar extends Component {
-//   /**
-//    * Creates an instance of SideBar.
-//    * @param {any} props
-//    * @memberof SideBar
-//    */
-//   constructor(props) {
-//     super(props);
-//     this.state = {
-//       category: ''
-//     };
-//   }
-
-//   /**
-//    *
-//    *
-//    * @returns {void}
-//    * @memberof SideBar
-//    */
-//   render() {
-//     return
 const username = localStorage.getItem('username');
 /**
  *@description Handles the sidebar actions
@@ -42,7 +22,16 @@ const SideBar = () => (
         <li><NavLink to="/dashboard"> Dashboard</NavLink> </li>
         <li><NavLink to="/userIdeas"> My Ideas</NavLink> </li>
         <li className="divider" />
-        <li><a href="#!">Logout</a></li>
+        <li>
+          <a
+            href="#!"
+            onClick={(event) => {
+              event.preventDefault();
+              AppActions.signOut();
+            }}
+          >Logout
+          </a>
+        </li>
       </ul>
       <li><a className="dropdown-button" href="#!" data-activates="dropdown1">Options<i className="material-icons right">arrow_drop_down</i></a></li>
       <li className="divider" />

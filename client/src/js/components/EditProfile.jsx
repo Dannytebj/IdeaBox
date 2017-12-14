@@ -24,14 +24,6 @@ class EditProfile extends Component {
     this.onEvent = this.onEvent.bind(this);
     this.handleUpdate = this.handleUpdate.bind(this);
   }
-  // /**
-  //  *
-  //  * @returns {void}
-  //  * @memberof EditProfile
-  //  */
-  // componentDidMount(){
-  //   AppStore.addChangeListener()
-  // }
 
   /**
    *

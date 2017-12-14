@@ -72,7 +72,7 @@ class UserIdeaList extends Component {
     const filteredIdeas = userIdeaList.filter(idea =>
       idea.category.toLowerCase().indexOf(category.toLowerCase()) !== -1);
     return (
-      <div className="container ideaList">
+      <div className="container myIdeaList">
         <div className="row">
           <div className="col m4">
             {(userIdeaList.length > 0) ?

@@ -23,6 +23,7 @@ const sendMail = (email, hash, headers) => {
     from: 'IdeaBox',
     to: email,
     html: `<div style="width: 100%; background-color: #f2f2f2; padding: 2%;">
+  <link rel="icon" type="image/png" href="https://res.cloudinary.com/dannytebj/image/upload/v1512563991/favicon-32x32_o9wh94.png" sizes="16x16" />
   <div style="width: 60%; background-color: white; margin: auto;">
     <div style="height:40px; background-color: #43A047 ; width:100%">
       <center><h2 style="padding-top: 7px; color: #f2f2f2;">Post-it</h2>
@@ -34,9 +35,9 @@ const sendMail = (email, hash, headers) => {
         <p>Please follow this link to update your password<a style="background-color: 
         #43A047; padding: 10px;cursor: pointer; color: #f2f2f2;
          text-decoration: none;" 
-        href="http://${headers}/api/v1/user/updatePassword/${hash}">Go to Post-it</a></p>
+        href="https://${headers}/updatepassword/${hash}">Update Password</a></p>
         <div style="border-top: 3px solid #43A047 ;"></div>
-        <p style="font-weight: bold; color: #004d40 ">The PostIt Team</p>
+        <p style="font-weight: bold; color: #004d40 ">The IdeaBox Team</p>
       </div>
     </div>
   </div>
