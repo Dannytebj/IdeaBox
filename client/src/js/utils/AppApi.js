@@ -147,13 +147,25 @@ module.exports = {
   postComment({ ideaId, comment }) {
     axios.post('/api/v1/comment', { ideaId, comment })
       .then((response) => {
-        // console.log(response);
         AppActions.getComments(ideaId);
         const { message } = response.data;
         toastr.success(message);
       })
       .catch((error) => {
         console.log(error);
+      });
+  },
+  deleteIdea({ ideaId }) {
+    axios.delete(`/api/v1/idea/delete/${ideaId}`)
+      .then((response) => {
+        const { message } = response.data;
+        const offset = '1';
+        AppActions.getUserIdeas(offset);
+        toastr.success(message);
+      })
+      .catch((error) => {
+        const { message } = error.response.data;
+        toastr.error(message);
       });
   }
 

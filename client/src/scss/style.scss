@@ -2,6 +2,9 @@
 
 
 body {
+  height: 100%;
+  width: 100%;
+  overflow: hidden;
   .wrapper {
     height: 100vh;
     background-image: url(https://res.cloudinary.com/dannytebj/image/upload/v1512711045/bg1_yjgudu.jpg);
@@ -59,7 +62,7 @@ height: 250px;
 }
 .ideaList {
   overflow: scroll;
-  height: 530px;
+  height: 460px;
 }
 .card {
   max-height: 200px;
@@ -73,6 +76,7 @@ height: 250px;
    font-family: 'Italiana', serif;
 }
 .pagination {
+  bottom: 10px;
   cursor: pointer;
   li a {
     color: #fafafa;

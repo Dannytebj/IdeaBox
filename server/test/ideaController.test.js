@@ -180,7 +180,7 @@ describe('Ideas', () => {
       'should return 403 if the user deleting an idea is not the author',
       (done) => {
         chai.request(app)
-          .delete(`/api/v1/idea/${ideaId}`, ideaController.delete)
+          .delete(`/api/v1/idea/delete/${ideaId}`, ideaController.delete)
           .set('Accept', 'application/json')
           .set('x-access-token', token2)
           .end((err, res) => {
@@ -197,7 +197,7 @@ describe('Ideas', () => {
       'should return 200 when the author of an idea deletes that idea',
       (done) => {
         chai.request(app)
-          .delete(`/api/v1/idea/${ideaId}`, ideaController.delete)
+          .delete(`/api/v1/idea/delete/${ideaId}`, ideaController.delete)
           .set('Accept', 'application/json')
           .set('x-access-token', jwtToken)
           .end((err, res) => {

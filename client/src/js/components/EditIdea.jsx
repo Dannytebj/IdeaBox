@@ -24,8 +24,8 @@ class EditIdea extends Component {
     this.state = {
       title: props.ideas.title || '',
       description: props.ideas.description || '',
-      category: props.ideas.category || '',
-      ideaStatus: props.ideas.ideaStatus || ''
+      category: '',
+      ideaStatus: 'Public'
     };
     this.onEvent = this.onEvent.bind(this);
     this.handleUpdate = this.handleUpdate.bind(this);
@@ -44,10 +44,11 @@ class EditIdea extends Component {
       this.setState({
         title: nextProps.ideas.title,
         description: nextProps.ideas.description,
+        category: nextProps.ideas.category,
       });
     }
   }
- 
+
 
   /**
    *
@@ -69,7 +70,8 @@ class EditIdea extends Component {
    * @memberof EditIdea
    */
   editStatus(event) {
-    this.setState({ [event.target.name]: event.target.value });
+    event.preventDefault();
+    this.setState({ ideaStatus: event.target.value });
   }
   /**
    *@param {void} event
@@ -138,24 +140,16 @@ class EditIdea extends Component {
                 </div>
                 <div className="row">
                   <div className="col s12 m6">
-                    <label htmlFor="test1">I want this Idea:</label>
-                    <input
-                      value="Private"
+                    <label>I want this idea</label>
+                    <select
+                      className="browser-default"
                       onChange={this.editStatus}
+                      value={this.state.ideaStatus}
                       name="ideaStatus"
-                      type="radio"
-                      id="private"
-                    />
-                    <label htmlFor="private">Private</label>
-                    <input
-                      defaultChecked
-                      value="Public"
-                      name="ideaStatus"
-                      onChange={this.editStatus}
-                      type="radio"
-                      id="public"
-                    />
-                    <label htmlFor="public">Public</label>
+                    >
+                      <option value="Public" defaultValue >Public</option>
+                      <option value="Private">Private</option>
+                    </select>
                   </div>
                 </div>
                 <div className="row">
