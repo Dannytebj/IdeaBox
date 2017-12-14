@@ -101,7 +101,7 @@ class CommentsList extends Component {
           </div>
           <div className="modal-footer">
             <div className="row">
-              <div className="col s12 m8">
+              <div className="col s8 m8">
                 <input
                   type="text"
                   name="comment"
@@ -109,7 +109,7 @@ class CommentsList extends Component {
                   onChange={this.onEvent}
                   placeholder="Post your comment"
                 /></div>
-              <div className="col s6 m4">
+              <div className="col s4 m4">
                 <button
                   onClick={this.postComment}
                   className="btn waves-effect waves-light orange"

@@ -52,7 +52,7 @@ class UsersIdeas extends Component {
         <div className="card blue-grey lighten-5">
           <div className="card-content black-text">
             <span className="card-title">{ideas.title}</span>
-            <p className="descriptions"> {ideas.description } </p>
+            <p className="descriptions"> {`${ideas.description.slice(0, 30)}...`} </p>
           </div>
           <div className="card-action">
             <a className="waves-effect waves-light modal-trigger" href={`#modal${ideas._id}`}><i className="material-icons">create</i></a>            

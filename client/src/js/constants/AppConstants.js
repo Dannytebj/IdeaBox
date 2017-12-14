@@ -20,5 +20,6 @@ module.exports = keyMirror({
   DELETE_IDEA: null,
   UPDATE_IDEAS: null,
   POST_COMMENT: null,
+  UPDATE_PASSWORD: null,
   GET_UPDATED_IDEA: null
 });

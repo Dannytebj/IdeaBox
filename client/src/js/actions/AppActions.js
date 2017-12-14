@@ -198,8 +198,8 @@ const AppActions = {
   /**
    *
    *
-   * @param {any} ideaId
-   * @param {any} comment
+   * @param {string} ideaId
+   * @param {string} comment
    * @return {void}
    */
   postComment: (ideaId, comment) => {
@@ -211,13 +211,44 @@ const AppActions = {
   /**
    *
    *
-   * @param {any} ideaId
+   * @param {string} ideaId
    * @returns {void}
    */
   deleteIdea: (ideaId) => {
     AppDispatcher.handleViewAction({
       type: AppConstants.DELETE_IDEA,
       payload: { ideaId }
+    });
+  },
+  /**
+   *
+   *
+   * @param {string} email
+   * @returns {void}
+   */
+  resetPassword: (email) => {
+    AppDispatcher.handleViewAction({
+      type: AppConstants.RESET_PASSWORD,
+      payload: { email }
+    });
+  },
+  /**
+   *
+   *
+   * @param {string} newPassword
+   * @param {string} confirmPassword
+   * @param {string} hash
+   * @return {void}
+   */
+  updatePassword: (newPassword, confirmPassword, hash) => {
+    AppDispatcher.handleViewAction({
+      type: AppConstants.UPDATE_PASSWORD,
+      payload: { newPassword, confirmPassword, hash }
+    });
+  },
+  signOut: () => {
+    AppDispatcher.handleViewAction({
+      type: AppConstants.CLICK_SIGN_OUT,
     });
   }
 };

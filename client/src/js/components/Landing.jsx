@@ -8,13 +8,13 @@ const Landing = () => (
         <img
           className="logo"
           width="80%"
-          src="https://res.cloudinary.com/dannytebj/image/upload/v1512551562/ideabox_logo_pnavss.png"
+          src="https://res.cloudinary.com/dannytebj/image/upload/v1513264934/ideaBox_ligpcs.png"
           alt="IdeadBox-Logo"
         />
         <div className="row center">
           <h5 className="header col s12 light">Ideas shape the course of history</h5>
           <br />
-          <p><strong>John Maynard Keynes</strong></p>
+          <p className="header"><strong>John Maynard Keynes</strong></p>
         </div>
         <div className="row center">
           <Link to="/login">

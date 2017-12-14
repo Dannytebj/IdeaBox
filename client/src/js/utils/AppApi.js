@@ -87,7 +87,6 @@ module.exports = {
     }).then((response) => {
       const { user, message } = response.data;
       localStorage.setItem('username', user.username);
-      // AppActions.getUpdatedUser(user);
       toastr.success(message);
     }).catch((error) => {
       const { message } = error.response.data;
@@ -152,7 +151,8 @@ module.exports = {
         toastr.success(message);
       })
       .catch((error) => {
-        console.log(error);
+        const { message } = error.response.data;
+        toastr.error(message);
       });
   },
   deleteIdea({ ideaId }) {
@@ -167,6 +167,35 @@ module.exports = {
         const { message } = error.response.data;
         toastr.error(message);
       });
+  },
+  resetPassword({ email }) {
+    axios.post('/api/v1/resetPassword', { email })
+      .then((response) => {
+        const { message } = response.data;
+        toastr.success(message);
+      })
+      .catch((error) => {
+        const { message } = error.response.data;
+        toastr.error(message);
+      });
+  },
+  updatePassword({ newPassword, confirmPassword, hash }) {
+    axios.put(`/api/v1/updatePassword/${hash}`, { newPassword, confirmPassword })
+      .then((response) => {
+        const { message } = response.data;
+        appHistory.push('/login');
+        toastr.success(message);
+      })
+      .catch((error) => {
+        const { message } = error.response.data;
+        toastr.error(message);
+      });
+  },
+  signOut() {
+    const token = {};
+    localStorage.clear();
+    SetTokenHeader(token);
+    appHistory.push('/');
   }
 
 };

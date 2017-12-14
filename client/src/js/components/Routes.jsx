@@ -6,6 +6,7 @@ import SignInSignUp from '../components/SignInSignUp';
 import DashBoard from '../components/DashBoard';
 import UsersBoard from '../components/UsersBoard';
 import NotFound from '../components/NotFound';
+import UpdatePassword from '../components/UpdatePassword';
 
 const RequireAuth = () => {
   let isAuthenticated;
@@ -23,6 +24,7 @@ const Routes = () => (
     <div>
       <Switch>
         <Route exact path="/" component={Landing} />
+        <Route path="/updatePassword/:hash" component={UpdatePassword} />
         <Route
           path="/login"
           render={() => (RequireAuth() ?
@@ -39,7 +41,7 @@ const Routes = () => (
       (<UsersBoard />) : (<Redirect to="/" />))}
         />
         <Route exact path="/*" component={NotFound} />
-  
+
       </Switch>
     </div>
   </Router>

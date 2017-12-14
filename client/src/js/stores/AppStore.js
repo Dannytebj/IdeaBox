@@ -248,11 +248,15 @@ class AppStore extends EventEmitter {
         this.emitChange();
         break;
       case AppConstants.CLICK_SIGN_OUT:
-        // AppAPI.signOut();
+        AppAPI.signOut();
+        this.emitChange();
+        break;
+      case AppConstants.UPDATE_PASSWORD:
+        AppAPI.updatePassword(action.payload);
         this.emitChange();
         break;
       case AppConstants.RESET_PASSWORD:
-        // AppAPI.resetPassword(action.payload);
+        AppAPI.resetPassword(action.payload);
         this.emitChange();
         break;
       default:
