@@ -124,6 +124,13 @@ class DashBoard extends Component {
       <div className="container-fluid wrapper">
         <SideBar /> <HangingBar />
         <EditProfile />
+        <div className="container">
+          <div className="nav-wrapper">
+            <div className="col s12">
+              <span className="breadcrumb">DashBoard</span>
+            </div>
+          </div>
+        </div>
 
         <a
           className="btn-large waves-effect waves-light red toggler"
@@ -146,7 +153,7 @@ class DashBoard extends Component {
           </div>
         </div>
         <IdeaList />
-        <div className="center-align">
+        <div className="paginator center-align">
           <ReactPaginate
             previousLabel="previous"
             nextLabel="next"

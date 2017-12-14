@@ -11,7 +11,7 @@ router.post('/api/v1/resetPassword', userController.resetPassword);
 router.put('/api/v1/updatePassword/:hash', userController.updatePassword);
 router.put('/api/v1/updateProfile', validators.validateToken, validators.validateProfile, userController.updateProfile);
 router.post('/api/v1/idea', validators.validateToken, validators.validateIdea, ideaController.create);
-router.delete('/api/v1/idea/:ideaId', validators.validateToken, ideaController.delete);
+router.delete('/api/v1/idea/delete/:ideaId', validators.validateToken, ideaController.delete);
 router.put('/api/v1/idea', validators.validateToken, validators.validateIdea, ideaController.editIdea);
 router.post('/api/v1/search', ideaController.publicIdeas);
 router.get('/api/v1/user/ideas', validators.validateToken, ideaController.getUsersIdeas);

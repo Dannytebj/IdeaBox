@@ -85,6 +85,13 @@ class UsersBoard extends Component {
     return (
       <div className="container-fluid wrapper">
         <SideBar />
+        <div className="container">
+          <div className="nav-wrapper">
+            <div className="col s12">
+              <span className="breadcrumb">My Ideas</span>
+            </div>
+          </div>
+        </div>
         <UserIdeaList />
         <div className="center-align">
           <ReactPaginate

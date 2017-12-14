@@ -207,6 +207,18 @@ const AppActions = {
       type: AppConstants.POST_COMMENT,
       payload: { ideaId, comment }
     });
+  },
+  /**
+   *
+   *
+   * @param {any} ideaId
+   * @returns {void}
+   */
+  deleteIdea: (ideaId) => {
+    AppDispatcher.handleViewAction({
+      type: AppConstants.DELETE_IDEA,
+      payload: { ideaId }
+    });
   }
 };
 

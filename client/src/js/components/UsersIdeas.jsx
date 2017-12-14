@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import EditIdea from '../components/EditIdea';
+import AppActions from '../actions/AppActions';
 
 const propTypes = {
   ideas: PropTypes.object.isRequired,
@@ -19,11 +20,7 @@ class UsersIdeas extends Component {
    */
   constructor(props) {
     super(props);
-    this.state = {
-      ideaId: '',
-      selectedCard: {}
-    };
-    this.setIdeaId = this.setIdeaId.bind(this);
+    this.deleteIdea = this.deleteIdea.bind(this);
   }
   /**
  *
@@ -38,10 +35,9 @@ class UsersIdeas extends Component {
    * @memberof UsersIdeas
    * @return {void}
    */
-  setIdeaId() {
-    this.setState({
-      selectedCard: this.props.ideas
-    });
+  deleteIdea() {
+    const { ideas } = this.props;
+    AppActions.deleteIdea(ideas._id);
   }
   /**
    *
@@ -59,8 +55,8 @@ class UsersIdeas extends Component {
             <p className="descriptions"> {ideas.description } </p>
           </div>
           <div className="card-action">
-            <a className="waves-effect waves-light modal-trigger" href={`#modal${ideas._id}`} onClick={this.setIdeaId}><i className="material-icons">create</i></a>            
-            <a href="#"><i className="material-icons">delete</i></a>
+            <a className="waves-effect waves-light modal-trigger" href={`#modal${ideas._id}`}><i className="material-icons">create</i></a>            
+            <a href="#" onClick={this.deleteIdea}><i className="material-icons">delete</i></a>
           </div>
         </div>
         <EditIdea

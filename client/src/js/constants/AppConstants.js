@@ -17,6 +17,7 @@ module.exports = keyMirror({
   SET_USER: null,
   GET_COMMENTS: null,
   RECEIVE_COMMENTS: null,
+  DELETE_IDEA: null,
   UPDATE_IDEAS: null,
   POST_COMMENT: null,
   GET_UPDATED_IDEA: null

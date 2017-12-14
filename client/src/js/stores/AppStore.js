@@ -243,6 +243,10 @@ class AppStore extends EventEmitter {
         setComments(action.payload);
         this.emitChange();
         break;
+      case AppConstants.DELETE_IDEA:
+        AppAPI.deleteIdea(action.payload);
+        this.emitChange();
+        break;
       case AppConstants.CLICK_SIGN_OUT:
         // AppAPI.signOut();
         this.emitChange();

@@ -37,6 +37,7 @@ class Ideas extends Component {
    */
   componentDidMount() {
     $('.modal').modal();
+    $('.tooltipped').tooltip({ delay: 30 });
     AppStore.addChangeListener(this.onChange);
   }
   /**
@@ -54,22 +55,20 @@ class Ideas extends Component {
    * @memberof Ideas
    * @return {void}
    */
-  dogetComments() {
-    AppActions.getComments(this.props.ideas._id);
+  onChange() {
+    this.setState({
+      comments: AppStore.getComments()
+    });
+    // console.log(AppStore.getComments());
   }
-
-
   /**
    *
    *
    * @memberof Ideas
    * @return {void}
    */
-  onChange() {
-    this.setState({
-      comments: AppStore.getComments()
-    });
-    // console.log(AppStore.getComments());
+  dogetComments() {
+    AppActions.getComments(this.props.ideas._id);
   }
 
   /**
@@ -91,7 +90,10 @@ class Ideas extends Component {
           </div>
           <div className="card-action">
             <a
-              className="waves-effect waves-light modal-trigger"
+              className="waves-effect waves-light modal-trigger tooltipped"
+              data-position="top"
+              data-delay="30"
+              data-tooltip="Comments"
               href={`#modal${ideas._id}`}
               onClick={this.dogetComments}
             >
