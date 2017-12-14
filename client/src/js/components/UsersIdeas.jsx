@@ -52,14 +52,15 @@ class UsersIdeas extends Component {
   render() {
     const { ideas } = this.props;
     return (
-      <div className="col s4 m4">
+      <div className="col s12 m4">
         <div className="card blue-grey lighten-5">
           <div className="card-content black-text">
             <span className="card-title">{ideas.title}</span>
-            <p> {ideas.description } </p>
+            <p className="descriptions"> {ideas.description } </p>
           </div>
           <div className="card-action">
-            <a className="waves-effect waves-light modal-trigger" href={`#modal${ideas._id}`} onClick={this.setIdeaId}>Edit Idea</a>            <a href="#">This is a link</a>
+            <a className="waves-effect waves-light modal-trigger" href={`#modal${ideas._id}`} onClick={this.setIdeaId}><i className="material-icons">create</i></a>            
+            <a href="#"><i className="material-icons">delete</i></a>
           </div>
         </div>
         <EditIdea

@@ -132,6 +132,29 @@ module.exports = {
       const { message } = error.response.data;
       toastr.error(message);
     });
+  },
+  getComments({ ideaId }) {
+    axios.get(`/api/v1/comment/${ideaId}`)
+      .then((response) => {
+        const { comments } = response.data;
+        AppActions.receiveComments(comments);
+      })
+      .catch((error) => {
+        const { message } = error.response.data;
+        toastr.error(message);
+      });
+  },
+  postComment({ ideaId, comment }) {
+    axios.post('/api/v1/comment', { ideaId, comment })
+      .then((response) => {
+        // console.log(response);
+        AppActions.getComments(ideaId);
+        const { message } = response.data;
+        toastr.success(message);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   }
 
 };

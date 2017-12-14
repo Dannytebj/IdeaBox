@@ -4,12 +4,15 @@ import AppDispatcher from '../dispatcher/AppDispatcher';
 import AppConstants from '../constants/AppConstants';
 import AppAPI from '../utils/AppApi';
 
+EventEmitter.prototype._maxListeners = 20; // Set number of event emitter
+
 
 let currentUser = {};
 let currentPageInfo = {};
 let ideaArray = [];
 let userIdeas = [];
 let userPageInfo = {};
+let commentsArray = [];
 
 /**
  * @description
@@ -61,6 +64,16 @@ function updateUserIdeas(payload) {
   userIdeas.push(editedIdea);
 }
 
+/**
+ *
+ *
+ * @param {any} payload
+ * @return {void}
+ */
+function setComments(payload) {
+  const { comments } = payload;
+  commentsArray = comments;
+}
 /**
  *
  *
@@ -129,6 +142,15 @@ class AppStore extends EventEmitter {
    */
   getPageInfo() {
     return currentPageInfo;
+  }
+  /**
+   *
+   *
+   * @returns {array} commentsArray
+   * @memberof AppStore
+   */
+  getComments() {
+    return commentsArray;
   }
   /**
    * @description This method listens for change event
@@ -207,6 +229,18 @@ class AppStore extends EventEmitter {
         break;
       case AppConstants.RECEIVE_IDEAS:
         setIdeas(action.payload);
+        this.emitChange();
+        break;
+      case AppConstants.POST_COMMENT:
+        AppAPI.postComment(action.payload);
+        this.emitChange();
+        break;
+      case AppConstants.GET_COMMENTS:
+        AppAPI.getComments(action.payload);
+        this.emitChange();
+        break;
+      case AppConstants.RECEIVE_COMMENTS:
+        setComments(action.payload);
         this.emitChange();
         break;
       case AppConstants.CLICK_SIGN_OUT:
