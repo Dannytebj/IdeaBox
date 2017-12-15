@@ -76,23 +76,27 @@ class UserIdeaList extends Component {
         <div className="row">
           <div className="col m4">
             {(userIdeaList.length > 0) ?
-              <select
-                className="browser-default"
-                onChange={this.selectCategory}
-                value={this.state.category}
-                name="category"
-              >
-                <option value="" defaultValue >Choose your option</option>
-                <option value="Politics">Politics</option>
-                <option value="Sport">Sport</option>
-                <option value="Crime">Crime</option>
-                <option value="Fashion">Fashion</option>
-                <option value="Information Technology">Information Technology</option>
-                <option value="Agriculture">Agriculture</option>
-                <option value="Finance">Finance</option>
-                <option value="Entertainment">Entertainment</option>
-                <option value="Others">Others</option>
-              </select> : ''}
+              <div>
+                <label htmlFor="category"> Filter By Category</label>
+                <select
+                  className="browser-default"
+                  onChange={this.selectCategory}
+                  value={this.state.category}
+                  name="category"
+                  id="category"
+                >
+                  <option value="" defaultValue >All</option>
+                  <option value="Politics">Politics</option>
+                  <option value="Sport">Sport</option>
+                  <option value="Crime">Crime</option>
+                  <option value="Fashion">Fashion</option>
+                  <option value="Information Technology">Information Technology</option>
+                  <option value="Agriculture">Agriculture</option>
+                  <option value="Finance">Finance</option>
+                  <option value="Entertainment">Entertainment</option>
+                  <option value="Others">Others</option>
+                </select>
+              </div> : ''}
           </div>
         </div>
         <div className="row">

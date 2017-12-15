@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" name="viewport" content="width=device-width, initial-scale=1"/>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="icon" type="image/png" href="https://res.cloudinary.com/dannytebj/image/upload/v1512563991/favicon-32x32_o9wh94.png" sizes="16x16" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/css/materialize.min.css">
+    <title>IdeaBox - ...</title>
+</head>
+<body>
+  <div class ="container-fluid">
+    <div class="row">
+        <div id="app"></div>
+        <footer className="footer">
+          <span className="centered"> &copy; IdeaBox was created by Danny...</span>
+        </footer>
+    </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.100.2/js/materialize.min.js"></script>
+     <script src="/dist/bundle.js"></script> 
+    <script>
+  $(document).ready(function() {
+    $('.button-collapse').sideNav();
+    $('select').material_select();
+    $('.modal').modal();
+  });
+</script>
+</body>
+</html>
