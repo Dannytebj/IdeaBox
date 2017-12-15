@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import AppStore from '../stores/AppStore';
 import AppActions from '../actions/AppActions';
 import TextBox from '../utils/TextBox';
 
@@ -35,9 +34,9 @@ class EditIdea extends Component {
 
   /**
    *
-   * @return {void}
    * @param {any} nextProps
    * @memberof EditIdea
+   * @return {void}
    */
   componentWillReceiveProps(nextProps) {
     if (nextProps.ideas.title !== undefined) {
@@ -52,9 +51,9 @@ class EditIdea extends Component {
 
   /**
    *
-   * @returns {void}
    * @param {any} event
    * @memberof EditIdea
+   * @returns {void}
    */
   onEvent(event) {
     event.preventDefault();
@@ -65,9 +64,9 @@ class EditIdea extends Component {
 
   /**
    *
-   * @returns {void}
    * @param {any} event
    * @memberof EditIdea
+   * @returns {void}
    */
   editStatus(event) {
     event.preventDefault();
@@ -75,8 +74,8 @@ class EditIdea extends Component {
   }
   /**
    *@param {void} event
-   * @returns {void}
    * @memberof EditIdea
+   * @returns {void}
    */
   editCategory(event) {
     event.preventDefault();
@@ -86,8 +85,8 @@ class EditIdea extends Component {
   }
   /**
    *
-   * @returns {void}
    * @memberof EditIdea
+   * @returns {void}
    */
   handleUpdate() {
     const {
@@ -99,8 +98,8 @@ class EditIdea extends Component {
   /**
    *
    *
-   * @returns {void}
    * @memberof EditIdea
+   * @returns {void}
    */
   render() {
     return (
@@ -164,14 +163,24 @@ class EditIdea extends Component {
                 </div>
                 <div className="row">
                   <div className="col s12 m6">
-                    <button onClick={this.handleUpdate} className="btn-large waves-effect waves-light orange">Update</button>
+                    <button
+                      onClick={this.handleUpdate}
+                      className="btn-large waves-effect waves-light orange"
+                    >
+                      Update
+                    </button>
                   </div>
                 </div>
               </div>
             </div>
           </div>
           <div className="modal-footer">
-            <a href="#!" className="modal-action modal-close waves-effect waves-green btn-flat">close</a>
+            <a
+              href="#!"
+              className="modal-action modal-close waves-effect waves-green btn-flat"
+            >
+              close
+            </a>
           </div>
         </div>
       </div>

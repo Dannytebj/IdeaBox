@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { compiler } from 'markdown-to-jsx';
 import moment from 'moment';
 import CommentsList from '../components/CommentsList';
 import AppActions from '../actions/AppActions';
@@ -74,8 +75,8 @@ class Ideas extends Component {
   /**
  *
  *
- * @returns {void}
  * @memberof Ideas
+ * @returns {void}
  */
   render() {
     const { ideas } = this.props;
@@ -85,8 +86,8 @@ class Ideas extends Component {
           <div className="card-content black-text">
             <span className="card-title">{ideas.title}</span>
             <span className="thumbnails">{moment(ideas.updatedAt).format('llll')}</span>
-            {(ideas.modified === true) ? <span className=" rightSide chip"> Edited</span> : '' }
-            <p className="descriptions"> {`${ideas.description.slice(0, 30)}...`} </p>
+            {(ideas.modified === true) ? <span className=" rightSide chip"> Edited</span> : ''}
+            <p className="descriptions"> {compiler(`${ideas.description.slice(0, 30)}...`)} </p>
           </div>
           <div className="card-action">
             <a
@@ -98,6 +99,15 @@ class Ideas extends Component {
               onClick={this.dogetComments}
             >
               <i className="material-icons">comment</i>
+            </a>
+            <a
+              className="waves-effect waves-light tooltipped"
+              data-position="top"
+              data-delay="30"
+              data-tooltip="share on twitter"
+              href={`https://twitter.com/intent/tweet?text=This%20idea%20is%20amazing%20you%20should%20read%20it&url=${window.location.origin}/modal${ideas._id}`}
+            >
+              <i className="material-icons">share</i>
             </a>
           </div>
         </div>

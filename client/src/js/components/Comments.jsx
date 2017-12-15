@@ -5,6 +5,12 @@ import moment from 'moment';
 const propTypes = {
   comment: PropTypes.object.isRequired,
 };
+/**
+ * @description  Renders a comment
+ *
+ * @param {object} comment
+ * @return {void}
+ */
 const Comments = ({ comment }) => (
   <div className="collection">
     <span className="thumbnails">{comment.author.name}</span>

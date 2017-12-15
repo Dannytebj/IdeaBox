@@ -71,9 +71,11 @@ height: 250px;
 }
 .card {
   max-height: 200px;
-  overflow: scroll;
   .card-title {
     font-size: 18px;
+  }
+  .card-content {
+    overflow: scroll;
   }
 }
 .descriptions {
@@ -129,6 +131,14 @@ footer {
   bottom: 0;
   width: 100%;
   z-index: 1000;
+}
+.toggler2 {
+  padding: 5px; 
+  cursor: pointer;
+}
+.toggler1 {
+  padding: 5px; 
+  cursor: pointer;
 }
 @media only screen and (min-width: 992px){
   .ideaList {

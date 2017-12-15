@@ -47,8 +47,8 @@ class ResetPassword extends Component {
   /**
    *
    *
-   * @returns {void}
    * @memberof ResetPassword
+   * @returns {void}
    */
   render() {
     return (

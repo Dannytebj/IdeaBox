@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import AppStore from '../stores/AppStore';
 import AppActions from '../actions/AppActions';
 
 
@@ -27,9 +26,9 @@ class EditProfile extends Component {
 
   /**
    *
-   * @returns {void}
    * @param {any} event
    * @memberof EditProfile
+   * @returns {void}
    */
   onEvent(event) {
     event.preventDefault();
@@ -39,18 +38,20 @@ class EditProfile extends Component {
   }
   /**
    *
-   * @returns {void}
    * @memberof EditProfile
+   * @returns {void}
    */
   handleUpdate() {
     const { username, name } = this.state;
-    AppActions.updateProfile(username, name);
+    if (this.state !== '') {
+      AppActions.updateProfile(username, name);
+    }
   }
   /**
    *
    *
-   * @returns {void}
    * @memberof EditProfile
+   * @returns {void}
    */
   render() {
     return (
@@ -85,7 +86,12 @@ class EditProfile extends Component {
           </div>
         </div>
         <div className="modal-footer">
-          <a href="#!" className="modal-action modal-close waves-effect waves-green btn-flat">close</a>
+          <a
+            href="#!"
+            className="modal-action modal-close waves-effect waves-green btn-flat"
+          >
+          close
+          </a>
         </div>
       </div>
     );
