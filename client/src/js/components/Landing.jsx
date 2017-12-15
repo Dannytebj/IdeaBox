@@ -1,6 +1,10 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+/**
+ * @description Exports Landing page component
+ * @return {void}
+ */
 const Landing = () => (
   <div>
     <div className="section no-pad-bot" id="index-banner">

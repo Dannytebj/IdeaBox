@@ -24,18 +24,22 @@ class HangingBar extends Component {
     };
     this.setCategory = this.setCategory.bind(this);
     this.setStatus = this.setStatus.bind(this);
+    this.onEvent = this.onEvent.bind(this);
     this.handleCreateIdea = this.handleCreateIdea.bind(this);
   }
 
   /**
-   * @description
-   *@returns {void}
+   *
+   * @returns {void}
+   * @param {any} event
    * @memberof HangingBar
    */
-  componentDidMount() {
- 
+  onEvent(event) {
+    event.preventDefault();
+    this.setState({
+      [event.target.name]: event.target.value
+    });
   }
-
   /**
    *
    * @returns {void}
@@ -76,11 +80,11 @@ class HangingBar extends Component {
   /**
    *
    *
-   * @returns {void}
    * @memberof HangingBar
+   * @returns {void}
    */
   render() {
-    const { title, description } = this.state;
+    const { title } = this.state;
     return (
       <div id="crossBar">
         <div className="container">
@@ -138,17 +142,23 @@ class HangingBar extends Component {
               </div>
               <div className="row">
                 <div className="col s12 m6">
-                  <TextBox
-                    className="description"
-                    onChange={(value) => { this.setState({ description: value }); }}
-                    label="description"
-                    currentValue={description}
+                  <textarea
+                    id="textarea1"
+                    className="materialize-textarea description"
+                    name="description"
+                    value={this.state.description}
+                    onChange={this.onEvent}
                   />
+                  <label htmlFor="textarea1">Description</label>
                 </div>
               </div>
               <div className="row">
                 <div className="col s12 m6">
-                  <button onClick={this.handleCreateIdea} className="btn-large waves-effect waves-light orange">Create</button>
+                  <button
+                    onClick={this.handleCreateIdea}
+                    className="btn-large waves-effect waves-light orange"
+                  >Create
+                  </button>
                 </div>
               </div>
             </div>

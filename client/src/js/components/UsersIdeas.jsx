@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { compiler } from 'markdown-to-jsx';
 import EditIdea from '../components/EditIdea';
 import AppActions from '../actions/AppActions';
 
@@ -28,6 +29,7 @@ class UsersIdeas extends Component {
  * @memberof UsersIdeas
  */
   componentDidMount() {
+    $('.tooltipped').tooltip({ delay: 30 });
     $('.modal').modal();
   }
   /**
@@ -52,11 +54,28 @@ class UsersIdeas extends Component {
         <div className="card blue-grey lighten-5">
           <div className="card-content black-text">
             <span className="card-title">{ideas.title}</span>
-            <p className="descriptions"> {`${ideas.description.slice(0, 30)}...`} </p>
+            <p className="descriptions"> {compiler(`${ideas.description.slice(0, 30)}...`)} </p>
           </div>
           <div className="card-action">
-            <a className="waves-effect waves-light modal-trigger" href={`#modal${ideas._id}`}><i className="material-icons">create</i></a>            
-            <a href="#" onClick={this.deleteIdea}><i className="material-icons">delete</i></a>
+            <a
+              className="waves-effect waves-light modal-trigger tooltipped"
+              data-position="top"
+              data-delay="30"
+              data-tooltip="edit idea"
+              href={`#modal${ideas._id}`}
+            >
+              <i className="material-icons">create</i>
+            </a>
+            <a href="#" onClick={this.deleteIdea}>
+              <i
+                className="material-icons tooltipped"
+                data-position="top"
+                data-delay="30"
+                data-tooltip="delete idea"
+              >delete
+              </i>
+
+            </a>
           </div>
         </div>
         <EditIdea

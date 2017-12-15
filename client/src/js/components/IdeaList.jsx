@@ -25,24 +25,24 @@ class IdeaList extends Component {
   }
   /**
    *
-   * @returns {void}
    * @memberof IdeaList
+   * @returns {void}
    */
   componentDidMount() {
     AppStore.addChangeListener(this.onChange);
   }
   /**
    * @description This is fire just before the component unmounts
-   * @returns {void}
    * @memberof IdeaList
+   * @returns {void}
    */
   componentWillUnmount() {
     AppStore.removeChangeListener(this.onChange);
   }
   /**
    * @description This method is passed as callback to Store on change
-   *@returns {void}
    * @memberof IdeaList
+   * @returns {void}
    */
   onChange() {
     this.setState({
@@ -50,9 +50,9 @@ class IdeaList extends Component {
     });
   }
   /**
-   *@param {void} event
-   * @returns {void}
+   * @param {void} event
    * @memberof IdeaList
+   * @returns {void}
    */
   setCategory(event) {
     event.preventDefault();
@@ -63,12 +63,13 @@ class IdeaList extends Component {
   /**
    *
    *
-   * @returns {void}
    * @memberof IdeaList
+   * @returns {void}
    */
   render() {
     const { ideaList, category } = this.state;
-    const filteredIdeas = ideaList.filter(idea => idea.category.toLowerCase().indexOf(category.toLowerCase()) !== -1);
+    const filteredIdeas = ideaList.filter(idea =>
+      idea.category.toLowerCase().indexOf(category.toLowerCase()) !== -1);
     return (
       <div className="container ideaList">
         <div className="row">

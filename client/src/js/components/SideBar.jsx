@@ -18,7 +18,13 @@ const SideBar = () => (
         </div>
       </li>
       <ul id="dropdown1" className="dropdown-content">
-        <li><a className="waves-effect waves-light modal-trigger" href="#modal1">Edit Profile</a></li>
+        <li>
+          <a
+            className="waves-effect waves-light modal-trigger"
+            href="#modal1"
+          >Edit Profile
+          </a>
+        </li>
         <li><NavLink to="/dashboard"> Dashboard</NavLink> </li>
         <li><NavLink to="/userIdeas"> My Ideas</NavLink> </li>
         <li className="divider" />
@@ -33,11 +39,25 @@ const SideBar = () => (
           </a>
         </li>
       </ul>
-      <li><a className="dropdown-button" href="#!" data-activates="dropdown1">Options<i className="material-icons right">arrow_drop_down</i></a></li>
+      <li>
+        <a
+          className="dropdown-button"
+          href="#!"
+          data-activates="dropdown1"
+        >
+          Options
+          <i className="material-icons right">arrow_drop_down</i>
+        </a>
+      </li>
       <li className="divider" />
 
     </ul>
-    <a href="" data-activates="slide-out" className="button-collapse"><i className="material-icons">menu</i></a>
+    <a
+      href=""
+      data-activates="slide-out"
+      className="button-collapse"
+    ><i className="material-icons">menu</i>
+    </a>
   </div>
 );
 export default SideBar;

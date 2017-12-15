@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { compiler } from 'markdown-to-jsx';
 import AppActions from '../actions/AppActions';
 import Comments from '../components/Comments';
 
@@ -33,7 +34,7 @@ class CommentsList extends Component {
   /**
    *
    *
-   * @param {any} nextProps
+   * @param {object} nextProps
    * @memberof CommentsList
    * @returns {void}
    */
@@ -58,7 +59,7 @@ class CommentsList extends Component {
     });
   }
   /**
- *
+ * @description Calls the postComment action
  *
  * @memberof CommentsList
  * @returns {void}
@@ -66,29 +67,33 @@ class CommentsList extends Component {
   postComment() {
     const ideaId = this.props.ideas._id;
     const { comment } = this.state;
-    AppActions.postComment(ideaId, comment);
-    this.setState({
-      comment: ''
-    });
+    if (comment !== '') {
+      AppActions.postComment(ideaId, comment);
+      this.setState({
+        comment: ''
+      });
+    }
   }
   /**
    *
    *
-   * @returns {void}
    * @memberof CommentsList
+   * @returns {void}
    */
   render() {
     const { comments } = this.state;
     return (
       <div>
         <div id={`modal${this.props.ideas._id}`} className="modal modal-fixed-footer">
-          <a href="#!" className="rightSide modal-action modal-close waves-effect waves-green btn-flat">
+          <a
+            href="#!"
+            className="rightSide modal-action modal-close waves-effect waves-green btn-flat">
             <i className="material-icons">cancel</i>
           </a>
           <div className="modal-content">
             <div className="collection">
               <div className="collection-item">
-                <p className="headers">{this.props.ideas.description}</p>
+                <p className="headers">{compiler(this.props.ideas.description)}</p>
               </div>
             </div>
             <h5>Comments</h5>
@@ -108,14 +113,15 @@ class CommentsList extends Component {
                   value={this.state.comment}
                   onChange={this.onEvent}
                   placeholder="Post your comment"
-                /></div>
+                />
+              </div>
               <div className="col s4 m4">
                 <button
                   onClick={this.postComment}
                   className="btn waves-effect waves-light orange"
                 >
                   Post
-                  </button>
+                </button>
               </div>
             </div>
           </div>

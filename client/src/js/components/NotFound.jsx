@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom';
 import Img from 'react-image';
 /**
  * @description This component is rendered when an invalid route is hit
+ * @return {void}
  */
 const NotFound = () => (
   <div className="container">

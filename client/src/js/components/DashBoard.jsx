@@ -46,6 +46,15 @@ class DashBoard extends Component {
   /**
    *
    *
+   * @memberof DashBoard
+   * @return {void}
+   */
+  componentWillUnmount() {
+    AppStore.removeChangeListener(this.onChange);
+  }
+  /**
+   *
+   *
    * @param {any} event
    * @memberof DashBoard
    * @returns {void}
@@ -61,8 +70,8 @@ class DashBoard extends Component {
 
   /**
    *
-   * @return {void}
    * @memberof DashBoard
+   * @return {void}
    */
   onChange() {
     this.setState({
@@ -85,8 +94,8 @@ class DashBoard extends Component {
   }
   /**
    *
-   * @return {void}
    * @memberof DashBoard
+   * @return {void}
    */
   doSearch() {
     const searchQuery = this.state.search;
@@ -113,8 +122,8 @@ class DashBoard extends Component {
   /**
    *
    *
-   * @returns {void}
    * @memberof DashBoard
+   * @returns {void}
    */
   render() {
     const { modalShown, pageInfo } = this.state;
