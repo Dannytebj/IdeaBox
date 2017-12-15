@@ -75,7 +75,11 @@ class ResetPassword extends Component {
               </div>
             </div>
             <div className="modal-footer">
-              <a href="#!" className="modal-action modal-close waves-effect waves-green btn-flat ">close</a>
+              <a
+                href="#!"
+                className="modal-action modal-close waves-effect waves-green btn-flat "
+              >close
+              </a>
             </div>
           </div>
         </div>

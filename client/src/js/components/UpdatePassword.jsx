@@ -27,15 +27,6 @@ class UpdatePassword extends Component {
     this.onEvent = this.onEvent.bind(this);
     this.updatePassword = this.updatePassword.bind(this);
   }
-
-  /**
-   *
-   *
-   * @memberof UpdatePassword
-   * @return {void}
-   */
-  componentDidMount() {
-  }
   /**
    *
    * @returns {void}
