@@ -27,13 +27,13 @@ var _validators2 = _interopRequireDefault(_validators);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var router = _express2.default.Router();
-router.post('/api/v1/signUp', _validators2.default.validateSignUp, _userControllers2.default.signUp);
-router.post('/api/v1/signIn', _userControllers2.default.signIn);
-router.post('/api/v1/resetPassword', _userControllers2.default.resetPassword);
-router.put('/api/v1/updatePassword/:hash', _userControllers2.default.updatePassword);
-router.put('/api/v1/updateProfile', _validators2.default.validateToken, _validators2.default.validateProfile, _userControllers2.default.updateProfile);
+router.post('/api/v1/user/signUp', _validators2.default.validateSignUp, _userControllers2.default.signUp);
+router.post('/api/v1/user/signIn', _userControllers2.default.signIn);
+router.post('/api/v1/user/resetPassword', _userControllers2.default.resetPassword);
+router.put('/api/v1/user/updatePassword/:hash', _userControllers2.default.updatePassword);
+router.put('/api/v1/user/updateProfile', _validators2.default.validateToken, _validators2.default.validateProfile, _userControllers2.default.updateProfile);
 router.post('/api/v1/idea', _validators2.default.validateToken, _validators2.default.validateIdea, _ideaControllers2.default.create);
-router.delete('/api/v1/idea/delete/:ideaId', _validators2.default.validateToken, _ideaControllers2.default.delete);
+router.delete('/api/v1/idea/:ideaId', _validators2.default.validateToken, _ideaControllers2.default.delete);
 router.put('/api/v1/idea', _validators2.default.validateToken, _validators2.default.validateIdea, _ideaControllers2.default.editIdea);
 router.post('/api/v1/search', _ideaControllers2.default.publicIdeas);
 router.get('/api/v1/user/ideas', _validators2.default.validateToken, _ideaControllers2.default.getUsersIdeas);

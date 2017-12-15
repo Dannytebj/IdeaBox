@@ -19,7 +19,7 @@ describe('Ideas', () => {
     const email = 'dannytebj@gmail.com';
     const password = 'asd123';
     chai.request(app)
-      .post('/api/v1/signIn', userControllers.signIn)
+      .post('/api/v1/user/signIn', userControllers.signIn)
       .set('Accept', 'application/json')
       .send({ email, password })
       .end((err, res) => {
@@ -142,7 +142,7 @@ describe('Ideas', () => {
       const email = 'dannytebj@yahoo.com';
       const password = '123asd';
       chai.request(app)
-        .post('/api/v1/signIn', userControllers.signIn)
+        .post('/api/v1/user/signIn', userControllers.signIn)
         .send({ email, password })
         .set('Accept', 'application/json')
         .end((err, res) => {
@@ -180,7 +180,7 @@ describe('Ideas', () => {
       'should return 403 if the user deleting an idea is not the author',
       (done) => {
         chai.request(app)
-          .delete(`/api/v1/idea/delete/${ideaId}`, ideaController.delete)
+          .delete(`/api/v1/idea/${ideaId}`, ideaController.delete)
           .set('Accept', 'application/json')
           .set('x-access-token', token2)
           .end((err, res) => {
@@ -197,7 +197,7 @@ describe('Ideas', () => {
       'should return 200 when the author of an idea deletes that idea',
       (done) => {
         chai.request(app)
-          .delete(`/api/v1/idea/delete/${ideaId}`, ideaController.delete)
+          .delete(`/api/v1/idea/${ideaId}`, ideaController.delete)
           .set('Accept', 'application/json')
           .set('x-access-token', jwtToken)
           .end((err, res) => {

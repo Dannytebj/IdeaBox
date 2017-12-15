@@ -37,7 +37,7 @@ describe('Ideas', function () {
   before(function (done) {
     var email = 'dannytebj@gmail.com';
     var password = 'asd123';
-    _chai2.default.request(app).post('/api/v1/signIn', _userControllers2.default.signIn).set('Accept', 'application/json').send({ email: email, password: password }).end(function (err, res) {
+    _chai2.default.request(app).post('/api/v1/user/signIn', _userControllers2.default.signIn).set('Accept', 'application/json').send({ email: email, password: password }).end(function (err, res) {
       if (res) {
         jwtToken = res.body.token;
       }
@@ -126,7 +126,7 @@ describe('Ideas', function () {
     it('should signIn another user ', function (done) {
       var email = 'dannytebj@yahoo.com';
       var password = '123asd';
-      _chai2.default.request(app).post('/api/v1/signIn', _userControllers2.default.signIn).send({ email: email, password: password }).set('Accept', 'application/json').end(function (err, res) {
+      _chai2.default.request(app).post('/api/v1/user/signIn', _userControllers2.default.signIn).send({ email: email, password: password }).set('Accept', 'application/json').end(function (err, res) {
         if (res) {
           token2 = res.body.token;
         }
@@ -152,7 +152,7 @@ describe('Ideas', function () {
 
   describe('Delete Method', function () {
     it('should return 403 if the user deleting an idea is not the author', function (done) {
-      _chai2.default.request(app).delete('/api/v1/idea/delete/' + ideaId, _ideaControllers2.default.delete).set('Accept', 'application/json').set('x-access-token', token2).end(function (err, res) {
+      _chai2.default.request(app).delete('/api/v1/idea/' + ideaId, _ideaControllers2.default.delete).set('Accept', 'application/json').set('x-access-token', token2).end(function (err, res) {
         if (res) {
           res.status.should.equal(403);
           res.body.should.have.property('message').equal('Sorry only the author can delete this idea!');
@@ -161,7 +161,7 @@ describe('Ideas', function () {
       });
     });
     it('should return 200 when the author of an idea deletes that idea', function (done) {
-      _chai2.default.request(app).delete('/api/v1/idea/delete/' + ideaId, _ideaControllers2.default.delete).set('Accept', 'application/json').set('x-access-token', jwtToken).end(function (err, res) {
+      _chai2.default.request(app).delete('/api/v1/idea/' + ideaId, _ideaControllers2.default.delete).set('Accept', 'application/json').set('x-access-token', jwtToken).end(function (err, res) {
         if (res) {
           res.status.should.equal(200);
           res.body.should.have.property('message').equal('Idea deleted successfully');
