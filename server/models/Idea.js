@@ -2,8 +2,9 @@ import mongoose from 'mongoose';
 import mongoosePaginate from 'mongoose-paginate';
 
 const ideaSchema = new mongoose.Schema({
-  title: { type: String },
+  title: { type: String, required: true },
   authorId: { type: String },
+  author: { type: String },
   comment: [{
     id: {
       type: mongoose.Schema.Types.ObjectId,

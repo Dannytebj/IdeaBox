@@ -318,7 +318,7 @@ describe('Users', () => {
           done();
         });
     });
-    it('Should return 200 if nprofile update is successful', (done) => {
+    it('Should return 201 if nprofile update is successful', (done) => {
       const username = 'dannyyoo';
       const name = 'Dbizzle21';
       chai.request(app)
@@ -328,7 +328,7 @@ describe('Users', () => {
         .send({ username, name })
         .end((err, res) => {
           if (res) {
-            res.status.should.equal(200);
+            res.status.should.equal(201);
             res.body.should.have.property('message')
               .equal('Profile Update successful');
           }

@@ -17,7 +17,8 @@ exports.create = (req, res) => {
     description,
     category,
     ideaStatus,
-    authorId: req.decoded._id
+    authorId: req.decoded._id,
+    author: req.decoded.username
   };
   const newIdea = new Idea(ideaDetails);
   newIdea.save((error, postedIdea) => {

@@ -87,12 +87,15 @@ class CommentsList extends Component {
         <div id={`modal${this.props.ideas._id}`} className="modal modal-fixed-footer">
           <a
             href="#!"
-            className="rightSide modal-action modal-close waves-effect waves-green btn-flat">
+            className="rightSide modal-action modal-close waves-effect waves-green btn-flat"
+          >
             <i className="material-icons">cancel</i>
           </a>
           <div className="modal-content">
             <div className="collection">
+              <span className="thumbnails">Created By : {this.props.ideas.author}</span>
               <div className="collection-item">
+
                 <p className="headers">{compiler(this.props.ideas.description)}</p>
               </div>
             </div>

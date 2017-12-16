@@ -58,10 +58,7 @@ exports.fetchComment = (req, res) => {
     .populate('author')
     .then((comments) => {
       if (!comments) {
-        return res.status(404).send({
-          success: false,
-          message: 'No comments found!'
-        });
+        return res.status(304);
       }
       res.status(200).send({
         comments,

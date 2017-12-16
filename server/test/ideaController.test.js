@@ -98,12 +98,10 @@ describe('Ideas', () => {
   });
   describe('Get Users Idea Method:', () => {
     it('should return 200 when users ideas are fetched', (done) => {
-      const searchQuery = 'Testing';
       chai.request(app)
         .get('/api/v1/user/ideas?offset=1&limit=5', ideaController.getUsersIdeas)
         .set('Accept', 'application/json')
         .set('x-access-token', jwtToken)
-        .send({ searchQuery })
         .end((err, res) => {
           if (res) {
             res.status.should.equal(200);
@@ -253,6 +251,7 @@ describe('Comments', () => {
         done();
       });
   });
+
   describe('Create method', () => {
     it('should return 200 when comment is saved', (done) => {
       const comment = 'Nice App Baddoo';
@@ -270,6 +269,22 @@ describe('Comments', () => {
           done();
         });
     });
+    it('should return 400 if comment field is empty', (done) => {
+      const comment = '';
+      chai.request(app)
+        .post('/api/v1/comment', commentController.create)
+        .set('Accept', 'application/json')
+        .set('x-access-token', jwtToken)
+        .send({ ideaId, comment })
+        .end((err, res) => {
+          if (res) {
+            res.status.should.equal(400);
+            res.body.should.have.property('message')
+              .equal('comment field cannot be empty');
+          }
+          done();
+        });
+    });
     it('should return 404 if idea not found', (done) => {
       const comment = 'Nice App Baddoo';
       const ideaId = '5a264b0d5298759168667fe5';
@@ -283,6 +298,22 @@ describe('Comments', () => {
             res.status.should.equal(404);
             res.body.should.have.property('message')
               .equal('idea not found!');
+          }
+          done();
+        });
+    });
+  });
+  describe('Fetch Method', () => {
+    it('should return 200 when comments are fetched successfully', (done) => {
+      chai.request(app)
+        .get(`/api/v1/comment/${ideaId}`, commentController.fetchComment)
+        .set('Accept', 'application/json')
+        .set('x-access-token', jwtToken)
+        .end((err, res) => {
+          if (res) {
+            res.status.should.equal(200);
+            res.body.should.have.property('message')
+              .equal('Comments fetched Successfully!');
           }
           done();
         });

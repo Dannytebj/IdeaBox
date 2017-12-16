@@ -85,8 +85,8 @@ class Ideas extends Component {
         <div className="card blue-grey lighten-5">
           <div className="card-content black-text">
             <span className="card-title">{ideas.title}</span>
-            <span className="thumbnails">{ideas.category}</span>
-            <span className="thumbnails rightSide">{moment(ideas.updatedAt).format('llll')}</span>
+            <span className="thumbnails rightSide">{ideas.category}</span>
+            <span className="thumbnails">{moment(ideas.updatedAt).format('llll')}</span>
             {(ideas.modified === true) ? <span className=" rightSide chip"> Edited</span> : ''}
             <p className="descriptions"> {compiler(`${ideas.description.slice(0, 30)}...`)} </p>
           </div>
