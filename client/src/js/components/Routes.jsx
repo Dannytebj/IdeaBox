@@ -24,7 +24,7 @@ const Routes = () => (
     <div>
       <Switch>
         <Route exact path="/" component={Landing} />
-        <Route path="/updatePassword/:hash" component={UpdatePassword} />
+        <Route path="/updatepassword/:hash" component={UpdatePassword} />
         <Route
           path="/login"
           render={() => (RequireAuth() ?
