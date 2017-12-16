@@ -94,6 +94,7 @@ class CommentsList extends Component {
           <div className="modal-content">
             <div className="collection">
               <span className="thumbnails">Created By : {this.props.ideas.author}</span>
+              <span className="thumbnails rightSide">On: {this.props.ideas.updatedAt}</span>
               <div className="collection-item">
 
                 <p className="headers">{compiler(this.props.ideas.description)}</p>

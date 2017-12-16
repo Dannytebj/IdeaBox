@@ -3,12 +3,12 @@
 [![Maintainability](https://api.codeclimate.com/v1/badges/a99a88d28ad37a79dbf6/maintainability)](https://codeclimate.com/github/codeclimate/codeclimate/maintainability)
 [![Coverage Status](https://coveralls.io/repos/github/Dannytebj/IdeaBox/badge.svg?branch=ft-delete-ideas)](https://coveralls.io/github/Dannytebj/IdeaBox?branch=ft-delete-ideas)
 
-Ideabox is a simple application that allows users to create a pool of ideas and promote collaboration.
+Ideabox is a simple application that allows users to create a pool of ideas and promote collaboration. [Ideabox](https://ideaboxbydanny.herokuapp.com/)
 ## Key Features of this Application
 + Users can Create Account
 + Users can Log in
 
-*Once user is authenticated:*
+*Once a user is authenticated:*
 + Users can Create an Idea
 + Users can see other public ideas 
 + Users can edit ideas
@@ -16,7 +16,6 @@ Ideabox is a simple application that allows users to create a pool of ideas and 
 + Users can edit their profile
 + Users can reset their password
 + Users can share ideas on social media
-
 ## Requirements
 + Node Enviroment 
 + Git 
