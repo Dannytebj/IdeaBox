@@ -3,6 +3,14 @@
   "version": "1.0.0",
   "description": "Ideabox is a simple application that allows users to create a pool of ideas and promote collaboration.",
   "main": "index.js",
+  "engines": {
+    "node": "6.11.1"
+  },
+  "babel": {
+    "presets": [
+      "latest"
+    ]
+  },
   "scripts": {
     "start:server": "nodemon ./node_modules/.bin/babel-node ./server/app.js",
     "start": "NODE_ENV=production node server/dist/app.js",
@@ -42,6 +50,7 @@
     "colors": "^1.1.2",
     "coveralls": "^3.0.0",
     "crypto": "^1.0.1",
+    "css-loader": "^0.28.7",
     "dotenv": "^4.0.0",
     "events": "^1.1.1",
     "express": "^4.16.2",

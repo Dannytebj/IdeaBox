@@ -121,7 +121,7 @@ exports.delete = (req, res) => {
 exports.publicIdeas = (req, res) => {
   const { searchQuery } = req.body;
   Idea.paginate(
-    { $and: [{ ideaStatus: { $ne: 'Private' } }, { description: { $regex: `.*${searchQuery}.*` } }] },
+    { $and: [{ ideaStatus: { $ne: 'Private' } }, { description: { $regex: `.*${searchQuery}.*`, $options: 'i' } }] },
     { limit: Number(req.query.limit), page: Number(req.query.page) }
   )
     .then((ideas) => {

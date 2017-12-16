@@ -29,7 +29,7 @@ describe('Users', () => {
       const password = 'abc123';
       const username = 'Jbizzle';
       chai.request(app)
-        .post('/api/v1/signUp', userControllers.signUp)
+        .post('/api/v1/user/signUp', userControllers.signUp)
         .set('Accept', 'application/json')
         .send({
           email, password, username, name
@@ -50,7 +50,7 @@ describe('Users', () => {
       const password = 'abc123';
       const username = 'Jbizzle';
       chai.request(app)
-        .post('/api/v1/signUp', userControllers.signUp)
+        .post('/api/v1/user/signUp', userControllers.signUp)
         .set('Accept', 'application/json')
         .send({
           email, password, username, name
@@ -70,7 +70,7 @@ describe('Users', () => {
       const password = 'abc123';
       const username = 'Jbizzle';
       chai.request(app)
-        .post('/api/v1/signUp', userControllers.signUp)
+        .post('/api/v1/user/signUp', userControllers.signUp)
         .set('Accept', 'application/json')
         .send({
           email, password, username, name
@@ -90,7 +90,7 @@ describe('Users', () => {
       const email = 'dannytebj@yahoo.com';
       const username = 'Jbizzle';
       chai.request(app)
-        .post('/api/v1/signUp', userControllers.signUp)
+        .post('/api/v1/user/signUp', userControllers.signUp)
         .set('Accept', 'application/json')
         .send({
           email, password, username, name
@@ -110,7 +110,7 @@ describe('Users', () => {
       const name = 'Jack Black';
       const username = 'Jbizzle';
       chai.request(app)
-        .post('/api/v1/signUp', userControllers.signUp)
+        .post('/api/v1/user/signUp', userControllers.signUp)
         .set('Accept', 'application/json')
         .send({
           email, password, username, name
@@ -131,7 +131,7 @@ describe('Users', () => {
       const email = 'dannytebj@yahoo.com';
       const password = 'abc123';
       chai.request(app)
-        .post('/api/v1/signIn', userControllers.signIn)
+        .post('/api/v1/user/signIn', userControllers.signIn)
         .send({ email, password })
         .set('Accept', 'application/json')
         .end((err, res) => {
@@ -147,7 +147,7 @@ describe('Users', () => {
       const email = 'johndoe4me.com';
       const password = '';
       chai.request(app)
-        .post('/api/v1/signIn', userControllers.signIn)
+        .post('/api/v1/user/signIn', userControllers.signIn)
         .send({ email, password })
         .set('Accept', 'application/json')
         .end((err, res) => {
@@ -163,7 +163,7 @@ describe('Users', () => {
       const email = 'john.doe4me@gmail.com';
       const password = 'asd123';
       chai.request(app)
-        .post('/api/v1/signIn', userControllers.signIn)
+        .post('/api/v1/user/signIn', userControllers.signIn)
         .send({ email, password })
         .set('Accept', 'application/json')
         .end((err, res) => {
@@ -181,7 +181,7 @@ describe('Users', () => {
     it('should return 404 if email address does not exit', (done) => {
       const email = 'kierra@sheard.com';
       chai.request(app)
-        .post('/api/v1/resetPassword', userControllers.resetPassword)
+        .post('/api/v1/user/resetPassword', userControllers.resetPassword)
         .send({ email })
         .set('Accept', 'application/json')
         .end((err, res) => {
@@ -196,7 +196,7 @@ describe('Users', () => {
     it('should return 200 whan reset mail has been sent', (done) => {
       const email = 'dannytebj@yahoo.com';
       chai.request(app)
-        .post('/api/v1/resetPassword', userControllers.resetPassword)
+        .post('/api/v1/user/resetPassword', userControllers.resetPassword)
         .send({ email })
         .set('Accept', 'application/json')
         .end((err, res) => {
@@ -216,7 +216,7 @@ describe('Users', () => {
       const newPassword = '';
       const confirmPassword = '123asd';
       chai.request(app)
-        .put(`/api/v1/updatePassword/${hash}`, userControllers.updatePassword)
+        .put(`/api/v1/user/updatePassword/${hash}`, userControllers.updatePassword)
         .set('Accept', 'application/json')
         .send({ newPassword, confirmPassword })
         .end((err, res) => {
@@ -232,7 +232,7 @@ describe('Users', () => {
       const newPassword = '123asd';
       const confirmPassword = '';
       chai.request(app)
-        .put(`/api/v1/updatePassword/${hash}`, userControllers.updatePassword)
+        .put(`/api/v1/user/updatePassword/${hash}`, userControllers.updatePassword)
         .set('Accept', 'application/json')
         .send({ newPassword, confirmPassword })
         .end((err, res) => {
@@ -250,7 +250,7 @@ describe('Users', () => {
         const newPassword = '112qw';
         const confirmPassword = '123asd';
         chai.request(app)
-          .put(`/api/v1/updatePassword/${hash}`, userControllers.updatePassword)
+          .put(`/api/v1/user/updatePassword/${hash}`, userControllers.updatePassword)
           .set('Accept', 'application/json')
           .send({ newPassword, confirmPassword })
           .end((err, res) => {
@@ -267,7 +267,7 @@ describe('Users', () => {
       const newPassword = '123asd';
       const confirmPassword = '123asd';
       chai.request(app)
-        .put(`/api/v1/updatePassword/${hash}`, userControllers.updatePassword)
+        .put(`/api/v1/user/updatePassword/${hash}`, userControllers.updatePassword)
         .set('Accept', 'application/json')
         .send({ newPassword, confirmPassword })
         .end((err, res) => {
@@ -287,7 +287,7 @@ describe('Users', () => {
       const username = 'dannyboy';
       const name = 'daniel doe';
       chai.request(app)
-        .post('/api/v1/signUp', userControllers.signUp)
+        .post('/api/v1/user/signUp', userControllers.signUp)
         .set('Accept', 'application/json')
         .send({
           email, password, username, name
@@ -305,7 +305,7 @@ describe('Users', () => {
       const username = 'dannyboy';
       const name = 'Dbizzle doe';
       chai.request(app)
-        .put('/api/v1/updateProfile', userControllers.updateProfile)
+        .put('/api/v1/user/updateProfile', userControllers.updateProfile)
         .set('Accept', 'application/json')
         .set('x-access-token', jwtToken)
         .send({ username, name })
@@ -322,7 +322,7 @@ describe('Users', () => {
       const username = 'dannyyoo';
       const name = 'Dbizzle21';
       chai.request(app)
-        .put('/api/v1/updateProfile', userControllers.updateProfile)
+        .put('/api/v1/user/updateProfile', userControllers.updateProfile)
         .set('Accept', 'application/json')
         .set('x-access-token', jwtToken)
         .send({ username, name })
