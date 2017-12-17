@@ -244,6 +244,7 @@ class AppStore extends EventEmitter {
         this.emitChange();
         break;
       case AppConstants.RECEIVE_COMMENTS:
+        commentsArray = [];
         setComments(action.payload);
         this.emitChange();
         break;

@@ -23,4 +23,5 @@ module.exports = keyMirror({
   UPDATE_PASSWORD: null,
   GET_UPDATED_IDEA: null,
   GET_CATEGORY: null,
+  CLEAR_COMMENTS: null
 });

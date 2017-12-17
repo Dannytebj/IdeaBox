@@ -262,6 +262,11 @@ const AppActions = {
     AppDispatcher.handleViewAction({
       type: AppConstants.CLICK_SIGN_OUT,
     });
+  },
+  clearArray: () => {
+    AppDispatcher.handleViewAction({
+      type: AppConstants.CLEAR_COMMENTS,
+    });
   }
 };
 
