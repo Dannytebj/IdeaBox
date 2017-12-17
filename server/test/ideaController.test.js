@@ -228,6 +228,25 @@ describe('Ideas', () => {
         });
     });
   });
+  describe('Filter Method', () => {
+    it('should return 200 if category is found', (done) => {
+      const category = 'Test';
+      chai.request(app)
+        .post('/api/v1/idea/category?offset=1&limit=5', ideaController.getCategory)
+        .set('Accept', 'application/json')
+        .set('x-access-token', jwtToken)
+        .send({ category })
+        .end((err, res) => {
+          if (res) {
+            res.status.should.equal(200);
+            res.body.should.have.property('message')
+              .equal('Ideas successfully fetched');
+            expect(res.body).to.have.property('pageInfo');
+          }
+          done();
+        });
+    });
+  });
 }); // End of Test Suite
 
 describe('Comments', () => {
