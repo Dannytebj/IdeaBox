@@ -18,7 +18,7 @@ const ideaSchema = new mongoose.Schema({
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now },
 });
-ideaSchema.index({ title: 'text', description: 'text' });
+ideaSchema.index({ title: 'text', description: 'text', category: 'text' });
 ideaSchema.plugin(mongoosePaginate);
 const Idea = mongoose.model('Idea', ideaSchema);
 

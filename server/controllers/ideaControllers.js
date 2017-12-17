@@ -170,3 +170,34 @@ exports.getUsersIdeas = (req, res) => {
     });
 };
 
+/**
+   * get all users ideas
+   * @param {any} req user request object
+   * @param {any} res servers response
+   * @return {void}
+   */
+exports.getCategory = (req, res) => {
+  const { category } = req.body;
+  Idea.paginate(
+    { $and: [{ category: { $regex: `.*${category}.*` } }, { ideaStatus: { $ne: 'Private' } }] },
+    { limit: Number(req.query.limit), page: Number(req.query.page) }
+  )
+    .then((ideas) => {
+      const pageInfo = {
+        pages: ideas.pages,
+        page: ideas.page,
+        total: ideas.total,
+      };
+      res.status(200).send({
+        ideas: ideas.docs,
+        pageInfo,
+        message: 'Ideas successfully fetched'
+      });
+    })
+    .catch((error) => {
+      res.status(400).send({
+        error: error.message
+      });
+    });
+};
+

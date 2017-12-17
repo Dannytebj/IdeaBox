@@ -203,6 +203,10 @@ class AppStore extends EventEmitter {
         AppAPI.createIdea(action.payload);
         this.emitChange();
         break;
+      case AppConstants.GET_CATEGORY:
+        AppAPI.getCategory(action.payload);
+        this.emitChange();
+        break;
       case AppConstants.GET_CREATED_IDEA:
         updateIdeas(action.payload);
         this.emitChange();

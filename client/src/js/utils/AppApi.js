@@ -105,6 +105,18 @@ module.exports = {
         toastr.error(message);
       });
   },
+  getCategory({ offset, category }) {
+    const limit = 10;
+    axios.post(`/api/v1/idea/category?page=${offset}&limit=${limit}`, { category })
+      .then((response) => {
+        const { ideas, pageInfo } = response.data;
+        AppActions.receiveIdeas(ideas, pageInfo);
+      })
+      .catch((error) => {
+        const { message } = error.response.data;
+        toastr.error(message);
+      });
+  },
   getUserIdeas({ offset }) {
     const limit = 10;
     axios.get(`/api/v1/user/ideas?page=${offset}&limit=${limit}`)

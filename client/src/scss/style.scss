@@ -2,12 +2,11 @@
 
 
 body {
-    height: 100vh;
   width: 100%;
   background-image: url(https://res.cloudinary.com/dannytebj/image/upload/v1512711045/bg1_yjgudu.jpg);
     background-size: cover;
     background-repeat: no-repeat;
-  overflow: hidden;
+  overflow: scroll;
 .logo {
  margin-top: 15vh; 
 }
@@ -143,10 +142,10 @@ footer {
 }
 @media only screen and (min-width: 992px){
   .ideaList {
-    height: 405px;
+    height: 45vh;
   }
   .myIdeaList {
-    height: 480px;
+    height: 70vh;
   }
 }
 }

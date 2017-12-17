@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 import { compiler } from 'markdown-to-jsx';
 import AppActions from '../actions/AppActions';
 import Comments from '../components/Comments';
@@ -94,7 +95,7 @@ class CommentsList extends Component {
           <div className="modal-content">
             <div className="collection">
               <span className="thumbnails">Created By : {this.props.ideas.author}</span>
-              <span className="thumbnails rightSide">On: {this.props.ideas.updatedAt}</span>
+              <span className="thumbnails rightSide">On: {moment(this.props.ideas.updatedAt).format('llll')}</span>
               <div className="collection-item">
 
                 <p className="headers">{compiler(this.props.ideas.description)}</p>

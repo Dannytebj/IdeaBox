@@ -21,7 +21,7 @@ class IdeaList extends Component {
       category: ''
     };
     this.onChange = this.onChange.bind(this);
-    this.setCategory = this.setCategory.bind(this);
+    // this.setCategory = this.setCategory.bind(this);
   }
   /**
    *
@@ -49,17 +49,18 @@ class IdeaList extends Component {
       ideaList: AppStore.getIdeas()
     });
   }
-  /**
-   * @param {void} event
-   * @memberof IdeaList
-   * @returns {void}
-   */
-  setCategory(event) {
-    event.preventDefault();
-    this.setState({
-      category: event.target.value
-    });
-  }
+  // /**
+  //  * @param {void} event
+  //  * @memberof IdeaList
+  //  * @returns {void}
+  //  */
+  // setCategory(event) {
+  //   event.preventDefault();
+  //   const category = event.target.value;
+  //   this.setState({
+  //     category,
+  //   });
+  // }
   /**
    *
    *
@@ -68,35 +69,14 @@ class IdeaList extends Component {
    */
   render() {
     const { ideaList, category } = this.state;
-    const filteredIdeas = ideaList.filter(idea =>
-      idea.category.toLowerCase().indexOf(category.toLowerCase()) !== -1);
+    // const filteredIdeas = ideaList.filter(idea =>
+    //   idea.category.toLowerCase().indexOf(category.toLowerCase()) !== -1);
     return (
       <div className="container ideaList">
-        <div className="row">
-          <div className="col m4">
-            {(ideaList.length > 0) ?
-              <select
-                className="browser-default"
-                onChange={this.setCategory}
-                value={this.state.category}
-                name="category"
-              >
-                <option value="" defaultValue >Choose your option</option>
-                <option value="Politics">Politics</option>
-                <option value="Sport">Sport</option>
-                <option value="Crime">Crime</option>
-                <option value="Fashion">Fashion</option>
-                <option value="Information Technology">Information Technology</option>
-                <option value="Agriculture">Agriculture</option>
-                <option value="Finance">Finance</option>
-                <option value="Entertainment">Entertainment</option>
-                <option value="Others">Others</option>
-              </select> : ''}
-          </div>
-        </div>
+
         <div className="row">
           {
-            filteredIdeas.map(ideas => (<Ideas ideas={ideas} key={ideas._id} />))
+            ideaList.map(ideas => (<Ideas ideas={ideas} key={ideas._id} />))
           }
         </div>
       </div>
