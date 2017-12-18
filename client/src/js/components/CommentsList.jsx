@@ -25,7 +25,7 @@ class CommentsList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      comments: props.comments || [],
+      comments: [],
       comment: ''
     };
     this.onEvent = this.onEvent.bind(this);
