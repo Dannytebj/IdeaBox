@@ -19,7 +19,6 @@ Ideabox is a simple application that allows users to create a pool of ideas and 
 ## Requirements
 + Node Enviroment 
 + Git 
-+ Firebase Database Account
 + Postman
 + Google Chrome
 
