@@ -21,6 +21,7 @@ Ideabox is a simple application that allows users to create a pool of ideas and 
 + Git 
 + Postman
 + Google Chrome
++ MongoDB 
 
 *N.B:* See package.json for project dependencies
 
