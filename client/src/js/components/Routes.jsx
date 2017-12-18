@@ -23,7 +23,12 @@ const Routes = () => (
   <Router history={appHistory} >
     <div>
       <Switch>
-        <Route exact path="/" component={Landing} />
+        <Route
+          exact
+          path="/"
+          render={() => (RequireAuth() ?
+      (<DashBoard />) : (<Landing />))}
+        />
         <Route path="/updatepassword/:hash" component={UpdatePassword} />
         <Route
           path="/login"
