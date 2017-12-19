@@ -1,31 +1,54 @@
 {
-  "src_folders": ["tests"],
-  "output_folder": "reports",
-  "custom_commands_path": "",
-  "custom_assertions_path": "",
-  "page_objects_path": "pages",
-  "globals_path": "globals",
+  "src_folders" : ["client/tests/e2e-tests"],
+  "output_folder" : "reports",
+  "custom_commands_path" : "",
+  "custom_assertions_path" : "",
+  "page_objects_path" : "",
+  "globals_path" : "",
 
-  "selenium": {
-    "start_process": true,
-    "server_path": "./node_modules/selenium-standalone/.selenium/selenium-server/2.53.0-server.jar",
-    "log_path": "./reports",
+  "selenium" : {
+    "start_process" : false,
+    "server_path" : "node_modules/selenium-standalone/.selenium/selenium-server/3.7.1-server.jar",
+    "log_path" : "./reports",
     "host": "127.0.0.1",
-    "port": 4444,
-    "cli_args": {
-      "webdriver.chrome.driver": "./node_modules/selenium-standalone/.selenium/chromedriver/2.21-x64-chromedriver"
+    "port" : 4444,
+    "cli_args" : {
+      "webdriver.chrome.driver" : "",
+      "webdriver.gecko.driver" : "",
+      "webdriver.edge.driver" : ""
     }
   },
-  "test_settings": {
-    "default": {
-      "launch_url": "https://dashboard.syncano.io",
-      "selenium_port": 4444,
-      "selenium_host": "localhost",
+
+  "test_settings" : {
+    "default" : {
+      "launch_url" : "http://localhost",
+      "selenium_port"  : 4444,
+      "selenium_host"  : "localhost",
       "silent": true,
+      "screenshots" : {
+        "enabled" : false,
+        "path" : ""
+      },
       "desiredCapabilities": {
         "browserName": "chrome",
+        "chromeOptions" : {
+          "args" : ["start-fullscreen"]
+        },
+        "marionette": false,
         "javascriptEnabled": true,
         "acceptSslCerts": true
+      }
+    },
+
+    "chrome" : {
+      "desiredCapabilities": {
+        "browserName": "chrome"
+      }
+    },
+
+    "edge" : {
+      "desiredCapabilities": {
+        "browserName": "MicrosoftEdge"
       }
     }
   }

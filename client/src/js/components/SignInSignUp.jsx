@@ -114,7 +114,7 @@ class SignInSignUp extends Component {
                 <div className="row">
                   <div className="input-field col s12">
                     <TextBox
-                      className="textBox"
+                      className="name"
                       onChange={(value) => { this.setState({ name: value }); }}
                       label="Full Name"
                       currentValue={name}
@@ -124,7 +124,7 @@ class SignInSignUp extends Component {
                     <div className="input-field col s12">
                       <i className="mdi-social-person-outline prefix" />
                       <TextBox
-                        className="textBox"
+                        className="user-name"
                         onChange={(value) => {
                           this.setState({ username: value });
                         }}
@@ -137,7 +137,7 @@ class SignInSignUp extends Component {
               <div className="row">
                 <div className="input-field col s12">
                   <TextBox
-                    className="textBox"
+                    className="email"
                     onChange={(value) => { this.setState({ email: value }); }}
                     label="Email"
                     currentValue={email}
@@ -159,7 +159,7 @@ class SignInSignUp extends Component {
                 <div className="row">
                   <div className="input-field col s12">
                     <TextBox
-                      className="password"
+                      className="confirm-password"
                       onChange={(value) => { this.setState({ confirmPassword: value }); }}
                       label="Confirm Password"
                       currentValue={confirmPassword}

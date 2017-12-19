@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<testsuites errors="0"
+            failures="0"
+            tests="5">
+
+  <testsuite name="login.test"
+    errors="0" failures="0" hostname="" id="" package="login.test" skipped="0"
+    tests="5" time="92.54" timestamp="Tue, 19 Dec 2017 11:12:45 GMT">
+  
+    <testcase name="shows the landing page" classname="login.test" time="7.608" assertions="2">
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="landing page should have button text GET STARTED" classname="login.test" time="7.958" assertions="3">
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="SignUp page should have heading text SIGN UP" classname="login.test" time="6.105" assertions="3">
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="SignIn page should successfully signIn registered user" classname="login.test" time="26.31" assertions="9">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    </testcase>
+  
+    <testcase name="Signed In users should be able to create an Idea" classname="login.test" time="44.56" assertions="15">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    </testcase>
+  
+
+  
+
+  
+  </testsuite>
+</testsuites>

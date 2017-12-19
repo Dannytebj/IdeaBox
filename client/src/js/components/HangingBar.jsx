@@ -92,7 +92,7 @@ class HangingBar extends Component {
             <div className="row">
               <div className="input-field col s12 m6">
                 <TextBox
-                  className="textBox"
+                  className="title"
                   onChange={(value) => { this.setState({ title: value }); }}
                   label="title"
                   currentValue={title}
@@ -158,6 +158,7 @@ class HangingBar extends Component {
                   <button
                     onClick={this.handleCreateIdea}
                     className="btn-large waves-effect waves-light orange"
+                    id="create"
                   >Create
                   </button>
                 </div>

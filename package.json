@@ -21,7 +21,7 @@
     "coverage": "nyc report --reporter=text-lcov | coveralls",
     "postinstall": "[\"$NODE_ENV\" != production ] && exit 0; npm run build",
     "test": "NODE_ENV=test nyc --reporter=html --reporter=text ./node_modules/.bin/mocha --compilers js:babel-core/register --timeout 50000 server/test/*.test.js",
-    "e2e-setup": "node_modules/selenium-standalone/bin/selenium-standalone install"
+    "e2e-setup": "selenium-standalone install"
   },
   "repository": {
     "type": "git",
