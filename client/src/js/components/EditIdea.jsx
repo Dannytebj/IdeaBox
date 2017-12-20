@@ -111,7 +111,7 @@ class EditIdea extends Component {
               <div className="row">
                 <div className="input-field col s12 m12">
                   <TextBox
-                    className="textBox"
+                    className="title"
                     onChange={(value) => { this.setState({ title: value }); }}
                     label="title"
                     currentValue={this.state.title}

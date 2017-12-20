@@ -61,6 +61,7 @@ class SignInSignUp extends Component {
    * @returns {void}
    */
   onChange() {
+    this.forceUpdate();
   }
   /**
    * @description Triggers an action

@@ -18,10 +18,8 @@ class IdeaList extends Component {
     super(props);
     this.state = {
       ideaList: [],
-      category: ''
     };
     this.onChange = this.onChange.bind(this);
-    // this.setCategory = this.setCategory.bind(this);
   }
   /**
    *
@@ -49,18 +47,6 @@ class IdeaList extends Component {
       ideaList: AppStore.getIdeas()
     });
   }
-  // /**
-  //  * @param {void} event
-  //  * @memberof IdeaList
-  //  * @returns {void}
-  //  */
-  // setCategory(event) {
-  //   event.preventDefault();
-  //   const category = event.target.value;
-  //   this.setState({
-  //     category,
-  //   });
-  // }
   /**
    *
    *
@@ -68,9 +54,7 @@ class IdeaList extends Component {
    * @returns {void}
    */
   render() {
-    const { ideaList, category } = this.state;
-    // const filteredIdeas = ideaList.filter(idea =>
-    //   idea.category.toLowerCase().indexOf(category.toLowerCase()) !== -1);
+    const { ideaList } = this.state;
     return (
       <div className="container ideaList">
 

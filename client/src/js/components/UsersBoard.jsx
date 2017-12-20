@@ -38,7 +38,15 @@ class UsersBoard extends Component {
     this.getUserIdeas();
     AppStore.addChangeListener(this.onChange);
   }
-
+  /**
+   *
+   *
+   * @memberof UsersBoard
+   * @return {void}
+   */
+  componentWillUnmount() {
+    AppStore.removeChangeListener(this.onChange);
+  }
   /**
    *
    * @return {void}
