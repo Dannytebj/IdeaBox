@@ -2,7 +2,6 @@ import React from 'react';
 import Enzyme, { shallow, mount } from 'enzyme';
 import Adapter from 'enzyme-adapter-react-15';
 import localStorageMock from './mocks/localStorageMock';
-import Comments from '../js/components/Comments';
 import CommentsList from '../js/components/CommentsList';
 import MockDetails from './mocks/mockDetails';
 

@@ -124,6 +124,8 @@
       "!webpack.dev.js",
       "!nightwatch.conf.js",
       "!client/src/__test__/mocks/**",
+      "!client/src/js/utils/AppApi.js",
+      "!client/src/js/utils/SetTokenHeader.js",
       "!client/src/js/components/Groups.jsx"
     ],
     "setupFiles": [

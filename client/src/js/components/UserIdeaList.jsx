@@ -69,8 +69,6 @@ class UserIdeaList extends Component {
    */
   render() {
     const { userIdeaList, category } = this.state;
-    const filteredIdeas = userIdeaList.filter(idea =>
-      idea.category.toLowerCase().indexOf(category.toLowerCase()) !== -1);
     return (
       <div className="container myIdeaList">
         <div className="row">
@@ -101,7 +99,7 @@ class UserIdeaList extends Component {
         </div>
         <div className="row">
           {
-            filteredIdeas.map(ideas => (<UsersIdeas ideas={ideas} key={ideas._id} />))
+            userIdeaList.map(ideas => (<UsersIdeas ideas={ideas} key={ideas._id} />))
           }
         </div>
       </div>

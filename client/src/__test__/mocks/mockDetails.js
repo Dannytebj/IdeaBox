@@ -12,6 +12,37 @@ const MockDetails = {
     description: 'This is a test',
     author: ''
   },
+  pageInfo: {
+    pages: 2,
+    page: 1,
+    total: 10
+  },
+  user: {
+    _id: 'sjdvcgksvvagcv',
+    name: 'Jay Jay',
+    username: 'JayR',
+  },
+  ideaId: 'knlkuu2984eks',
+  postedIdea: {
+    _id: '1234rdxnci05',
+    title: 'Tests',
+    description: 'This is a test',
+    author: ''
+  },
+  comment: {
+    author: {
+      name: 'Sir Alex'
+    },
+    createdAt: Date.now(),
+    comment: 'How far guy!',
+  },
+  comments: {
+    author: {
+      name: 'Sir Alex'
+    },
+    createdAt: Date.now(),
+    comment: 'How far guy!',
+  },
   nextProps: {
     comments: [
       {
