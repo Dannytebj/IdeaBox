@@ -7,7 +7,6 @@ import AppAPI from '../utils/AppApi';
 EventEmitter.prototype._maxListeners = 20; // Set number of event emitter
 
 
-let currentUser = {};
 let currentPageInfo = {};
 let ideaArray = [];
 let userIdeas = [];
@@ -17,11 +16,14 @@ let commentsArray = [];
 /**
  * @description
  * @return {void}
- * @param {any} token
+ * @param {any} payload
  */
-function setCurrentUser(token) {
+function setCurrentUser(payload) {
+  const { token } = payload;
   const userDetails = jwt.decode(token);
-  currentUser = userDetails;
+  const { name, username } = userDetails.token.user;
+  localStorage.setItem('name', name);
+  localStorage.setItem('username', username);
 }
 /**
  * @description updates the ideaArray
@@ -98,16 +100,6 @@ class AppStore extends EventEmitter {
  */
   emitChange() {
     this.emit('change');
-  }
-
-  /**
-   * @description Returns the curerent user signed in
-   *
-   * @returns {object} current user
-   * @memberof AppStore
-   */
-  getUser() {
-    return currentUser;
   }
   /**
    *

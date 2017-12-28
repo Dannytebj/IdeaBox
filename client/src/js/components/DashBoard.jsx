@@ -27,7 +27,7 @@ class DashBoard extends Component {
       search: '',
       category: '',
       offset: 1,
-      pageInfo: {},
+      pageInfo: {}
     };
     this.onClick = this.onClick.bind(this);
     this.setSearch = this.setSearch.bind(this);
@@ -77,7 +77,7 @@ class DashBoard extends Component {
    */
   onChange() {
     this.setState({
-      pageInfo: AppStore.getPageInfo()
+      pageInfo: AppStore.getPageInfo(),
     });
   }
   /**

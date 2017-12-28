@@ -87,6 +87,7 @@ module.exports = {
     }).then((response) => {
       const { user, message } = response.data;
       localStorage.setItem('username', user.username);
+      localStorage.setItem('name', user.name);
       toastr.success(message);
     }).catch((error) => {
       const { message } = error.response.data;
@@ -94,7 +95,7 @@ module.exports = {
     });
   },
   getIdeas({ offset, searchQuery }) {
-    const limit = 10;
+    const limit = 6;
     axios.post(`/api/v1/search?page=${offset}&limit=${limit}`, { searchQuery })
       .then((response) => {
         const { ideas, pageInfo } = response.data;
@@ -106,7 +107,7 @@ module.exports = {
       });
   },
   getCategory({ offset, category }) {
-    const limit = 10;
+    const limit = 6;
     axios.post(`/api/v1/idea/category?page=${offset}&limit=${limit}`, { category })
       .then((response) => {
         const { ideas, pageInfo } = response.data;
@@ -118,7 +119,7 @@ module.exports = {
       });
   },
   getUserIdeas({ offset }) {
-    const limit = 10;
+    const limit = 6;
     axios.get(`/api/v1/user/ideas?page=${offset}&limit=${limit}`)
       .then((response) => {
         const { ideas, pageInfo } = response.data;

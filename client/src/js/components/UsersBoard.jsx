@@ -3,6 +3,7 @@ import ReactPaginate from 'react-paginate';
 import SideBar from '../components/SideBar';
 import AppStore from '../stores/AppStore';
 import AppActions from '../actions/AppActions';
+import EditProfile from '../components/EditProfile';
 import UserIdeaList from '../components/UserIdeaList';
 
 /**
@@ -84,7 +85,8 @@ class UsersBoard extends Component {
 
     return (
       <div className="container-fluid wrapper">
-        <SideBar />
+      <SideBar />    <EditProfile />
+
         <div className="container">
           <div className="nav-wrapper">
             <div className="col s12">
