@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import map from 'lodash/map';
 import AppActions from '../actions/AppActions';
 import TextBox from '../utils/TextBox';
+import categories from '../utils/categories';
 
 /**
  *
@@ -85,6 +87,8 @@ class HangingBar extends Component {
    */
   render() {
     const { title } = this.state;
+    const option = map(categories, (value, key) =>
+      <option key={value} value={value}>{key}</option>);
     return (
       <div id="crossBar">
         <div className="container">
@@ -107,16 +111,8 @@ class HangingBar extends Component {
                   name="category"
                   id="category"
                 >
-                  <option value="" defaultValue >All</option>
-                  <option value="Politics">Politics</option>
-                  <option value="Sport">Sport</option>
-                  <option value="Crime">Crime</option>
-                  <option value="Fashion">Fashion</option>
-                  <option value="Information Technology">Information Technology</option>
-                  <option value="Agriculture">Agriculture</option>
-                  <option value="Finance">Finance</option>
-                  <option value="Entertainment">Entertainment</option>
-                  <option value="Others">Others</option>
+                  <option value="" >Choose  a Category</option>
+                  {option}
                 </select>
               </div>
               <div className="row">

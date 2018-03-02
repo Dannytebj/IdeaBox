@@ -68,13 +68,9 @@ height: 250px;
   color: white;
 }
 .ideaList {
-  overflow: scroll;
-  // height: 460px;
   margin-bottom: 25px;
 }
 .myIdeaList {
-  overflow: scroll;
-  // height: 510px;
   margin-bottom: 25px;
 }
 .card {
@@ -83,7 +79,6 @@ height: 250px;
     font-size: 18px;
   }
   .card-content {
-    overflow: scroll;
     height: 150px;
   }
 }
