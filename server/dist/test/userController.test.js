@@ -248,12 +248,12 @@ describe('Users', function () {
         done();
       });
     });
-    it('Should return 200 if nprofile update is successful', function (done) {
+    it('Should return 201 if nprofile update is successful', function (done) {
       var username = 'dannyyoo';
       var name = 'Dbizzle21';
       _chai2.default.request(app).put('/api/v1/user/updateProfile', _userControllers2.default.updateProfile).set('Accept', 'application/json').set('x-access-token', jwtToken).send({ username: username, name: name }).end(function (err, res) {
         if (res) {
-          res.status.should.equal(200);
+          res.status.should.equal(201);
           res.body.should.have.property('message').equal('Profile Update successful');
         }
         done();

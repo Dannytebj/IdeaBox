@@ -36,6 +36,7 @@ router.post('/api/v1/idea', _validators2.default.validateToken, _validators2.def
 router.delete('/api/v1/idea/:ideaId', _validators2.default.validateToken, _ideaControllers2.default.delete);
 router.put('/api/v1/idea', _validators2.default.validateToken, _validators2.default.validateIdea, _ideaControllers2.default.editIdea);
 router.post('/api/v1/search', _ideaControllers2.default.publicIdeas);
+router.post('/api/v1/idea/category', _ideaControllers2.default.getCategory);
 router.get('/api/v1/user/ideas', _validators2.default.validateToken, _ideaControllers2.default.getUsersIdeas);
 router.post('/api/v1/comment', _validators2.default.validateToken, _commentController2.default.create);
 router.get('/api/v1/comment/:ideaId', _commentController2.default.fetchComment);

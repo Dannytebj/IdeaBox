@@ -25,7 +25,8 @@ exports.create = function (req, res) {
     description: description,
     category: category,
     ideaStatus: ideaStatus,
-    authorId: req.decoded._id
+    authorId: req.decoded._id,
+    author: req.decoded.username
   };
   var newIdea = new _Idea2.default(ideaDetails);
   newIdea.save(function (error, postedIdea) {
@@ -144,6 +145,33 @@ exports.getUsersIdeas = function (req, res) {
   _Idea2.default.paginate({
     authorId: req.decoded._id
   }, { limit: Number(req.query.limit), page: Number(req.query.page) }).then(function (ideas) {
+    var pageInfo = {
+      pages: ideas.pages,
+      page: ideas.page,
+      total: ideas.total
+    };
+    res.status(200).send({
+      ideas: ideas.docs,
+      pageInfo: pageInfo,
+      message: 'Ideas successfully fetched'
+    });
+  }).catch(function (error) {
+    res.status(400).send({
+      error: error.message
+    });
+  });
+};
+
+/**
+   * get all users ideas
+   * @param {any} req user request object
+   * @param {any} res servers response
+   * @return {void}
+   */
+exports.getCategory = function (req, res) {
+  var category = req.body.category;
+
+  _Idea2.default.paginate({ $and: [{ category: { $regex: '.*' + category + '.*' } }, { ideaStatus: { $ne: 'Private' } }] }, { limit: Number(req.query.limit), page: Number(req.query.page) }).then(function (ideas) {
     var pageInfo = {
       pages: ideas.pages,
       page: ideas.page,

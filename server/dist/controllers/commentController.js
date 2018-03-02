@@ -59,10 +59,7 @@ exports.fetchComment = function (req, res) {
     ideaId: req.params.ideaId
   }).populate('author').then(function (comments) {
     if (!comments) {
-      return res.status(404).send({
-        success: false,
-        message: 'No comments found!'
-      });
+      return res.status(304);
     }
     res.status(200).send({
       comments: comments,

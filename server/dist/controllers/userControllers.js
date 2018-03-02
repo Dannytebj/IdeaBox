@@ -270,7 +270,7 @@ exports.updateProfile = function (req, res) {
         }
       }, { new: true }).exec(function (error, user) {
         if (user) {
-          return res.status(200).send({
+          return res.status(201).send({
             user: {
               name: user.name,
               username: user.username

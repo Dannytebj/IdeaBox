@@ -95,8 +95,7 @@ describe('Ideas', function () {
   });
   describe('Get Users Idea Method:', function () {
     it('should return 200 when users ideas are fetched', function (done) {
-      var searchQuery = 'Testing';
-      _chai2.default.request(app).get('/api/v1/user/ideas?offset=1&limit=5', _ideaControllers2.default.getUsersIdeas).set('Accept', 'application/json').set('x-access-token', jwtToken).send({ searchQuery: searchQuery }).end(function (err, res) {
+      _chai2.default.request(app).get('/api/v1/user/ideas?offset=1&limit=5', _ideaControllers2.default.getUsersIdeas).set('Accept', 'application/json').set('x-access-token', jwtToken).end(function (err, res) {
         if (res) {
           res.status.should.equal(200);
           res.body.should.have.property('message').equal('Ideas successfully fetched');
@@ -183,6 +182,19 @@ describe('Ideas', function () {
       });
     });
   });
+  describe('Filter Method', function () {
+    it('should return 200 if category is found', function (done) {
+      var category = 'Test';
+      _chai2.default.request(app).post('/api/v1/idea/category?offset=1&limit=5', _ideaControllers2.default.getCategory).set('Accept', 'application/json').set('x-access-token', jwtToken).send({ category: category }).end(function (err, res) {
+        if (res) {
+          res.status.should.equal(200);
+          res.body.should.have.property('message').equal('Ideas successfully fetched');
+          expect(res.body).to.have.property('pageInfo');
+        }
+        done();
+      });
+    });
+  });
 }); // End of Test Suite
 
 describe('Comments', function () {
@@ -201,6 +213,7 @@ describe('Comments', function () {
       done();
     });
   });
+
   describe('Create method', function () {
     it('should return 200 when comment is saved', function (done) {
       var comment = 'Nice App Baddoo';
@@ -212,6 +225,16 @@ describe('Comments', function () {
         done();
       });
     });
+    it('should return 400 if comment field is empty', function (done) {
+      var comment = '';
+      _chai2.default.request(app).post('/api/v1/comment', _commentController2.default.create).set('Accept', 'application/json').set('x-access-token', jwtToken).send({ ideaId: ideaId, comment: comment }).end(function (err, res) {
+        if (res) {
+          res.status.should.equal(400);
+          res.body.should.have.property('message').equal('comment field cannot be empty');
+        }
+        done();
+      });
+    });
     it('should return 404 if idea not found', function (done) {
       var comment = 'Nice App Baddoo';
       var ideaId = '5a264b0d5298759168667fe5';
@@ -219,6 +242,17 @@ describe('Comments', function () {
         if (res) {
           res.status.should.equal(404);
           res.body.should.have.property('message').equal('idea not found!');
+        }
+        done();
+      });
+    });
+  });
+  describe('Fetch Method', function () {
+    it('should return 200 when comments are fetched successfully', function (done) {
+      _chai2.default.request(app).get('/api/v1/comment/' + ideaId, _commentController2.default.fetchComment).set('Accept', 'application/json').set('x-access-token', jwtToken).end(function (err, res) {
+        if (res) {
+          res.status.should.equal(200);
+          res.body.should.have.property('message').equal('Comments fetched Successfully!');
         }
         done();
       });

@@ -30,7 +30,7 @@ var userSchema = new _mongoose2.default.Schema({
   updatedAt: { type: Date, default: Date.now }
 });
 
-// generating a hash
+// Hash users password
 userSchema.pre('save', function (next) {
   var user = this;
   if (!user.isModified('password')) return next();
@@ -44,10 +44,10 @@ userSchema.pre('save', function (next) {
   });
 });
 
-userSchema.methods.comparePassword = function (candidatePassword, cb) {
-  _bcrypt2.default.compare(candidatePassword, undefined.password, function (err, isMatch) {
-    if (err) return cb(err);
-    cb(null, isMatch);
+userSchema.methods.comparePassword = function (userPassword, callback) {
+  _bcrypt2.default.compare(userPassword, undefined.password, function (err, isMatch) {
+    if (err) return callback(err);
+    callback(null, isMatch);
   });
 };
 

@@ -22,8 +22,6 @@ var _testSeeders2 = _interopRequireDefault(_testSeeders);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-// const app = require('../app');
-
 _chai2.default.should();
 _chai2.default.use(_chaiHttp2.default);
 var expect = _chai2.default.expect;
@@ -60,7 +58,7 @@ describe('User Model', function () {
       password: password,
       email: email
     });
-    user.save(function (error, newUser) {
+    user.save(function (error) {
       if (error) {
         expect(error.errors.name.message).to.eql('Path `name` is required.');
         done();
