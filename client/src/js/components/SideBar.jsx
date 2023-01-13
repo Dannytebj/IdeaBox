@@ -12,6 +12,7 @@ const username = localStorage.getItem('username');
 const SideBar = () => (
   <div>
     <ul id="slide-out" className="side-nav">
+      <h5 className="center-align">Ideabox</h5><hr />
       <li>
         <div className="user-view">
           Welcome, {username}

@@ -36,6 +36,9 @@ if (process.env.NODE_ENV !== 'production') {
   }
 } else {
   mongoose.connect(configDB.url_production);
+  app.get('/dist/*', (req, res) => {
+    res.sendFile(path.join(__dirname, `../../${req.originalUrl}`));
+  });
 }
 
 // Log requests to the console.
@@ -55,7 +58,6 @@ if (process.env.NODE_ENV === 'development') {
     historyApiFallback: true,
     stats: { colors: true }
   }));
-
   app.use(webpackHotMiddleware(compiler));
 }
 

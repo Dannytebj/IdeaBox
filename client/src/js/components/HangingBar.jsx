@@ -99,19 +99,20 @@ class HangingBar extends Component {
                 />
               </div>
               <div className="col s12 m6">
-                <label>Select a Category</label>
+                <label htmlFor="category">Select a Category</label>
                 <select
                   className="browser-default"
                   onChange={this.setCategory}
                   value={this.state.category}
                   name="category"
+                  id="category"
                 >
-                  <option value="" defaultValue >Choose your option</option>
+                  <option value="" defaultValue >All</option>
                   <option value="Politics">Politics</option>
                   <option value="Sport">Sport</option>
                   <option value="Crime">Crime</option>
                   <option value="Fashion">Fashion</option>
-                  <option value="Information Technolog">Information Technology</option>
+                  <option value="Information Technology">Information Technology</option>
                   <option value="Agriculture">Agriculture</option>
                   <option value="Finance">Finance</option>
                   <option value="Entertainment">Entertainment</option>

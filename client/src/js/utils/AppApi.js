@@ -13,7 +13,7 @@ module.exports = {
  * @return {object} signin payload
  */
   signIn({ email, password }) {
-    axios.post('/api/v1/signIn', { email, password })
+    axios.post('/api/v1/user/signIn', { email, password })
       .then((response) => {
         const { token, username, message } = response.data;
         localStorage.setItem('token', token);
@@ -40,7 +40,7 @@ module.exports = {
   signUp({
     email, password, confirmPassword, username, name
   }) {
-    axios.post('/api/v1/signUp', {
+    axios.post('/api/v1/user/signUp', {
       email, password, confirmPassword, username, name
     }).then((response) => {
       const { token, username, message } = response.data;
@@ -82,11 +82,12 @@ module.exports = {
   updateProfile({
     username, name
   }) {
-    axios.put('/api/v1/updateProfile', {
+    axios.put('/api/v1/user/updateProfile', {
       username, name
     }).then((response) => {
       const { user, message } = response.data;
       localStorage.setItem('username', user.username);
+      localStorage.setItem('name', user.name);
       toastr.success(message);
     }).catch((error) => {
       const { message } = error.response.data;
@@ -94,7 +95,7 @@ module.exports = {
     });
   },
   getIdeas({ offset, searchQuery }) {
-    const limit = 10;
+    const limit = 6;
     axios.post(`/api/v1/search?page=${offset}&limit=${limit}`, { searchQuery })
       .then((response) => {
         const { ideas, pageInfo } = response.data;
@@ -105,8 +106,20 @@ module.exports = {
         toastr.error(message);
       });
   },
+  getCategory({ offset, category }) {
+    const limit = 6;
+    axios.post(`/api/v1/idea/category?page=${offset}&limit=${limit}`, { category })
+      .then((response) => {
+        const { ideas, pageInfo } = response.data;
+        AppActions.receiveIdeas(ideas, pageInfo);
+      })
+      .catch((error) => {
+        const { message } = error.response.data;
+        toastr.error(message);
+      });
+  },
   getUserIdeas({ offset }) {
-    const limit = 10;
+    const limit = 6;
     axios.get(`/api/v1/user/ideas?page=${offset}&limit=${limit}`)
       .then((response) => {
         const { ideas, pageInfo } = response.data;
@@ -156,7 +169,7 @@ module.exports = {
       });
   },
   deleteIdea({ ideaId }) {
-    axios.delete(`/api/v1/idea/delete/${ideaId}`)
+    axios.delete(`/api/v1/idea/${ideaId}`)
       .then((response) => {
         const { message } = response.data;
         const offset = '1';
@@ -169,7 +182,7 @@ module.exports = {
       });
   },
   resetPassword({ email }) {
-    axios.post('/api/v1/resetPassword', { email })
+    axios.post('/api/v1/user/resetPassword', { email })
       .then((response) => {
         const { message } = response.data;
         toastr.success(message);
@@ -180,7 +193,7 @@ module.exports = {
       });
   },
   updatePassword({ newPassword, confirmPassword, hash }) {
-    axios.put(`/api/v1/updatePassword/${hash}`, { newPassword, confirmPassword })
+    axios.put(`/api/v1/user/updatePassword/${hash}`, { newPassword, confirmPassword })
       .then((response) => {
         const { message } = response.data;
         appHistory.push('/login');

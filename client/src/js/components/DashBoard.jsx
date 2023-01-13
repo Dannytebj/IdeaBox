@@ -25,14 +25,16 @@ class DashBoard extends Component {
     this.state = {
       modalShown: false,
       search: '',
+      category: '',
       offset: 1,
-      pageInfo: {},
+      pageInfo: {}
     };
     this.onClick = this.onClick.bind(this);
     this.setSearch = this.setSearch.bind(this);
     this.doSearch = this.doSearch.bind(this);
     this.pageClick = this.pageClick.bind(this);
     this.onChange = this.onChange.bind(this);
+    this.setCategory = this.setCategory.bind(this);
   }
   /**
    *
@@ -75,7 +77,7 @@ class DashBoard extends Component {
    */
   onChange() {
     this.setState({
-      pageInfo: AppStore.getPageInfo()
+      pageInfo: AppStore.getPageInfo(),
     });
   }
   /**
@@ -91,6 +93,21 @@ class DashBoard extends Component {
     this.setState({
       search: event.target.value
     });
+  }
+  /**
+ * @param {void} event
+ * @memberof DashBoard
+ * @returns {void}
+ */
+  setCategory(event) {
+    event.preventDefault();
+    const { offset } = this.state;
+
+    const category = event.target.value;
+    this.setState({
+      category,
+    });
+    AppActions.getCategory(offset, category);
   }
   /**
    *
@@ -160,7 +177,31 @@ class DashBoard extends Component {
               />
             </div>
           </div>
+          <div className="row">
+            <div className="col m4">
+              <label htmlFor="category"> Filter By Category</label>
+              <select
+                className="browser-default"
+                onChange={this.setCategory}
+                value={this.state.category}
+                name="category"
+                onSelect={this.filterIdeas}
+              >
+                <option value="" defaultValue >All</option>
+                <option value="Politics">Politics</option>
+                <option value="Sport">Sport</option>
+                <option value="Crime">Crime</option>
+                <option value="Fashion">Fashion</option>
+                <option value="Information Technology">Information Technology</option>
+                <option value="Agriculture">Agriculture</option>
+                <option value="Finance">Finance</option>
+                <option value="Entertainment">Entertainment</option>
+                <option value="Others">Others</option>
+              </select>
+            </div>
+          </div>
         </div>
+
         <IdeaList />
         <div className="paginator center-align">
           <ReactPaginate

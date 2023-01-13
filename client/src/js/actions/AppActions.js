@@ -119,6 +119,18 @@ const AppActions = {
   },
   /**
    *
+   * @param  {String} offset
+   * @param {string} category
+   * @return {void}
+   */
+  getCategory: (offset, category) => {
+    AppDispatcher.handleViewAction({
+      type: AppConstants.GET_CATEGORY,
+      payload: { offset, category }
+    });
+  },
+  /**
+   *
    * @returns {void}
    * @param {object} ideas
    * @param {object} pageInfo
@@ -249,6 +261,11 @@ const AppActions = {
   signOut: () => {
     AppDispatcher.handleViewAction({
       type: AppConstants.CLICK_SIGN_OUT,
+    });
+  },
+  clearArray: () => {
+    AppDispatcher.handleViewAction({
+      type: AppConstants.CLEAR_COMMENTS,
     });
   }
 };

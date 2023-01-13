@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 import { compiler } from 'markdown-to-jsx';
 import AppActions from '../actions/AppActions';
 import Comments from '../components/Comments';
@@ -24,7 +25,7 @@ class CommentsList extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      comments: props.comments || [],
+      comments: [],
       comment: ''
     };
     this.onEvent = this.onEvent.bind(this);
@@ -87,12 +88,16 @@ class CommentsList extends Component {
         <div id={`modal${this.props.ideas._id}`} className="modal modal-fixed-footer">
           <a
             href="#!"
-            className="rightSide modal-action modal-close waves-effect waves-green btn-flat">
+            className="rightSide modal-action modal-close waves-effect waves-green btn-flat"
+          >
             <i className="material-icons">cancel</i>
           </a>
           <div className="modal-content">
             <div className="collection">
+              <span className="thumbnails">Created By : {this.props.ideas.author}</span>
+              <span className="thumbnails rightSide">On: {moment(this.props.ideas.updatedAt).format('llll')}</span>
               <div className="collection-item">
+
                 <p className="headers">{compiler(this.props.ideas.description)}</p>
               </div>
             </div>

@@ -85,9 +85,19 @@ class Ideas extends Component {
         <div className="card blue-grey lighten-5">
           <div className="card-content black-text">
             <span className="card-title">{ideas.title}</span>
+            <span className="thumbnails rightSide">{ideas.category}</span>
             <span className="thumbnails">{moment(ideas.updatedAt).format('llll')}</span>
             {(ideas.modified === true) ? <span className=" rightSide chip"> Edited</span> : ''}
-            <p className="descriptions"> {compiler(`${ideas.description.slice(0, 30)}...`)} </p>
+            <p className="descriptions"> {compiler(`${ideas.description.slice(0, 30)}...`)}
+              <span className="thumbnails">
+                <a
+                  className="modal-trigger thumbnails"
+                  href={`#modal${ideas._id}`}
+                  onClick={this.dogetComments}
+                > read more
+                </a>
+              </span>
+            </p>
           </div>
           <div className="card-action">
             <a

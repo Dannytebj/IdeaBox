@@ -17,8 +17,8 @@ class EditProfile extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: '',
-      username: '',
+      name: localStorage.getItem('name'),
+      username: localStorage.getItem('username'),
     };
     this.onEvent = this.onEvent.bind(this);
     this.handleUpdate = this.handleUpdate.bind(this);
@@ -57,23 +57,28 @@ class EditProfile extends Component {
     return (
       <div id="modal1" className="modal">
         <div className="modal-content">
-          <h4>Edit Profile</h4>
+          <div className="profile-head">
+            <p>Profile</p>
+          </div>
+          <p>Click to edit</p>
           <div className="row">
             <div className="col s12">
+              <label>name</label>
               <input
                 type="text"
                 name="name"
                 value={this.state.name}
                 onChange={this.onEvent}
-                placeholder="Please enter your name"
                 className="validate"
               />
+            </div>
+            <div className="col s12">
+              <label>username</label>
               <input
                 type="text"
                 name="username"
                 value={this.state.username}
                 onChange={this.onEvent}
-                placeholder="Please enter your new username"
                 className="validate"
               />
               <button
@@ -90,7 +95,7 @@ class EditProfile extends Component {
             href="#!"
             className="modal-action modal-close waves-effect waves-green btn-flat"
           >
-          close
+            close
           </a>
         </div>
       </div>

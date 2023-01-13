@@ -19,7 +19,7 @@ describe('Ideas', () => {
     const email = 'dannytebj@gmail.com';
     const password = 'asd123';
     chai.request(app)
-      .post('/api/v1/signIn', userControllers.signIn)
+      .post('/api/v1/user/signIn', userControllers.signIn)
       .set('Accept', 'application/json')
       .send({ email, password })
       .end((err, res) => {
@@ -98,12 +98,10 @@ describe('Ideas', () => {
   });
   describe('Get Users Idea Method:', () => {
     it('should return 200 when users ideas are fetched', (done) => {
-      const searchQuery = 'Testing';
       chai.request(app)
         .get('/api/v1/user/ideas?offset=1&limit=5', ideaController.getUsersIdeas)
         .set('Accept', 'application/json')
         .set('x-access-token', jwtToken)
-        .send({ searchQuery })
         .end((err, res) => {
           if (res) {
             res.status.should.equal(200);
@@ -142,7 +140,7 @@ describe('Ideas', () => {
       const email = 'dannytebj@yahoo.com';
       const password = '123asd';
       chai.request(app)
-        .post('/api/v1/signIn', userControllers.signIn)
+        .post('/api/v1/user/signIn', userControllers.signIn)
         .send({ email, password })
         .set('Accept', 'application/json')
         .end((err, res) => {
@@ -180,7 +178,7 @@ describe('Ideas', () => {
       'should return 403 if the user deleting an idea is not the author',
       (done) => {
         chai.request(app)
-          .delete(`/api/v1/idea/delete/${ideaId}`, ideaController.delete)
+          .delete(`/api/v1/idea/${ideaId}`, ideaController.delete)
           .set('Accept', 'application/json')
           .set('x-access-token', token2)
           .end((err, res) => {
@@ -197,7 +195,7 @@ describe('Ideas', () => {
       'should return 200 when the author of an idea deletes that idea',
       (done) => {
         chai.request(app)
-          .delete(`/api/v1/idea/delete/${ideaId}`, ideaController.delete)
+          .delete(`/api/v1/idea/${ideaId}`, ideaController.delete)
           .set('Accept', 'application/json')
           .set('x-access-token', jwtToken)
           .end((err, res) => {
@@ -219,6 +217,25 @@ describe('Ideas', () => {
         .set('Accept', 'application/json')
         .set('x-access-token', jwtToken)
         .send({ searchQuery })
+        .end((err, res) => {
+          if (res) {
+            res.status.should.equal(200);
+            res.body.should.have.property('message')
+              .equal('Ideas successfully fetched');
+            expect(res.body).to.have.property('pageInfo');
+          }
+          done();
+        });
+    });
+  });
+  describe('Filter Method', () => {
+    it('should return 200 if category is found', (done) => {
+      const category = 'Test';
+      chai.request(app)
+        .post('/api/v1/idea/category?offset=1&limit=5', ideaController.getCategory)
+        .set('Accept', 'application/json')
+        .set('x-access-token', jwtToken)
+        .send({ category })
         .end((err, res) => {
           if (res) {
             res.status.should.equal(200);
@@ -253,6 +270,7 @@ describe('Comments', () => {
         done();
       });
   });
+
   describe('Create method', () => {
     it('should return 200 when comment is saved', (done) => {
       const comment = 'Nice App Baddoo';
@@ -270,6 +288,22 @@ describe('Comments', () => {
           done();
         });
     });
+    it('should return 400 if comment field is empty', (done) => {
+      const comment = '';
+      chai.request(app)
+        .post('/api/v1/comment', commentController.create)
+        .set('Accept', 'application/json')
+        .set('x-access-token', jwtToken)
+        .send({ ideaId, comment })
+        .end((err, res) => {
+          if (res) {
+            res.status.should.equal(400);
+            res.body.should.have.property('message')
+              .equal('comment field cannot be empty');
+          }
+          done();
+        });
+    });
     it('should return 404 if idea not found', (done) => {
       const comment = 'Nice App Baddoo';
       const ideaId = '5a264b0d5298759168667fe5';
@@ -283,6 +317,22 @@ describe('Comments', () => {
             res.status.should.equal(404);
             res.body.should.have.property('message')
               .equal('idea not found!');
+          }
+          done();
+        });
+    });
+  });
+  describe('Fetch Method', () => {
+    it('should return 200 when comments are fetched successfully', (done) => {
+      chai.request(app)
+        .get(`/api/v1/comment/${ideaId}`, commentController.fetchComment)
+        .set('Accept', 'application/json')
+        .set('x-access-token', jwtToken)
+        .end((err, res) => {
+          if (res) {
+            res.status.should.equal(200);
+            res.body.should.have.property('message')
+              .equal('Comments fetched Successfully!');
           }
           done();
         });

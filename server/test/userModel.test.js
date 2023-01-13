@@ -4,9 +4,6 @@ import User from '../models/User';
 import convertCase from '../utils/convertCase';
 import testUser from '../utils/testSeeders';
 
-
-// const app = require('../app');
-
 chai.should();
 chai.use(chaiHttp);
 const { expect } = chai;
@@ -40,7 +37,7 @@ describe('User Model', () => {
       password,
       email
     });
-    user.save((error, newUser) => {
+    user.save((error) => {
       if (error) {
         expect(error.errors.name.message).to.eql('Path `name` is required.');
         done();
